@@ -52,7 +52,7 @@ The config-driven content sync system automatically pulls documentation from the
 1. **During build**: [The plugin](../src/plugins/docusaurus-plugin-config-driven-sync/index.js) scans for `_config.yml` files in your `docs/` directory.
 2. **File matching**: Files matching your `include` patterns in the config (e.g. `/docs/reference/ethereum/_config.yml`) are copied from the MetaMask data (stored in the external-services folder found at root: `/external-services/downstream-metamask-docs`).
 3. **Path transformation**: Import paths in MDX files are automatically updated to point directly to `external-services`. Partials are resolved directly from the source folder - no symlink or copy needed.
-4. **Link handling**: Broken markdown links are automatically detected and removed (text is kept), with a metadata note added to affected pages.
+4. **Metadata addition**: All synced files automatically receive a `warn: "do not edit this page, any changes will be overwritten at build"` metadata field. Files that import partials with broken links also receive a `note: "links unavailable"` metadata field.
 5. **Docusaurus processes**: Standard Docusaurus then processes the synced content.
 
 ## Components
@@ -67,4 +67,17 @@ The config-driven content sync system automatically pulls documentation from the
 
 ### File Sync
 
-[The file sync utility](../src/plugins/docusaurus-plugin-config-driven-sync/utils/file-sync.js) performs the actual file operations. It implements pattern matching using wildcards (`*` and `**`) to determine which files should be copied based on the include/exclude patterns. It automatically detects when synced files reference partials and transforms import paths to point directly to `external-services` (no symlink or copy needed - all partials come directly from the source). The utility transforms absolute paths like `/services/reference/_partials/...` to relative paths pointing to `external-services/downstream-metamask-docs/services/reference/_partials/...`. It also removes problematic component imports (like `CreditCost`) that don't exist in this site, handles broken markdown links by removing links while keeping text, and adds metadata notes to affected pages, ensuring the synced content builds successfully.
+[The file sync utility](../src/plugins/docusaurus-plugin-config-driven-sync/utils/file-sync.js) performs the actual file operations. It implements pattern matching using wildcards (`*` and `**`) to determine which files should be copied based on the include/exclude patterns. It automatically detects when synced files reference partials and transforms import paths to point directly to `external-services` (no symlink or copy needed - all partials come directly from the source). The utility transforms absolute paths like `/services/reference/_partials/...` to relative paths pointing to `external-services/downstream-metamask-docs/services/reference/_partials/...`.
+
+**Link Resolution Process**: For each markdown link in synced files, the utility:
+- Resolves the link path (handles both absolute paths starting with `/` and relative paths)
+- Checks if the target file exists in the `docs/` directory
+- **If the file exists**: Calculates the correct relative path from the current file and replaces the link with the updated path (preserving anchors like `#section`)
+- **If the file doesn't exist**: Removes the link markup but keeps the link text. If the file imports partials that have broken links, a `note: "links unavailable"` metadata field is added to the page's frontmatter
+
+**Metadata Management**: The utility automatically adds metadata to all synced files:
+- All synced files receive `warn: "do not edit this page, any changes will be overwritten at build"` to prevent accidental edits
+- Files that import partials with broken links receive `note: "links unavailable"` to indicate missing link targets
+- The utility tracks which partials have broken links and propagates this information to synced files that import them
+
+The utility also removes problematic component imports (like `CreditCost`) that don't exist in this site, ensuring the synced content builds successfully.

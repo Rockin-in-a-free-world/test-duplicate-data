@@ -83,15 +83,20 @@ function matchesPattern(filePath, pattern) {
  * - Converts absolute partial paths to relative paths pointing to external-services
  * - Removes imports for components that don't exist in our site
  * - Handles broken markdown links by removing links but keeping text
+ * - Adds metadata notes for broken links and "do not edit" warnings
  * @param {string} filePath - Path to the MDX file
  * @param {string} destDir - Destination directory relative to docs root
  * @param {string} sourceRoot - Source root directory for context
+ * @param {boolean} isSyncedFile - Whether this is a synced file (true) or a partial (false)
+ * @param {Map<string, boolean>} partialsWithBrokenLinks - Map of partial paths to whether they have broken links
  * @returns {boolean} Whether broken links were found
  */
-function transformImportPaths(filePath, destDir, sourceRoot) {
-  let content = fs.readFileSync(filePath, "utf8");
+function transformImportPaths(filePath, destDir, sourceRoot, isSyncedFile = false, partialsWithBrokenLinks = new Map()) {
+  const originalContent = fs.readFileSync(filePath, "utf8");
+  let content = originalContent;
   let transformed = false;
   let hasBrokenLinks = false;
+  let importsPartialWithBrokenLinks = false;
   
   // Calculate relative path to partials in external-services
   // All partials are resolved directly from external-services (no symlink needed)
@@ -100,6 +105,7 @@ function transformImportPaths(filePath, destDir, sourceRoot) {
   const relativeToPartials = path.relative(fileDir, partialsPath).replace(/\\/g, "/");
   
   // Fix partial imports - handle both absolute and relative paths
+  // Also check if imported partials have broken links (for synced files)
   let newContent = content.replace(
     /from\s+["']\/services\/reference\/_partials\/([^"']+)["']/g,
     (match, partialName) => {
@@ -108,6 +114,11 @@ function transformImportPaths(filePath, destDir, sourceRoot) {
       const relPath = relativeToPartials.startsWith(".") 
         ? relativeToPartials 
         : `./${relativeToPartials}`;
+      const partialPath = path.join(partialsPath, partialName).replace(/\\/g, "/");
+      // Check if this partial has broken links (for synced files)
+      if (isSyncedFile && partialsWithBrokenLinks.has(partialPath)) {
+        importsPartialWithBrokenLinks = true;
+      }
       return `from "${relPath}/${partialName}"`;
     }
   );
@@ -122,6 +133,11 @@ function transformImportPaths(filePath, destDir, sourceRoot) {
         const relPath = relativeToPartials.startsWith(".") 
           ? relativeToPartials 
           : `./${relativeToPartials}`;
+        const partialPath = path.join(partialsPath, fileName).replace(/\\/g, "/");
+        // Check if this partial has broken links (for synced files)
+        if (isSyncedFile && partialsWithBrokenLinks.has(partialPath)) {
+          importsPartialWithBrokenLinks = true;
+        }
         return `from "${relPath}/${fileName}"`;
       }
       return match;
@@ -189,37 +205,73 @@ function transformImportPaths(filePath, destDir, sourceRoot) {
     }
   );
   
-  // Add metadata note if broken links were found
-  if (hasBrokenLinks) {
-    // Check if file has frontmatter
-    const frontmatterRegex = /^---\s*\n([\s\S]*?)\n---\s*\n/;
-    const frontmatterMatch = content.match(frontmatterRegex);
+  // For synced files: add "do not edit" warning and check for broken links in imported partials
+  // For partials: only add note if they have broken links themselves
+  const needsNote = isSyncedFile ? importsPartialWithBrokenLinks : hasBrokenLinks;
+  
+  // Check if file has frontmatter
+  const frontmatterRegex = /^---\s*\n([\s\S]*?)\n---\s*\n/;
+  const frontmatterMatch = content.match(frontmatterRegex);
+  
+  if (frontmatterMatch) {
+    // Has frontmatter - update it
+    let frontmatter = frontmatterMatch[1];
     
-    if (frontmatterMatch) {
-      // Has frontmatter - add note to it
-      let frontmatter = frontmatterMatch[1];
-      // Add or update the note field
+    // For synced files: always add/update the "do not edit" warning
+    if (isSyncedFile) {
+      if (frontmatter.includes('warn:')) {
+        // Update existing warn if it doesn't already have the message
+        if (!frontmatter.includes('do not edit this page')) {
+          frontmatter = frontmatter.replace(/warn:\s*["']?([^"'\n]*)["']?/i, (match, existingWarn) => {
+            const newWarn = existingWarn ? `${existingWarn}; do not edit this page, any changes will be overwritten at build` : 'do not edit this page, any changes will be overwritten at build';
+            return `warn: "${newWarn}"`;
+          });
+        }
+      } else {
+        // Add new warn field
+        frontmatter += '\nwarn: "do not edit this page, any changes will be overwritten at build"';
+      }
+    }
+    
+    // Add note for broken links (if needed and not already present)
+    if (needsNote) {
       if (frontmatter.includes('note:')) {
-        // Update existing note
-        frontmatter = frontmatter.replace(/note:\s*["']?([^"'\n]*)["']?/i, (match, existingNote) => {
-          const newNote = existingNote ? `${existingNote}; links unavailable` : 'links unavailable';
-          return `note: "${newNote}"`;
-        });
+        // Check if note already mentions links unavailable
+        if (!frontmatter.includes('links unavailable')) {
+          frontmatter = frontmatter.replace(/note:\s*["']?([^"'\n]*)["']?/i, (match, existingNote) => {
+            const newNote = existingNote ? `${existingNote}; links unavailable` : 'links unavailable';
+            return `note: "${newNote}"`;
+          });
+        }
       } else {
         // Add new note field
         frontmatter += '\nnote: "links unavailable"';
       }
-      content = content.replace(frontmatterRegex, `---\n${frontmatter}\n---\n`);
-    } else {
-      // No frontmatter - add it
-      content = `---\nnote: "links unavailable"\n---\n\n${content}`;
     }
+    
+    content = content.replace(frontmatterRegex, `---\n${frontmatter}\n---\n`);
+    transformed = true;
+  } else {
+    // No frontmatter - add it
+    let newFrontmatter = '';
+    if (isSyncedFile) {
+      newFrontmatter += 'warn: "do not edit this page, any changes will be overwritten at build"';
+    }
+    if (needsNote) {
+      if (newFrontmatter) newFrontmatter += '\n';
+      newFrontmatter += 'note: "links unavailable"';
+    }
+    content = `---\n${newFrontmatter}\n---\n\n${content}`;
     transformed = true;
   }
   
-  if (transformed || content !== fs.readFileSync(filePath, "utf8")) {
+  // Only write if content actually changed
+  if (content !== originalContent) {
     fs.writeFileSync(filePath, content, "utf8");
     console.log(`Transformed import paths in: ${path.relative(process.cwd(), filePath)}`);
+    if (hasBrokenLinks) {
+      console.log(`  → Added metadata note for broken links`);
+    }
   }
   
   return hasBrokenLinks;
@@ -286,6 +338,9 @@ function syncFiles(config, configDir, destDir) {
     }
   }
   
+  // Track which partials have broken links (for synced files to inherit the note)
+  const partialsWithBrokenLinks = new Map();
+  
   // Transform partial files if needed (all partials come directly from external-services)
   // Import paths in synced files will be transformed to point directly to external-services
   if (needsPartials || config.partials_source) {
@@ -302,6 +357,7 @@ function syncFiles(config, configDir, destDir) {
       
       // Transform partial files to fix links and remove problematic imports
       // These files are accessed directly from external-services, no symlink needed
+      // Track which partials have broken links
       function transformPartialFiles(dir) {
         const items = fs.readdirSync(dir);
         for (const item of items) {
@@ -315,7 +371,10 @@ function syncFiles(config, configDir, destDir) {
           if (stat.isDirectory()) {
             transformPartialFiles(itemPath);
           } else if (item.endsWith(".mdx") && stat.isFile()) {
-            transformImportPaths(itemPath, "reference/_partials", sourceRoot);
+            const hasBrokenLinks = transformImportPaths(itemPath, "reference/_partials", sourceRoot, false, partialsWithBrokenLinks);
+            // Store in map for synced files to check
+            const normalizedPath = itemPath.replace(/\\/g, "/");
+            partialsWithBrokenLinks.set(normalizedPath, hasBrokenLinks);
           }
         }
       }
@@ -360,8 +419,9 @@ function syncFiles(config, configDir, destDir) {
           
           // Transform import paths in MDX files
           // Partials will point directly to external-services via relative paths
+          // Pass partialsWithBrokenLinks map so synced files can inherit the note
           if (item.endsWith(".mdx")) {
-            transformImportPaths(itemDestPath, destDir, sourceRoot);
+            transformImportPaths(itemDestPath, destDir, sourceRoot, true, partialsWithBrokenLinks);
           }
         }
       }

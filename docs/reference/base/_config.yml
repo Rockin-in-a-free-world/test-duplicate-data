@@ -1,10 +1,4 @@
-# Phase 1: Minimal test case - only sync eth_chainid.mdx
-source: "../../../external-services/downstream-metamask-docs/services/reference/ethereum"
-
-# Include patterns: What to include
+source: "../../../external-services/downstream-metamask-docs/services/reference/base"
 include:
-  - "json-rpc-methods/eth_chainid.mdx"
   - "json-rpc-methods/eth_call.mdx"
-
-# Note: _partials directory is automatically detected and copied if files use partial imports
-
+  - "json-rpc-methods/eth_chainid.mdx"
