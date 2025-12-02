@@ -7,9 +7,9 @@ const baseUrl = isDev ? "/" : "/";
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: "Consensys docs guide",
+  title: "Test Documentation",
   tagline:
-    "A template documentation site repository and contribution guidelines.",
+    "This is an experimental site.",
   url: "https://docs-template.consensys.io",
   baseUrl,
   onBrokenLinks: "throw",
@@ -42,7 +42,7 @@ const config = {
         docs: {
           sidebarPath: require.resolve("./sidebars.js"),
           // Set a base path separate from default /docs
-          editUrl: "https://github.com/Consensys/docs-template/tree/main/",
+          editUrl: "https://github.com/Rockin-in-a-free-world/test-duplicate-data/tree/main/",
           routeBasePath: "/",
           path: "./docs",
           includeCurrentVersion: true,
@@ -122,9 +122,9 @@ const config = {
         },
       },
       navbar: {
-        title: "Consensys docs guide",
+        title: "Test Documentation",
         logo: {
-          alt: "Consensys logo",
+          alt: "Logo",
           src: "img/logo.svg",
           srcDark: "img/logo_dark.svg",
           width: 32,
@@ -132,13 +132,8 @@ const config = {
         },
         items: [
           {
-            href: "https://github.com/Consensys/docs-template",
+            href: "https://github.com/Rockin-in-a-free-world/test-duplicate-data",
             className: "header-github-link",
-            position: "right",
-          },
-          {
-            href: "https://discord.com/invite/consensys",
-            className: "header-discord-link",
             position: "right",
           },
         ],
@@ -147,70 +142,16 @@ const config = {
         style: "dark",
         links: [
           {
-            title: "Consensys developer docs",
+            title: "Documentation",
             items: [
               {
                 label: "Overview",
                 to: "/",
               },
-              {
-                label: "Contribute to the docs",
-                to: "/contribute",
-              },
-              {
-                label: "Create a new doc site",
-                to: "/create",
-              },
-              {
-                label: "Configure advanced features",
-                to: "/configure",
-              },
-            ],
-          },
-          {
-            title: "Consensys doc sites",
-            items: [
-              {
-                label: "Teku",
-                href: "https://docs.teku.consensys.net/",
-              },
-              {
-                label: "MetaMask",
-                href: "https://docs.metamask.io/",
-              },
-              {
-                label: "Infura",
-                href: "https://docs.infura.io/",
-              },
-              {
-                label: "See full list",
-                to: "/#list-of-documentation-sites",
-              },
-            ],
-          },
-          {
-            title: "Community",
-            items: [
-              {
-                label: "Consensys documentation GitHub",
-                href: "https://github.com/Consensys/docs-template",
-              },
-              {
-                label: "Consensys Discord",
-                href: "https://discord.com/invite/consensys",
-              },
-              {
-                label: "Consensys Twitter",
-                href: "https://twitter.com/consensys",
-              },
-              {
-                label: "Consensys home",
-                href: "https://consensys.net/",
-              },
             ],
           },
         ],
-        copyright: `© ${new Date().getFullYear()} Consensys, Inc.`,
+        copyright: `© ${new Date().getFullYear()} Test Documentation`,
       },
       prism: {
         theme: lightCodeTheme,

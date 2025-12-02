@@ -21,7 +21,7 @@ The test docs site will:
 
 ### 1. Create Folder Structure in Tests Docs
 
-**Structure:** Mirror the MetaMask services structure in Test repo. A single config at the ethereum level can control the entire folder:
+**Structure:** Mirror the MetaMask services reference structure https://github.com/MetaMask/metamask-docs/tree/main/services/reference in Test repo. A single config at the ethereum level can control the entire folder:
 
 ```
 test-docs/
