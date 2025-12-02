@@ -42,7 +42,7 @@ const config = {
         docs: {
           sidebarPath: require.resolve("./sidebars.js"),
           // Set a base path separate from default /docs
-          editUrl: "https://github.com/Rockin-in-a-free-world/test-duplicate-data/tree/main/",
+          // editUrl removed - "Edit this page" feature disabled
           routeBasePath: "/",
           path: "./docs",
           includeCurrentVersion: true,
@@ -71,8 +71,12 @@ const config = {
             "**/*.test.{js,jsx,ts,tsx}",
             "**/__tests__/**",
           ],
-          showLastUpdateAuthor: true,
-          showLastUpdateTime: true,
+          // Include external-services for partials resolution
+          beforeDefaultRemarkPlugins: [],
+          beforeDefaultRehypePlugins: [],
+          // Last update information disabled
+          showLastUpdateAuthor: false,
+          showLastUpdateTime: false,
         },
         theme: {
           customCss: require.resolve("./src/css/custom.css"),
@@ -181,19 +185,22 @@ const config = {
       ],
     }),
   plugins: [
-    [
-      "@docusaurus/plugin-google-gtag",
-      {
-        trackingID: "G-",
-        anonymizeIP: true,
-      },
-    ],
-    [
-      "@docusaurus/plugin-google-tag-manager",
-      {
-        containerId: "GTM-",
-      },
-    ],
+    // Custom plugin that reads configs and syncs content (must run before docs plugin)
+    "./src/plugins/docusaurus-plugin-config-driven-sync",
+    // Google Analytics and GTM plugins disabled (uncomment and configure when needed)
+    // [
+    //   "@docusaurus/plugin-google-gtag",
+    //   {
+    //     trackingID: "G-XXXXXXXXXX",
+    //     anonymizeIP: true,
+    //   },
+    // ],
+    // [
+    //   "@docusaurus/plugin-google-tag-manager",
+    //   {
+    //     containerId: "GTM-XXXXXXX",
+    //   },
+    // ],
     // This is how redirects are done
     // [
     //   "@docusaurus/plugin-client-redirects",

@@ -20,7 +20,8 @@
     "lint:js": "eslint . --ext js,jsx,ts,tsx --max-warnings=0",
     "lint:style": "stylelint \"**/*.css\"",
     "lint:fix": "npm run lint:js -- --fix",
-    "format": "prettier --write '{blog,docs,src,static}/**/*.{md,mdx,ts,js,tsx,jsx,json}'"
+    "format": "prettier --write '{blog,docs,src,static}/**/*.{md,mdx,ts,js,tsx,jsx,json}'",
+    "refresh-data": "node scripts/refresh-external-data.js"
   },
   "lint-staged": {
     "src/**/*.{ts,js,jsx,tsx}": "npm run lint:fix",
@@ -38,6 +39,7 @@
     "@easyops-cn/docusaurus-search-local": "^0.52.1",
     "@mdx-js/react": "^3.1.1",
     "clsx": "^1.2.1",
+    "js-yaml": "^4.1.1",
     "prism-react-renderer": "^2.4.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
