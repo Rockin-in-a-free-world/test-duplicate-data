@@ -1,0 +1,4 @@
+source: "../../../external-services/downstream-metamask-docs/services/reference/base"
+include:
+  - "json-rpc-methods/eth_call.mdx"
+  - "json-rpc-methods/eth_chainid.mdx"

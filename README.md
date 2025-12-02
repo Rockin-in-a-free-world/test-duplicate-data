@@ -100,14 +100,14 @@ include:
 Plugin behavior:
 1. **Scan for `_config.yml` files** in the docs directory structure
 2. **Read each config** to determine source path and include/exclude patterns
-3. **Copy/symlink files** from MetaMask repo (via git submodule) to test docs structure
-4. **Handle images** automatically (copy referenced images to static directory)
-5. **Transform paths** in markdown (update relative links, image paths)
-6. **Generate routes** using standard Docusaurus content-docs plugin
+3. **Copy files** from MetaMask repo (via git submodule) to test docs structure
+4. **Transform import paths** to point directly to `external-services` (partials resolved directly from source, no symlink needed)
+5. **Handle broken links** by removing links while keeping text, and add metadata notes to affected pages
+6. **Transform paths** in markdown (update relative links, image paths)
+7. **Generate routes** using standard Docusaurus content-docs plugin
 
 **Key plugin methods:**
-- `loadContent()`: Read all `_config.yml` files, resolve patterns, copy files
-- `configureWebpack()`: Set up aliases for image resolution if needed
+- `loadContent()`: Read all `_config.yml` files, resolve patterns, copy files, transform imports
 - Integration with `@docusaurus/plugin-content-docs` to serve the copied content
 
 ### 4. Example Config Files at Different Levels
@@ -192,20 +192,22 @@ git submodule add <metamask-repo-url> external-services
 ### 7. Build Process Flow
 
 1. **Pre-build:** Plugin reads all `_config.yml` files
-2. **Sync phase:** Plugin copies/symlinks files from submodule based on configs
-3. **Image handling:** Plugin scans copied files, finds image references, copies images to `static/img/services/`
-4. **Path transformation:** Plugin updates image paths in markdown files
-5. **Docusaurus build:** Standard Docusaurus processes the synced content
+2. **Sync phase:** Plugin copies files from submodule based on configs
+3. **Import transformation:** Plugin transforms import paths to point directly to `external-services` (partials resolved directly from source, no symlink or copy needed)
+4. **Link handling:** Plugin detects broken markdown links, removes links while keeping text, and adds metadata notes
+5. **Image handling:** Plugin scans copied files, finds image references, copies images to `static/img/services/` (future phase)
+6. **Path transformation:** Plugin updates image paths in markdown files (future phase)
+7. **Docusaurus build:** Standard Docusaurus processes the synced content
 
 ## Files to Create
 
 ### In test Docs Repository:
 
 **Plugin:**
-- `src/plugins/docusaurus-plugin-config-driven-sync/index.js` - Main plugin
-- `src/plugins/docusaurus-plugin-config-driven-sync/utils/config-reader.js` - Config file parser
-- `src/plugins/docusaurus-plugin-config-driven-sync/utils/file-sync.js` - File copying/symlinking logic
-- `src/plugins/docusaurus-plugin-config-driven-sync/utils/image-handler.js` - Image copying and path transformation
+- `src/plugins/docusaurus-plugin-config-driven-sync/index.js` - Main plugin orchestrates the sync process
+- `src/plugins/docusaurus-plugin-config-driven-sync/utils/config-reader.js` - Config file parser and validator
+- `src/plugins/docusaurus-plugin-config-driven-sync/utils/file-sync.js` - File copying, import path transformation, and link handling
+- `src/plugins/docusaurus-plugin-config-driven-sync/utils/image-handler.js` - Image copying and path transformation (future phase)
 
 **Config files (examples):**
 - `reference/_config.yml` - Root reference config
@@ -275,14 +277,16 @@ include:
 
 ## Implementation Checklist
 
-- [ ] Design YAML config file format with include/exclude patterns, source paths, and image handling options
-- [ ] Create utility to scan and parse `_config.yml` files from directory structure
-- [ ] Implement file copying/symlinking logic that respects config include/exclude patterns
-- [ ] Implement automatic image detection, copying, and path transformation in synced files
-- [ ] Create main Docusaurus plugin that orchestrates config reading, file syncing, and image handling
-- [ ] Create example `_config.yml` files at different directory levels showing various use cases
-- [ ] Integrate plugin with Docusaurus config and standard content-docs plugin
-- [ ] Set up git submodule for MetaMask docs repository
-- [ ] Test with example configs to verify functionality
-- [ ] Document writer workflow and best practices
+- [x] Design YAML config file format with include/exclude patterns, source paths
+- [x] Create utility to scan and parse `_config.yml` files from directory structure
+- [x] Implement file copying logic that respects config include/exclude patterns
+- [x] Implement import path transformation to point directly to `external-services` (partials resolved directly from source)
+- [x] Implement broken link detection and handling (remove links, keep text, add metadata notes)
+- [x] Create main Docusaurus plugin that orchestrates config reading, file syncing, and path transformation
+- [x] Create example `_config.yml` files at different directory levels showing various use cases
+- [x] Integrate plugin with Docusaurus config and standard content-docs plugin
+- [x] Set up git submodule for MetaMask docs repository with sparse checkout
+- [x] Test with example configs to verify functionality
+- [x] Document writer workflow and best practices
+- [ ] Implement automatic image detection, copying, and path transformation in synced files (future phase)
 
