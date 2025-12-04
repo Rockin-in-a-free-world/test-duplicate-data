@@ -290,3 +290,4 @@ include:
 - [x] Document writer workflow and best practices
 - [ ] Implement automatic image detection, copying, and path transformation in synced files (future phase)
 
+
