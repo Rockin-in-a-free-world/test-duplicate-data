@@ -1,5 +1,6 @@
 ---
 title: Ethereum bundler methods
+warning: This data is sourced from https://github.com/MetaMask/metamask-docs/tree/main/services all edits to this page will be lost
 sidebar_label: Bundler methods
 sidebar_key: ethereum-bundler-methods
 description: Ethereum bundler methods

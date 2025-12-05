@@ -1,3 +1,6 @@
+---
+warning: This data is sourced from https://github.com/MetaMask/metamask-docs/tree/main/services all edits to this page will be lost
+---
 # Dedicated gateways
 
 Dedicated gateways are project-specific.
@@ -70,7 +73,7 @@ You can rename your unique subdomain by typing over the current name.
 
 ### Show only pinned content
 
-Optional: check the **Pinned Content Only** box to restrict the gateway to respond with pinned content only.
+Optional: check the **Pinned Content Only** box to restrict the gateway to respond with [pinned content](../manage-files.md#pin-a-file) only.
 
 :::info
 

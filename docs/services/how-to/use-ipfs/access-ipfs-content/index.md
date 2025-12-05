@@ -1,3 +1,6 @@
+---
+warning: This data is sourced from https://github.com/MetaMask/metamask-docs/tree/main/services all edits to this page will be lost
+---
 # Access IPFS content
 
 Access files on the IPFS network with gateways.

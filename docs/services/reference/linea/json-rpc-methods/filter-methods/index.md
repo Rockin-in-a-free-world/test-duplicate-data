@@ -1,5 +1,6 @@
 ---
 title: Linea filter methods
+warning: This data is sourced from https://github.com/MetaMask/metamask-docs/tree/main/services all edits to this page will be lost
 sidebar_label: Filter methods
 sidebar_key: linea-filter-methods
 description: Linea filter methods

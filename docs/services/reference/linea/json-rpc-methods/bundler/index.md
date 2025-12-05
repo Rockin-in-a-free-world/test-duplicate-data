@@ -1,5 +1,6 @@
 ---
 title: Linea bundler methods
+warning: This data is sourced from https://github.com/MetaMask/metamask-docs/tree/main/services all edits to this page will be lost
 sidebar_label: Bundler methods
 sidebar_key: linea-bundler-methods
 description: Linea bundler methods

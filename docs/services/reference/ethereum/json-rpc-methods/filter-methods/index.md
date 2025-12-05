@@ -1,5 +1,6 @@
 ---
 title: Ethereum filter methods
+warning: This data is sourced from https://github.com/MetaMask/metamask-docs/tree/main/services all edits to this page will be lost
 sidebar_label: Filter methods
 sidebar_key: ethereum-filter-methods
 description: Ethereum filter methods

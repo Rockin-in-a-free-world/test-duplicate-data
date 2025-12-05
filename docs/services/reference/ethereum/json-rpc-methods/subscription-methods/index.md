@@ -1,5 +1,6 @@
 ---
 title: Ethereum subscription methods
+warning: This data is sourced from https://github.com/MetaMask/metamask-docs/tree/main/services all edits to this page will be lost
 sidebar_label: Subscription methods
 sidebar_key: ethereum-subscription-methods
 description: Ethereum subscription methods

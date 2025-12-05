@@ -163,10 +163,37 @@ function fileExists(relativePath, baseDir) {
     return true;
   }
   
+  // Strip anchor/hash from path (e.g., "file.md#anchor" -> "file.md")
+  const pathWithoutAnchor = relativePath.split('#')[0];
+  
+  // Handle absolute paths starting with /services/ (web paths, not filesystem paths)
+  // These need to be resolved relative to the docs directory
+  const docsRoot = path.join(__dirname, "..", "docs");
+  let pathToCheck = pathWithoutAnchor;
+  
+  if (pathWithoutAnchor.startsWith('/services/')) {
+    // Convert /services/... to docs/services/...
+    pathToCheck = pathWithoutAnchor.replace(/^\/services\//, 'services/');
+    // Resolve from docs root
+    try {
+      const resolvedPath = path.resolve(docsRoot, pathToCheck);
+      if (fs.existsSync(resolvedPath)) {
+        return true;
+      }
+      // Also check with .md and .mdx extensions if no extension provided
+      if (!path.extname(resolvedPath)) {
+        return fs.existsSync(resolvedPath + '.md') || fs.existsSync(resolvedPath + '.mdx');
+      }
+      return false;
+    } catch (e) {
+      return false;
+    }
+  }
+  
   // Resolve relative path from base directory
   let resolvedPath;
   try {
-    resolvedPath = path.resolve(baseDir, relativePath);
+    resolvedPath = path.resolve(baseDir, pathToCheck);
   } catch (e) {
     return false;
   }
@@ -178,7 +205,20 @@ function fileExists(relativePath, baseDir) {
   
   // Also check with .md and .mdx extensions if no extension provided
   if (!path.extname(resolvedPath)) {
-    return fs.existsSync(resolvedPath + '.md') || fs.existsSync(resolvedPath + '.mdx');
+    if (fs.existsSync(resolvedPath + '.md') || fs.existsSync(resolvedPath + '.mdx')) {
+      return true;
+    }
+    
+    // If link starts with ../ and doesn't exist, try same directory as fallback
+    // (e.g., ../eth_newfilter from filter-methods/ should try filter-methods/eth_newfilter)
+    // This handles cases where links are written incorrectly but files exist in same dir
+    if (pathToCheck.startsWith('../')) {
+      const filename = path.basename(pathToCheck);
+      const sameDirPath = path.join(baseDir, filename);
+      if (fs.existsSync(sameDirPath + '.md') || fs.existsSync(sameDirPath + '.mdx')) {
+        return true;
+      }
+    }
   }
   
   return false;
@@ -198,11 +238,100 @@ function replaceLinkPatterns(content) {
 }
 
 /**
- * Remove broken internal links (keep text, remove link)
+ * Build a map of partial files to the files that import them
+ * This allows us to validate links in partials from the importing file's context
+ * 
+ * @returns {Map<string, string[]>} Map of partial file path -> array of importing file paths
  */
-function removeBrokenLinks(content, filePath) {
+function buildPartialImportMap() {
+  const partialImportMap = new Map();
+  const files = getAllMarkdownFiles();
+  const docsRoot = path.join(__dirname, "..", "docs");
+  const partialsDir = path.join(BASE_DIR, "reference", "_partials");
+  
+  files.forEach(filePath => {
+    // Skip partial files themselves
+    if (filePath.includes(path.join("reference", "_partials"))) {
+      return;
+    }
+    
+    const content = fs.readFileSync(filePath, 'utf8');
+    
+    // Match import statements: import X from "../../_partials/..."
+    // or import X from "/services/reference/_partials/..."
+    const importRegex = /import\s+\w+\s+from\s+["']([^"']*_partials[^"']+)["']/g;
+    let match;
+    
+    while ((match = importRegex.exec(content)) !== null) {
+      const importPath = match[1];
+      let partialPath;
+      
+      // Handle absolute paths
+      if (importPath.startsWith('/services/reference/_partials/')) {
+        const relativePath = importPath.replace('/services/reference/_partials/', '');
+        partialPath = path.join(partialsDir, relativePath);
+      }
+      // Handle relative paths
+      else if (importPath.includes('_partials')) {
+        const baseDir = path.dirname(filePath);
+        partialPath = path.resolve(baseDir, importPath);
+      }
+      
+      if (partialPath && fs.existsSync(partialPath)) {
+        const normalizedPartialPath = path.normalize(partialPath);
+        if (!partialImportMap.has(normalizedPartialPath)) {
+          partialImportMap.set(normalizedPartialPath, []);
+        }
+        partialImportMap.get(normalizedPartialPath).push(filePath);
+      }
+    }
+  });
+  
+  return partialImportMap;
+}
+
+/**
+ * Try to fix a broken link by finding the correct path
+ * Returns the fixed path if found, null otherwise
+ */
+function tryFixLink(linkPath, baseDir, docsRoot) {
+  // Strip anchor for checking existence
+  const linkWithoutAnchor = linkPath.split('#')[0];
+  const anchor = linkPath.includes('#') ? '#' + linkPath.split('#').slice(1).join('#') : '';
+  
+  // Common broken link patterns to fix
+  // Fix: ../../ethereum/concepts/... -> /services/concepts/...
+  if (linkWithoutAnchor.match(/^\.\.\/\.\.\/ethereum\/concepts\/(.+)$/)) {
+    const fixedPath = '/services/concepts/' + linkWithoutAnchor.replace(/^\.\.\/\.\.\/ethereum\/concepts\//, '') + anchor;
+    if (fileExists(fixedPath, docsRoot)) {
+      return fixedPath;
+    }
+  }
+  
+  // Fix: ../ethereum/concepts/... -> /services/concepts/...
+  if (linkWithoutAnchor.match(/^\.\.\/ethereum\/concepts\/(.+)$/)) {
+    const fixedPath = '/services/concepts/' + linkWithoutAnchor.replace(/^\.\.\/ethereum\/concepts\//, '') + anchor;
+    if (fileExists(fixedPath, docsRoot)) {
+      return fixedPath;
+    }
+  }
+  
+  return null;
+}
+
+/**
+ * Fix or remove broken internal links
+ * For partial files, validates links from the context of importing files
+ * Tries to fix broken links before removing them
+ */
+function removeBrokenLinks(content, filePath, partialImportMap) {
   const baseDir = path.dirname(filePath);
   const docsRoot = path.join(__dirname, "..", "docs");
+  const normalizedFilePath = path.normalize(filePath);
+  
+  // Check if this is a partial file
+  const isPartial = filePath.includes(path.join("reference", "_partials"));
+  const importingFiles = isPartial ? (partialImportMap.get(normalizedFilePath) || []) : [];
   
   // Match markdown links: [text](path)
   const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
@@ -220,15 +349,62 @@ function removeBrokenLinks(content, filePath) {
       return match;
     }
     
-    // Check if it's a broken internal link
-    const targetExists = fileExists(linkPath, baseDir) || 
-                        fileExists(linkPath, docsRoot);
+    let targetExists = false;
+    let fixedPath = null;
     
+    // For partial files, we need to check from multiple contexts:
+    // 1. The partial's own context (where the link might be written relative to)
+    // 2. Each importing file's context (where the partial will be rendered)
+    // Only mark as broken if it fails in ALL contexts
+    if (isPartial) {
+      // Check from partial's own context first
+      const worksFromPartial = fileExists(linkPath, baseDir) || fileExists(linkPath, docsRoot);
+      
+      if (worksFromPartial) {
+        targetExists = true;
+      } else if (importingFiles.length > 0) {
+        // Check from each importing file's context
+        // Link is valid if it works from at least one importing context
+        for (const importingFile of importingFiles) {
+          const importingDir = path.dirname(importingFile);
+          if (fileExists(linkPath, importingDir) || fileExists(linkPath, docsRoot)) {
+            targetExists = true;
+            break; // Link is valid from at least one context
+          }
+        }
+      } else {
+        // No importing files found, so just check from partial's context
+        targetExists = worksFromPartial;
+      }
+    } else {
+      // For regular files, check from the file's own context
+      targetExists = fileExists(linkPath, baseDir) || fileExists(linkPath, docsRoot);
+    }
+    
+    // If link is broken, try to fix it
     if (!targetExists) {
-      brokenLinks.push({ file: path.relative(docsRoot, filePath), link: linkPath, text: linkText });
-      modified = true;
-      // Remove link, keep text
-      return linkText;
+      // Try to fix from the file's own context
+      fixedPath = tryFixLink(linkPath, baseDir, docsRoot);
+      
+      // If still not fixed and it's a partial, try from importing file contexts
+      if (!fixedPath && isPartial && importingFiles.length > 0) {
+        for (const importingFile of importingFiles) {
+          const importingDir = path.dirname(importingFile);
+          fixedPath = tryFixLink(linkPath, importingDir, docsRoot);
+          if (fixedPath) break;
+        }
+      }
+      
+      if (fixedPath && fileExists(fixedPath, docsRoot)) {
+        // Link was fixed, update it
+        modified = true;
+        return `[${linkText}](${fixedPath})`;
+      } else {
+        // Couldn't fix, remove link but keep text
+        brokenLinks.push({ file: path.relative(docsRoot, filePath), link: linkPath, text: linkText });
+        modified = true;
+        return linkText;
+      }
     }
     
     return match;
@@ -397,6 +573,13 @@ function fixBrokenLinks() {
   const files = getAllMarkdownFiles();
   console.log(`   Processing ${files.length} files...`);
   
+  // Build map of partial files to their importing files
+  console.log(`   Building partial import map...`);
+  const partialImportMap = buildPartialImportMap();
+  if (partialImportMap.size > 0) {
+    console.log(`   Found ${partialImportMap.size} partial file(s) with imports`);
+  }
+  
   let totalBroken = 0;
   let totalImageFixes = 0;
   let totalComponentFixes = 0;
@@ -448,7 +631,7 @@ function fixBrokenLinks() {
     content = replaceLinkPatterns(content);
     
     // Step 4: Remove broken internal links
-    const { content: fixedContent, modified: linksModified, brokenLinks } = removeBrokenLinks(content, filePath);
+    const { content: fixedContent, modified: linksModified, brokenLinks } = removeBrokenLinks(content, filePath, partialImportMap);
     content = fixedContent;
     
     if (linksModified) {
@@ -521,6 +704,161 @@ function fixBrokenLinks() {
 }
 
 /**
+ * Convert filename to title case
+ * Example: "get-started.md" -> "Get Started"
+ * For index files, uses the parent directory name instead
+ * Example: "linea/index.md" -> "Linea", "base/index.md" -> "Base"
+ * 
+ * @param {string} filePath - The full file path
+ * @returns {string} Title-cased version of the filename or parent directory
+ */
+function filenameToTitle(filePath) {
+  const filename = path.basename(filePath);
+  const nameWithoutExt = path.basename(filePath, path.extname(filePath));
+  
+  // Handle index files - use parent directory name instead
+  if (nameWithoutExt === 'index') {
+    const parentDir = path.basename(path.dirname(filePath));
+    // Convert parent directory name to title case
+    return parentDir
+      .split('-')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+      .join(' ');
+  }
+  
+  // Split by hyphens, capitalize each word, join with spaces
+  return nameWithoutExt
+    .split('-')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+    .join(' ');
+}
+
+/**
+ * Add titles and warning metadata to all markdown files
+ * 
+ * This function processes all downloaded markdown files to:
+ * 1. Add titles to files that are missing them (generated from filename)
+ * 2. Add a warning metadata field indicating the content is sourced from MetaMask's repo
+ * 
+ * Titles are generated from filenames by:
+ * - Removing the file extension
+ * - Splitting on hyphens
+ * - Capitalizing each word
+ * - Joining with spaces
+ * Example: "get-started.md" -> "Get Started"
+ * 
+ * The warning field alerts users that edits will be lost on next import.
+ */
+function addTitlesAndMetadata() {
+  console.log("📝 Adding titles and metadata to files...");
+  
+  const files = getAllMarkdownFiles();
+  const sourceRepoUrl = "https://github.com/MetaMask/metamask-docs/tree/main/services";
+  let titleCount = 0;
+  let metadataCount = 0;
+  
+  files.forEach(filePath => {
+    let content = fs.readFileSync(filePath, 'utf8');
+    let modified = false;
+    const isMdxFile = filePath.endsWith('.mdx');
+    
+    // Skip .mdx files entirely - don't add frontmatter or metadata to them
+    if (isMdxFile) {
+      return; // Skip processing .mdx files
+    }
+    
+    // Only process .md files
+    // Check if title already exists
+    const hasTitle = content.match(/^title:\s+/m);
+    
+    // Generate title from filename if missing
+    if (!hasTitle) {
+      const title = filenameToTitle(filePath);
+      
+      // Add title to frontmatter
+      // Pattern 1: Frontmatter with description
+      const frontmatterWithDesc = /^---\n(description:.*?\n)---/m;
+      if (frontmatterWithDesc.test(content)) {
+        content = content.replace(
+          frontmatterWithDesc,
+          `---\ntitle: ${title}\ntitle-autogenerated: T\n$1---`
+        );
+        modified = true;
+        titleCount++;
+      }
+      // Pattern 2: Frontmatter without description (just ---)
+      else if (content.startsWith('---\n---\n')) {
+        content = content.replace(
+          '---\n---\n',
+          `---\ntitle: ${title}\ntitle-autogenerated: T\n---\n`
+        );
+        modified = true;
+        titleCount++;
+      }
+      // Pattern 3: Frontmatter with other fields
+      else if (content.startsWith('---\n')) {
+        // Insert title after opening ---
+        content = content.replace(
+          /^(---\n)/,
+          `$1title: ${title}\ntitle-autogenerated: T\n`
+        );
+        modified = true;
+        titleCount++;
+      }
+    }
+    
+    // Add warning metadata if not present
+    // Check if warning field already exists in frontmatter
+    const hasWarning = /^warning:\s+/m.test(content);
+    if (!hasWarning) {
+      // Ensure we have frontmatter
+      if (!content.startsWith('---\n')) {
+        // Add frontmatter if file doesn't have it
+        content = `---\n---\n${content}`;
+        modified = true;
+      }
+      
+      // Insert warning after title-autogenerated (if exists), or after title, or at start of frontmatter
+      if (content.match(/^title-autogenerated:\s+.*\n/m)) {
+        // Insert after title-autogenerated
+        content = content.replace(
+          /^(title-autogenerated:\s+.*\n)/m,
+          `$1warning: This data is sourced from ${sourceRepoUrl} all edits to this page will be lost\n`
+        );
+      } else if (content.match(/^title:\s+.*\n/m)) {
+        // Insert after title if no title-autogenerated
+        content = content.replace(
+          /^(title:\s+.*\n)/m,
+          `$1warning: This data is sourced from ${sourceRepoUrl} all edits to this page will be lost\n`
+        );
+      } else if (content.startsWith('---\n')) {
+        // Insert after opening --- if no title
+        content = content.replace(
+          /^(---\n)/,
+          `$1warning: This data is sourced from ${sourceRepoUrl} all edits to this page will be lost\n`
+        );
+      }
+      modified = true;
+      metadataCount++;
+    }
+    
+    if (modified) {
+      fs.writeFileSync(filePath, content, 'utf8');
+    }
+  });
+  
+  if (titleCount > 0) {
+    console.log(`   ✅ Added titles to ${titleCount} file(s)`);
+  }
+  if (metadataCount > 0) {
+    console.log(`   ✅ Added warning metadata to ${metadataCount} file(s)`);
+  }
+  if (titleCount === 0 && metadataCount === 0) {
+    console.log("   ✅ All files already have titles and metadata");
+  }
+}
+
+/**
  * Clean up old directories if they exist
  */
 function cleanupOldDirectories() {
@@ -552,7 +890,10 @@ function main() {
   // Step 2: Fix broken links and import paths
   fixBrokenLinks();
   
-  // Step 3: Clean up old files
+  // Step 3: Add titles and warning metadata to all files
+  addTitlesAndMetadata();
+  
+  // Step 4: Clean up old files
   cleanupOldDirectories();
   
   console.log("\n✨ get-remote script completed!");
