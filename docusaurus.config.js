@@ -1,9 +1,26 @@
+require("dotenv").config();
+
+const path = require("path");
 const {themes} = require("prism-react-renderer");
 const lightCodeTheme = themes.github;
 const darkCodeTheme = themes.dracula;
 
 const isDev = process.env.NODE_ENV === "development";
 const baseUrl = isDev ? "/" : "/";
+
+// Remote content from MetaMask docs
+const { createRepo, buildRepoRawBaseUrl, listDocuments } = require("./src/lib/list-remote");
+const metamaskRepo = createRepo("MetaMask", "metamask-docs", "main");
+const partialsPath = "services/reference/_partials";
+const ethereumPath = "services/reference/ethereum";
+const lineaPath = "services/reference/linea";
+const basePath = "services/reference/base";
+const conceptsPath = "services/concepts";
+const getStartedPath = "services/get-started";
+const gasApiPath = "services/reference/gas-api";
+const ipfsPath = "services/reference/ipfs";
+const howToPath = "services/how-to";
+const tutorialsPath = "services/tutorials";
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -194,6 +211,128 @@ const config = {
         containerId: "GTM-",
       },
     ],
+    // Remote content: MetaMask _partials
+    [
+      "docusaurus-plugin-remote-content",
+      {
+        name: "metamask-partials",
+        sourceBaseUrl: buildRepoRawBaseUrl(metamaskRepo, partialsPath),
+        outDir: "docs/services/reference/_partials",
+        documents: listDocuments(metamaskRepo, ["**/*.mdx"], [], partialsPath),
+        // To sync content from MetaMask docs, run: npx docusaurus download-remote-metamask-partials
+        // Set to false for auto-download on start/build (adds ~2.5 min to build time)
+        noRuntimeDownloads: true,
+        performCleanup: false, // Keep files after build
+      },
+    ],
+    // Remote content: MetaMask Ethereum
+    [
+      "docusaurus-plugin-remote-content",
+      {
+        name: "metamask-ethereum",
+        sourceBaseUrl: buildRepoRawBaseUrl(metamaskRepo, ethereumPath),
+        outDir: "docs/services/reference/ethereum",
+        documents: listDocuments(metamaskRepo, ["**/*.mdx", "**/*.md"], [], ethereumPath),
+        noRuntimeDownloads: true,
+        performCleanup: false,
+      },
+    ],
+    // Remote content: MetaMask Linea
+    [
+      "docusaurus-plugin-remote-content",
+      {
+        name: "metamask-linea",
+        sourceBaseUrl: buildRepoRawBaseUrl(metamaskRepo, lineaPath),
+        outDir: "docs/services/reference/linea",
+        documents: listDocuments(metamaskRepo, ["**/*.mdx", "**/*.md"], [], lineaPath),
+        noRuntimeDownloads: true,
+        performCleanup: false,
+      },
+    ],
+    // Remote content: MetaMask Base
+    [
+      "docusaurus-plugin-remote-content",
+      {
+        name: "metamask-base",
+        sourceBaseUrl: buildRepoRawBaseUrl(metamaskRepo, basePath),
+        outDir: "docs/services/reference/base",
+        documents: listDocuments(metamaskRepo, ["**/*.mdx", "**/*.md"], [], basePath),
+        noRuntimeDownloads: true,
+        performCleanup: false,
+      },
+    ],
+    // Remote content: MetaMask Concepts
+    [
+      "docusaurus-plugin-remote-content",
+      {
+        name: "metamask-concepts",
+        sourceBaseUrl: buildRepoRawBaseUrl(metamaskRepo, conceptsPath),
+        outDir: "docs/services/concepts",
+        documents: listDocuments(metamaskRepo, ["**/*.mdx", "**/*.md"], [], conceptsPath),
+        noRuntimeDownloads: true,
+        performCleanup: false,
+      },
+    ],
+    // Remote content: MetaMask Get Started
+    [
+      "docusaurus-plugin-remote-content",
+      {
+        name: "metamask-get-started",
+        sourceBaseUrl: buildRepoRawBaseUrl(metamaskRepo, getStartedPath),
+        outDir: "docs/services/get-started",
+        documents: listDocuments(metamaskRepo, ["**/*.mdx", "**/*.md"], [], getStartedPath),
+        noRuntimeDownloads: true,
+        performCleanup: false,
+      },
+    ],
+    // Remote content: MetaMask Gas API
+    [
+      "docusaurus-plugin-remote-content",
+      {
+        name: "metamask-gas-api",
+        sourceBaseUrl: buildRepoRawBaseUrl(metamaskRepo, gasApiPath),
+        outDir: "docs/services/reference/gas-api",
+        documents: listDocuments(metamaskRepo, ["**/*.mdx", "**/*.md"], [], gasApiPath),
+        noRuntimeDownloads: true,
+        performCleanup: false,
+      },
+    ],
+    // Remote content: MetaMask IPFS
+    [
+      "docusaurus-plugin-remote-content",
+      {
+        name: "metamask-ipfs",
+        sourceBaseUrl: buildRepoRawBaseUrl(metamaskRepo, ipfsPath),
+        outDir: "docs/services/reference/ipfs",
+        documents: listDocuments(metamaskRepo, ["**/*.mdx", "**/*.md"], [], ipfsPath),
+        noRuntimeDownloads: true,
+        performCleanup: false,
+      },
+    ],
+    // Remote content: MetaMask How-To
+    [
+      "docusaurus-plugin-remote-content",
+      {
+        name: "metamask-how-to",
+        sourceBaseUrl: buildRepoRawBaseUrl(metamaskRepo, howToPath),
+        outDir: "docs/services/how-to",
+        documents: listDocuments(metamaskRepo, ["**/*.mdx", "**/*.md"], [], howToPath),
+        noRuntimeDownloads: true,
+        performCleanup: false,
+      },
+    ],
+    // Remote content: MetaMask Tutorials
+    [
+      "docusaurus-plugin-remote-content",
+      {
+        name: "metamask-tutorials",
+        sourceBaseUrl: buildRepoRawBaseUrl(metamaskRepo, tutorialsPath),
+        outDir: "docs/services/tutorials",
+        documents: listDocuments(metamaskRepo, ["**/*.mdx", "**/*.md"], [], tutorialsPath),
+        noRuntimeDownloads: true,
+        performCleanup: false,
+      },
+    ],
     // This is how redirects are done
     // [
     //   "@docusaurus/plugin-client-redirects",
@@ -219,6 +358,21 @@ const config = {
     //     },
     //   },
     // ],
+    // Webpack alias plugin to resolve /services/ paths
+    function(context, options) {
+      return {
+        name: "webpack-alias-plugin",
+        configureWebpack(config, isServer) {
+          return {
+            resolve: {
+              alias: {
+                "/services": path.resolve(__dirname, "docs/services"),
+              },
+            },
+          };
+        },
+      };
+    },
   ],
   themes: [
     [
