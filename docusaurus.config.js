@@ -9,7 +9,7 @@ const isDev = process.env.NODE_ENV === "development";
 const baseUrl = isDev ? "/" : "/";
 
 // Remote content from MetaMask docs
-const { createRepo, buildRepoRawBaseUrl, listDocuments } = require("./src/lib/list-remote");
+const { createRepo, buildRepoRawBaseUrl } = require("./src/lib/list-remote");
 const metamaskRepo = createRepo("MetaMask", "metamask-docs", "main");
 const partialsPath = "services/reference/_partials";
 const ethereumPath = "services/reference/ethereum";
@@ -217,8 +217,8 @@ const config = {
       {
         name: "metamask-partials",
         sourceBaseUrl: buildRepoRawBaseUrl(metamaskRepo, partialsPath),
-        outDir: "docs/services/reference/_partials",
-        documents: listDocuments(metamaskRepo, ["**/*.mdx"], [], partialsPath),
+        outDir: "service/reference/_partials",
+        documents: [], // Empty array since noRuntimeDownloads: true - files already downloaded
         // To sync content from MetaMask docs, run: npx docusaurus download-remote-metamask-partials
         // Set to false for auto-download on start/build (adds ~2.5 min to build time)
         noRuntimeDownloads: true,
@@ -231,8 +231,8 @@ const config = {
       {
         name: "metamask-ethereum",
         sourceBaseUrl: buildRepoRawBaseUrl(metamaskRepo, ethereumPath),
-        outDir: "docs/services/reference/ethereum",
-        documents: listDocuments(metamaskRepo, ["**/*.mdx", "**/*.md"], [], ethereumPath),
+        outDir: "service/reference/ethereum",
+        documents: [], // Empty array since noRuntimeDownloads: true - files already downloaded
         noRuntimeDownloads: true,
         performCleanup: false,
       },
@@ -243,8 +243,8 @@ const config = {
       {
         name: "metamask-linea",
         sourceBaseUrl: buildRepoRawBaseUrl(metamaskRepo, lineaPath),
-        outDir: "docs/services/reference/linea",
-        documents: listDocuments(metamaskRepo, ["**/*.mdx", "**/*.md"], [], lineaPath),
+        outDir: "service/reference/linea",
+        documents: [], // Empty array since noRuntimeDownloads: true - files already downloaded
         noRuntimeDownloads: true,
         performCleanup: false,
       },
@@ -255,8 +255,8 @@ const config = {
       {
         name: "metamask-base",
         sourceBaseUrl: buildRepoRawBaseUrl(metamaskRepo, basePath),
-        outDir: "docs/services/reference/base",
-        documents: listDocuments(metamaskRepo, ["**/*.mdx", "**/*.md"], [], basePath),
+        outDir: "service/reference/base",
+        documents: [], // Empty array since noRuntimeDownloads: true - files already downloaded
         noRuntimeDownloads: true,
         performCleanup: false,
       },
@@ -267,8 +267,8 @@ const config = {
       {
         name: "metamask-concepts",
         sourceBaseUrl: buildRepoRawBaseUrl(metamaskRepo, conceptsPath),
-        outDir: "docs/services/concepts",
-        documents: listDocuments(metamaskRepo, ["**/*.mdx", "**/*.md"], [], conceptsPath),
+        outDir: "service/concepts",
+        documents: [], // Empty array since noRuntimeDownloads: true - files already downloaded
         noRuntimeDownloads: true,
         performCleanup: false,
       },
@@ -279,8 +279,8 @@ const config = {
       {
         name: "metamask-get-started",
         sourceBaseUrl: buildRepoRawBaseUrl(metamaskRepo, getStartedPath),
-        outDir: "docs/services/get-started",
-        documents: listDocuments(metamaskRepo, ["**/*.mdx", "**/*.md"], [], getStartedPath),
+        outDir: "service/get-started",
+        documents: [], // Empty array since noRuntimeDownloads: true - files already downloaded
         noRuntimeDownloads: true,
         performCleanup: false,
       },
@@ -291,8 +291,8 @@ const config = {
       {
         name: "metamask-gas-api",
         sourceBaseUrl: buildRepoRawBaseUrl(metamaskRepo, gasApiPath),
-        outDir: "docs/services/reference/gas-api",
-        documents: listDocuments(metamaskRepo, ["**/*.mdx", "**/*.md"], [], gasApiPath),
+        outDir: "service/reference/gas-api",
+        documents: [], // Empty array since noRuntimeDownloads: true - files already downloaded
         noRuntimeDownloads: true,
         performCleanup: false,
       },
@@ -303,8 +303,8 @@ const config = {
       {
         name: "metamask-ipfs",
         sourceBaseUrl: buildRepoRawBaseUrl(metamaskRepo, ipfsPath),
-        outDir: "docs/services/reference/ipfs",
-        documents: listDocuments(metamaskRepo, ["**/*.mdx", "**/*.md"], [], ipfsPath),
+        outDir: "service/reference/ipfs",
+        documents: [], // Empty array since noRuntimeDownloads: true - files already downloaded
         noRuntimeDownloads: true,
         performCleanup: false,
       },
@@ -315,8 +315,8 @@ const config = {
       {
         name: "metamask-how-to",
         sourceBaseUrl: buildRepoRawBaseUrl(metamaskRepo, howToPath),
-        outDir: "docs/services/how-to",
-        documents: listDocuments(metamaskRepo, ["**/*.mdx", "**/*.md"], [], howToPath),
+        outDir: "service/how-to",
+        documents: [], // Empty array since noRuntimeDownloads: true - files already downloaded
         noRuntimeDownloads: true,
         performCleanup: false,
       },
@@ -327,8 +327,8 @@ const config = {
       {
         name: "metamask-tutorials",
         sourceBaseUrl: buildRepoRawBaseUrl(metamaskRepo, tutorialsPath),
-        outDir: "docs/services/tutorials",
-        documents: listDocuments(metamaskRepo, ["**/*.mdx", "**/*.md"], [], tutorialsPath),
+        outDir: "service/tutorials",
+        documents: [], // Empty array since noRuntimeDownloads: true - files already downloaded
         noRuntimeDownloads: true,
         performCleanup: false,
       },
@@ -358,21 +358,6 @@ const config = {
     //     },
     //   },
     // ],
-    // Webpack alias plugin to resolve /services/ paths
-    function(context, options) {
-      return {
-        name: "webpack-alias-plugin",
-        configureWebpack(config, isServer) {
-          return {
-            resolve: {
-              alias: {
-                "/services": path.resolve(__dirname, "docs/services"),
-              },
-            },
-          };
-        },
-      };
-    },
   ],
   themes: [
     [

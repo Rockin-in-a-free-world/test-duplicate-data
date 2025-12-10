@@ -9,7 +9,7 @@ const { execSync } = require("child_process");
 const path = require("path");
 const fs = require("fs");
 
-const BASE_DIR = path.join(__dirname, "..", "docs", "services");
+const BASE_DIR = path.join(__dirname, "..", "service");
 const DOWNLOAD_DIRS = [
   path.join(BASE_DIR, "reference", "_partials"),
   path.join(BASE_DIR, "reference", "ethereum"),
@@ -166,17 +166,17 @@ function fileExists(relativePath, baseDir) {
   // Strip anchor/hash from path (e.g., "file.md#anchor" -> "file.md")
   const pathWithoutAnchor = relativePath.split('#')[0];
   
-  // Handle absolute paths starting with /services/ (web paths, not filesystem paths)
-  // These need to be resolved relative to the docs directory
-  const docsRoot = path.join(__dirname, "..", "docs");
+  // Handle absolute paths starting with /service/ (web paths, not filesystem paths)
+  // These need to be resolved relative to the project root
+  const projectRoot = path.join(__dirname, "..");
   let pathToCheck = pathWithoutAnchor;
   
-  if (pathWithoutAnchor.startsWith('/services/')) {
-    // Convert /services/... to docs/services/...
-    pathToCheck = pathWithoutAnchor.replace(/^\/services\//, 'services/');
-    // Resolve from docs root
+  if (pathWithoutAnchor.startsWith('/service/')) {
+    // Convert /service/... to service/... (root level)
+    pathToCheck = pathWithoutAnchor.replace(/^\/service\//, 'service/');
+    // Resolve from project root
     try {
-      const resolvedPath = path.resolve(docsRoot, pathToCheck);
+      const resolvedPath = path.resolve(projectRoot, pathToCheck);
       if (fs.existsSync(resolvedPath)) {
         return true;
       }
@@ -258,7 +258,7 @@ function buildPartialImportMap() {
     const content = fs.readFileSync(filePath, 'utf8');
     
     // Match import statements: import X from "../../_partials/..."
-    // or import X from "/services/reference/_partials/..."
+    // or import X from "/service/reference/_partials/..."
     const importRegex = /import\s+\w+\s+from\s+["']([^"']*_partials[^"']+)["']/g;
     let match;
     
@@ -267,8 +267,8 @@ function buildPartialImportMap() {
       let partialPath;
       
       // Handle absolute paths
-      if (importPath.startsWith('/services/reference/_partials/')) {
-        const relativePath = importPath.replace('/services/reference/_partials/', '');
+      if (importPath.startsWith('/service/reference/_partials/')) {
+        const relativePath = importPath.replace('/service/reference/_partials/', '');
         partialPath = path.join(partialsDir, relativePath);
       }
       // Handle relative paths
@@ -300,18 +300,20 @@ function tryFixLink(linkPath, baseDir, docsRoot) {
   const anchor = linkPath.includes('#') ? '#' + linkPath.split('#').slice(1).join('#') : '';
   
   // Common broken link patterns to fix
-  // Fix: ../../ethereum/concepts/... -> /services/concepts/...
+  // Fix: ../../ethereum/concepts/... -> /service/concepts/...
   if (linkWithoutAnchor.match(/^\.\.\/\.\.\/ethereum\/concepts\/(.+)$/)) {
-    const fixedPath = '/services/concepts/' + linkWithoutAnchor.replace(/^\.\.\/\.\.\/ethereum\/concepts\//, '') + anchor;
-    if (fileExists(fixedPath, docsRoot)) {
+    const fixedPath = '/service/concepts/' + linkWithoutAnchor.replace(/^\.\.\/\.\.\/ethereum\/concepts\//, '') + anchor;
+    const projectRoot = path.join(__dirname, "..");
+    if (fileExists(fixedPath, projectRoot)) {
       return fixedPath;
     }
   }
   
-  // Fix: ../ethereum/concepts/... -> /services/concepts/...
+  // Fix: ../ethereum/concepts/... -> /service/concepts/...
   if (linkWithoutAnchor.match(/^\.\.\/ethereum\/concepts\/(.+)$/)) {
-    const fixedPath = '/services/concepts/' + linkWithoutAnchor.replace(/^\.\.\/ethereum\/concepts\//, '') + anchor;
-    if (fileExists(fixedPath, docsRoot)) {
+    const fixedPath = '/service/concepts/' + linkWithoutAnchor.replace(/^\.\.\/ethereum\/concepts\//, '') + anchor;
+    const projectRoot = path.join(__dirname, "..");
+    if (fileExists(fixedPath, projectRoot)) {
       return fixedPath;
     }
   }

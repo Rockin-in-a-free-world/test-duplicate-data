@@ -1,0 +1,33 @@
+# Link Replacement Configuration
+# This file maps broken internal links to external URLs or local placeholders
+# When a broken link matches a key in this file, it will be replaced with the corresponding URL
+
+# Exact path replacements (matches the exact link path)
+replacements:
+  # Developer tools links
+  /developer-tools/faucet: https://docs.metamask.io/developer-tools/faucet
+  /developer-tools/dashboard: https://developer.metamask.io/login
+  
+  # Add more exact path replacements below as needed
+  # Example:
+  # /some/broken/path: https://docs.metamask.io/some/broken/path
+
+# Pattern-based replacements (uses regex patterns to match links)
+# Patterns are applied before exact replacements
+patterns:
+  # Dashboard links - matches /developer-tools/dashboard with sub-paths
+  # Extracts the path after /developer-tools/dashboard and appends to replacement URL
+  # Example: /developer-tools/dashboard/how-to/secure-an-api/set-rate-limits
+  #   → https://developer.metamask.io/how-to/secure-an-api/set-rate-limits
+  # Note: Exact /developer-tools/dashboard is handled by exact replacements above
+  - pattern: '/developer-tools/dashboard/.+'
+    replacement: 'https://developer.metamask.io'
+    extractPath: true
+    description: 'Replace developer dashboard sub-paths, preserving the sub-path'
+  
+  # Add more pattern replacements below as needed
+  # Example:
+  # - pattern: '/some/pattern.*'
+  #   replacement: 'local/path.md'
+  #   description: 'Description of what this pattern does'
+
