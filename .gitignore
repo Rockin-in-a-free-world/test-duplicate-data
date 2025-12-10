@@ -22,3 +22,6 @@ yarn-debug.log*
 yarn-error.log*
 .vercel
 .envrc
+
+# Maintainer logs (config file is tracked, but logs are generated)
+_maintainers/logs/

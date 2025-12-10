@@ -83,25 +83,32 @@ function matchesPattern(filePath, pattern) {
  * - Converts absolute partial paths to relative paths pointing to external-services
  * - Removes imports for components that don't exist in our site
  * - Handles broken markdown links by removing links but keeping text
+ * - Replaces links based on link_replacements config before checking for broken links
  * - Adds metadata notes for broken links and "do not edit" warnings
  * @param {string} filePath - Path to the MDX file
  * @param {string} destDir - Destination directory relative to docs root
  * @param {string} sourceRoot - Source root directory for context
  * @param {boolean} isSyncedFile - Whether this is a synced file (true) or a partial (false)
  * @param {Map<string, boolean>} partialsWithBrokenLinks - Map of partial paths to whether they have broken links
+ * @param {Object} linkReplacements - Map of broken paths to https URLs (from config.link_replacements)
  * @returns {boolean} Whether broken links were found
  */
-function transformImportPaths(filePath, destDir, sourceRoot, isSyncedFile = false, partialsWithBrokenLinks = new Map()) {
+function transformImportPaths(filePath, destDir, sourceRoot, isSyncedFile = false, partialsWithBrokenLinks = new Map(), linkReplacements = {}) {
   const originalContent = fs.readFileSync(filePath, "utf8");
   let content = originalContent;
   let transformed = false;
   let hasBrokenLinks = false;
   let importsPartialWithBrokenLinks = false;
   
-  // Calculate relative path to partials in external-services
-  // All partials are resolved directly from external-services (no symlink needed)
+  // Track transformations for logging
+  const brokenLinks = [];
+  const imageFixes = [];
+  const componentFixes = [];
+  
+  // Calculate relative path to partials (now downloaded to docs/services/reference/_partials by remote-content)
+  // Partials are resolved from the downloaded location
   const fileDir = path.dirname(filePath);
-  const partialsPath = path.resolve(process.cwd(), "external-services/downstream-metamask-docs/services/reference/_partials");
+  const partialsPath = path.resolve(process.cwd(), "docs/services/reference/_partials");
   const relativeToPartials = path.relative(fileDir, partialsPath).replace(/\\/g, "/");
   
   // Fix partial imports - handle both absolute and relative paths
@@ -148,6 +155,20 @@ function transformImportPaths(filePath, destDir, sourceRoot, isSyncedFile = fals
   // Remove imports for components that don't exist in our site (Phase 1)
   // Remove CreditCost and similar component imports
   const beforeRemove = content;
+  const componentImportRegex = /^import\s+(\w+)\s+from\s+['"](@site\/src\/components\/[^'"]+)['"];?\s*$/gm;
+  let match;
+  while ((match = componentImportRegex.exec(beforeRemove)) !== null) {
+    const componentName = match[1];
+    const importPath = match[2];
+    const relativeFilePath = path.relative(process.cwd(), filePath);
+    componentFixes.push({
+      file: relativeFilePath,
+      type: "import",
+      name: componentName,
+      path: importPath,
+      import: match[0].trim(),
+    });
+  }
   content = content.replace(
     /^import\s+\w+\s+from\s+['"]@site\/src\/components\/[^'"]+['"];?\s*$/gm,
     ""
@@ -157,7 +178,31 @@ function transformImportPaths(filePath, destDir, sourceRoot, isSyncedFile = fals
   }
   
   // Remove usage of CreditCost component (Phase 1: simple removal)
+  const creditCostMatches = content.match(/<CreditCost[^>]*\s*\/>/g);
+  if (creditCostMatches) {
+    const relativeFilePath = path.relative(process.cwd(), filePath);
+    creditCostMatches.forEach(() => {
+      componentFixes.push({
+        file: relativeFilePath,
+        type: "usage",
+        name: "CreditCost",
+        path: null,
+        import: null,
+      });
+    });
+  }
   content = content.replace(/<CreditCost[^>]*\s*\/>/g, "");
+  
+  // Replace specific broken links with working https URLs before checking for broken links
+  // Link replacements come from config.link_replacements (e.g., dashboard, faucet)
+  // Format in config: link_replacements: { "/developer-tools/faucet": "https://faucet.metamask.io/" }
+  for (const [brokenPath, httpsUrl] of Object.entries(linkReplacements)) {
+    const regex = new RegExp(`\\[([^\\]]+)\\]\\(${brokenPath.replace(/\//g, "\\/")}(?:#[^)]*)?\\)`, "g");
+    content = content.replace(regex, (match, linkText) => {
+      transformed = true;
+      return `[${linkText}](${httpsUrl})`;
+    });
+  }
   
   // Transform markdown links to point to files that exist in our repo
   const docsRoot = path.resolve(process.cwd(), "docs");
@@ -199,7 +244,9 @@ function transformImportPaths(filePath, destDir, sourceRoot, isSyncedFile = fals
       } else {
         // File doesn't exist - remove link, keep text, and mark that broken links were found
         hasBrokenLinks = true;
-        console.warn(`[config-driven-sync] Broken link in ${path.relative(process.cwd(), filePath)}: [${linkText}](${linkPath}) - removing link, keeping text`);
+        const relativeFilePath = path.relative(process.cwd(), filePath);
+        brokenLinks.push({ file: relativeFilePath, link: linkPath, text: linkText });
+        console.warn(`[config-driven-sync] Broken link in ${relativeFilePath}: [${linkText}](${linkPath}) - removing link, keeping text`);
         return linkText; // Remove link, keep text
       }
     }
@@ -274,7 +321,12 @@ function transformImportPaths(filePath, destDir, sourceRoot, isSyncedFile = fals
     }
   }
   
-  return hasBrokenLinks;
+  return {
+    hasBrokenLinks,
+    brokenLinks,
+    imageFixes,
+    componentFixes,
+  };
 }
 
 /**
@@ -284,52 +336,54 @@ function transformImportPaths(filePath, destDir, sourceRoot, isSyncedFile = fals
  * @param {string} destDir - Destination directory (relative to docs root)
  */
 function syncFiles(config, configDir, destDir) {
-  const sourceRoot = resolveSourcePath(config.source, configDir);
+  // Files are already downloaded by remote-content, so process them in place
+  // The destDir is where the files already exist (e.g., docs/services/reference/ethereum)
   const destRoot = path.resolve(process.cwd(), "docs", destDir);
   
-  if (!fs.existsSync(sourceRoot)) {
-    console.warn(`Source directory does not exist: ${sourceRoot}`);
+  if (!fs.existsSync(destRoot)) {
+    console.warn(`[config-driven-sync] Destination directory does not exist: ${destRoot}`);
+    console.warn(`[config-driven-sync] Files may not have been downloaded yet. Run 'npm run get-remote' first.`);
     return;
   }
   
-  // Ensure destination directory exists
-  if (!fs.existsSync(destRoot)) {
-    fs.mkdirSync(destRoot, { recursive: true });
-  }
-  
-  // Check if synced files reference partials (for transformation purposes)
-  // Partials are resolved directly from external-services - no symlink or copy needed
+  // Check if files reference partials (for transformation purposes)
+  // Partials are now in docs/services/reference/_partials (downloaded by remote-content)
   let needsPartials = false;
-  const copiedFiles = [];
+  const filesToProcess = [];
   
-  // First pass: collect files that will be copied to check for partial usage
-  function collectFiles(currentSource, relativePath = "") {
-    if (!fs.existsSync(currentSource)) {
+  // Collect files that already exist in destination to check for partial usage
+  function collectFiles(currentDir, relativePath = "") {
+    if (!fs.existsSync(currentDir)) {
       return;
     }
     
-    const items = fs.readdirSync(currentSource);
+    const items = fs.readdirSync(currentDir);
     for (const item of items) {
-      const itemSourcePath = path.join(currentSource, item);
+      // Skip config files
+      if (item === "_config.yml" || item.startsWith("_")) {
+        continue;
+      }
+      
+      const itemPath = path.join(currentDir, item);
       const itemRelativePath = path.join(relativePath, item).replace(/\\/g, "/");
-      const stat = fs.statSync(itemSourcePath);
+      const stat = fs.statSync(itemPath);
       
       if (stat.isDirectory()) {
-        collectFiles(itemSourcePath, itemRelativePath);
+        collectFiles(itemPath, itemRelativePath);
       } else if (stat.isFile() && shouldIncludeFile(itemRelativePath, config.include, config.exclude)) {
         if (item.endsWith(".mdx") || item.endsWith(".md")) {
-          copiedFiles.push(itemSourcePath);
+          filesToProcess.push(itemPath);
         }
       }
     }
   }
-  collectFiles(sourceRoot);
+  collectFiles(destRoot);
   
   // Check if any files use partial imports
-  for (const filePath of copiedFiles) {
+  for (const filePath of filesToProcess) {
     try {
       const content = fs.readFileSync(filePath, "utf8");
-      if (content.includes("/services/reference/_partials/") || content.includes("_partials/")) {
+      if (content.includes("/services/reference/_partials/") || content.includes("_partials/") || content.includes("from") && content.includes("_partials")) {
         needsPartials = true;
         break;
       }
@@ -341,22 +395,13 @@ function syncFiles(config, configDir, destDir) {
   // Track which partials have broken links (for synced files to inherit the note)
   const partialsWithBrokenLinks = new Map();
   
-  // Transform partial files if needed (all partials come directly from external-services)
-  // Import paths in synced files will be transformed to point directly to external-services
-  if (needsPartials || config.partials_source) {
-    const partialsSourceRoot = config.partials_source 
-      ? resolveSourcePath(config.partials_source, configDir)
-      : path.resolve(path.dirname(sourceRoot), "_partials");
-    
-    if (fs.existsSync(partialsSourceRoot)) {
-      const stat = fs.statSync(partialsSourceRoot);
-      if (!stat.isDirectory()) {
-        console.warn(`[config-driven-sync] Partials source exists but is not a directory: ${partialsSourceRoot}`);
-        return;
-      }
-      
+  // Transform partial files if needed (partials are now in docs/services/reference/_partials)
+  // Import paths in files will be transformed to point to the downloaded partials location
+  const partialsPath = path.resolve(process.cwd(), "docs/services/reference/_partials");
+  if (needsPartials && fs.existsSync(partialsPath)) {
+    const stat = fs.statSync(partialsPath);
+    if (stat.isDirectory()) {
       // Transform partial files to fix links and remove problematic imports
-      // These files are accessed directly from external-services, no symlink needed
       // Track which partials have broken links
       function transformPartialFiles(dir) {
         const items = fs.readdirSync(dir);
@@ -371,64 +416,40 @@ function syncFiles(config, configDir, destDir) {
           if (stat.isDirectory()) {
             transformPartialFiles(itemPath);
           } else if (item.endsWith(".mdx") && stat.isFile()) {
-            const hasBrokenLinks = transformImportPaths(itemPath, "reference/_partials", sourceRoot, false, partialsWithBrokenLinks);
-            // Store in map for synced files to check
+            const result = transformImportPaths(itemPath, destDir, null, false, partialsWithBrokenLinks, config.link_replacements);
+            // Store in map for other files to check
             const normalizedPath = itemPath.replace(/\\/g, "/");
-            partialsWithBrokenLinks.set(normalizedPath, hasBrokenLinks);
+            partialsWithBrokenLinks.set(normalizedPath, result.hasBrokenLinks);
           }
         }
       }
-      transformPartialFiles(partialsSourceRoot);
-      console.log(`[config-driven-sync] Partials resolved directly from: ${path.relative(process.cwd(), partialsSourceRoot)}`);
-    } else {
-      console.warn(`[config-driven-sync] Partials source does not exist: ${partialsSourceRoot}`);
+      transformPartialFiles(partialsPath);
+      console.log(`[config-driven-sync] Processed partials from: ${path.relative(process.cwd(), partialsPath)}`);
     }
   }
   
-  // Walk source directory and copy matching files (second pass: actual copy)
-  function walkAndCopy(currentSource, currentDest, relativePath = "") {
-    if (!fs.existsSync(currentSource)) {
-      return;
-    }
-    
-    const items = fs.readdirSync(currentSource);
-    
-    for (const item of items) {
-      const itemSourcePath = path.join(currentSource, item);
-      const itemRelativePath = path.join(relativePath, item).replace(/\\/g, "/");
-      const stat = fs.statSync(itemSourcePath);
-      
-      if (stat.isDirectory()) {
-        // Recursively process directories
-        const itemDestPath = path.join(currentDest, item);
-        walkAndCopy(itemSourcePath, itemDestPath, itemRelativePath);
-      } else if (stat.isFile()) {
-        // Check if file matches patterns
-        if (shouldIncludeFile(itemRelativePath, config.include, config.exclude)) {
-          const itemDestPath = path.join(currentDest, item);
-          
-          // Ensure parent directory exists
-          const parentDir = path.dirname(itemDestPath);
-          if (!fs.existsSync(parentDir)) {
-            fs.mkdirSync(parentDir, { recursive: true });
-          }
-          
-          // Copy file
-          fs.copyFileSync(itemSourcePath, itemDestPath);
-          console.log(`Copied: ${itemRelativePath} -> ${path.relative(process.cwd(), itemDestPath)}`);
-          
-          // Transform import paths in MDX files
-          // Partials will point directly to external-services via relative paths
-          // Pass partialsWithBrokenLinks map so synced files can inherit the note
-          if (item.endsWith(".mdx")) {
-            transformImportPaths(itemDestPath, destDir, sourceRoot, true, partialsWithBrokenLinks);
-          }
-        }
-      }
-    }
+  // Process files that already exist in destination (downloaded by remote-content)
+  // Apply transformations: links, images, components
+  const allBrokenLinks = [];
+  const allImageFixes = [];
+  const allComponentFixes = [];
+  
+  for (const filePath of filesToProcess) {
+    const result = transformImportPaths(filePath, destDir, null, true, partialsWithBrokenLinks, config.link_replacements);
+    allBrokenLinks.push(...result.brokenLinks);
+    allImageFixes.push(...result.imageFixes);
+    allComponentFixes.push(...result.componentFixes);
   }
   
-  walkAndCopy(sourceRoot, destRoot);
+  if (filesToProcess.length > 0) {
+    console.log(`[config-driven-sync] Processed ${filesToProcess.length} file(s) in ${destDir}`);
+  }
+  
+  return {
+    brokenLinks: allBrokenLinks,
+    imageFixes: allImageFixes,
+    componentFixes: allComponentFixes,
+  };
 }
 
 module.exports = {
@@ -436,4 +457,5 @@ module.exports = {
   shouldIncludeFile,
   syncFiles,
 };
+
 

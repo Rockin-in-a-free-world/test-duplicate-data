@@ -9,6 +9,10 @@ This guide explains how to use the config-driven content sync tooling to pull do
 
 The config-driven sync tooling allows you to selectively pull content from the MetaMask docs repository using simple YAML configuration files. You control what gets synced by creating `_config.yml` files in your documentation structure.
 
+## Prerequisites
+
+- Api key for github setup in .env
+
 ## Step 1: Create a Config File
 
 Create a `_config.yml` file in the directory where you want the synced content to appear.
@@ -30,6 +34,8 @@ source: "../../../external-services/downstream-metamask-docs/services/reference/
 This points to the MetaMask docs repository (which is included as a git submodule).
 
 ## Step 3: Specify What to Include
+
+> as a one off, run the imports, id what image paths were updated and import those images into the repo to make the locally available
 
 Add an `include` list with the files or patterns you want to sync:
 

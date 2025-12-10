@@ -21,6 +21,7 @@
     "lint:style": "stylelint \"**/*.css\"",
     "lint:fix": "npm run lint:js -- --fix",
     "format": "prettier --write '{blog,docs,src,static}/**/*.{md,mdx,ts,js,tsx,jsx,json}'",
+    "get-remote": "node scripts/get-remote-content.js",
     "refresh-data": "node scripts/refresh-external-data.js"
   },
   "lint-staged": {
@@ -39,7 +40,11 @@
     "@easyops-cn/docusaurus-search-local": "^0.52.1",
     "@mdx-js/react": "^3.1.1",
     "clsx": "^1.2.1",
+    "docusaurus-plugin-remote-content": "^4.0.0",
+    "dotenv": "^17.2.3",
+    "@octokit/rest": "^22.0.1",
     "js-yaml": "^4.1.1",
+    "minimatch": "^10.1.1",
     "prism-react-renderer": "^2.4.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"

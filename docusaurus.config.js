@@ -1,9 +1,25 @@
+require("dotenv").config();
+
 const {themes} = require("prism-react-renderer");
 const lightCodeTheme = themes.github;
 const darkCodeTheme = themes.dracula;
 
 const isDev = process.env.NODE_ENV === "development";
 const baseUrl = isDev ? "/" : "/";
+
+// Remote content from MetaMask docs
+const { createRepo, buildRepoRawBaseUrl, listDocuments } = require("./src/lib/list-remote");
+const metamaskRepo = createRepo("MetaMask", "metamask-docs", "main");
+const partialsPath = "services/reference/_partials";
+const ethereumPath = "services/reference/ethereum";
+const lineaPath = "services/reference/linea";
+const basePath = "services/reference/base";
+const conceptsPath = "services/concepts";
+const getStartedPath = "services/get-started";
+const gasApiPath = "services/reference/gas-api";
+const ipfsPath = "services/reference/ipfs";
+const howToPath = "services/how-to";
+const tutorialsPath = "services/tutorials";
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -185,8 +201,120 @@ const config = {
       ],
     }),
   plugins: [
-    // Custom plugin that reads configs and syncs content (must run before docs plugin)
-    "./src/plugins/docusaurus-plugin-config-driven-sync",
+    // Remote content plugin: fetches content from MetaMask repo
+    // Only load during build, not during start (dev mode)
+    // Plugins are always in the config, but noRuntimeDownloads prevents auto-download on start
+    // The `get-remote` script explicitly triggers downloads via CLI commands
+    [
+      "docusaurus-plugin-remote-content",
+      {
+        name: "metamask-partials",
+        sourceBaseUrl: buildRepoRawBaseUrl(metamaskRepo, partialsPath),
+        outDir: "docs/services/reference/_partials",
+        documents: listDocuments(metamaskRepo, ["**/*.mdx"], [], partialsPath),
+        noRuntimeDownloads: true,
+        performCleanup: false,
+      },
+    ],
+    [
+      "docusaurus-plugin-remote-content",
+      {
+        name: "metamask-ethereum",
+        sourceBaseUrl: buildRepoRawBaseUrl(metamaskRepo, ethereumPath),
+        outDir: "docs/services/reference/ethereum",
+        documents: listDocuments(metamaskRepo, ["**/*.mdx", "**/*.md"], [], ethereumPath),
+        noRuntimeDownloads: true,
+        performCleanup: false,
+      },
+    ],
+    [
+      "docusaurus-plugin-remote-content",
+      {
+        name: "metamask-linea",
+        sourceBaseUrl: buildRepoRawBaseUrl(metamaskRepo, lineaPath),
+        outDir: "docs/services/reference/linea",
+        documents: listDocuments(metamaskRepo, ["**/*.mdx", "**/*.md"], [], lineaPath),
+        noRuntimeDownloads: true,
+        performCleanup: false,
+      },
+    ],
+    [
+      "docusaurus-plugin-remote-content",
+      {
+        name: "metamask-base",
+        sourceBaseUrl: buildRepoRawBaseUrl(metamaskRepo, basePath),
+        outDir: "docs/services/reference/base",
+        documents: listDocuments(metamaskRepo, ["**/*.mdx", "**/*.md"], [], basePath),
+        noRuntimeDownloads: true,
+        performCleanup: false,
+      },
+    ],
+    [
+      "docusaurus-plugin-remote-content",
+      {
+        name: "metamask-concepts",
+        sourceBaseUrl: buildRepoRawBaseUrl(metamaskRepo, conceptsPath),
+        outDir: "docs/services/concepts",
+        documents: listDocuments(metamaskRepo, ["**/*.mdx", "**/*.md"], [], conceptsPath),
+        noRuntimeDownloads: true,
+        performCleanup: false,
+      },
+    ],
+    [
+      "docusaurus-plugin-remote-content",
+      {
+        name: "metamask-get-started",
+        sourceBaseUrl: buildRepoRawBaseUrl(metamaskRepo, getStartedPath),
+        outDir: "docs/services/get-started",
+        documents: listDocuments(metamaskRepo, ["**/*.mdx", "**/*.md"], [], getStartedPath),
+        noRuntimeDownloads: true,
+        performCleanup: false,
+      },
+    ],
+    [
+      "docusaurus-plugin-remote-content",
+      {
+        name: "metamask-gas-api",
+        sourceBaseUrl: buildRepoRawBaseUrl(metamaskRepo, gasApiPath),
+        outDir: "docs/services/reference/gas-api",
+        documents: listDocuments(metamaskRepo, ["**/*.mdx", "**/*.md"], [], gasApiPath),
+        noRuntimeDownloads: true,
+        performCleanup: false,
+      },
+    ],
+    [
+      "docusaurus-plugin-remote-content",
+      {
+        name: "metamask-ipfs",
+        sourceBaseUrl: buildRepoRawBaseUrl(metamaskRepo, ipfsPath),
+        outDir: "docs/services/reference/ipfs",
+        documents: listDocuments(metamaskRepo, ["**/*.mdx", "**/*.md"], [], ipfsPath),
+        noRuntimeDownloads: true,
+        performCleanup: false,
+      },
+    ],
+    [
+      "docusaurus-plugin-remote-content",
+      {
+        name: "metamask-how-to",
+        sourceBaseUrl: buildRepoRawBaseUrl(metamaskRepo, howToPath),
+        outDir: "docs/services/how-to",
+        documents: listDocuments(metamaskRepo, ["**/*.mdx", "**/*.md"], [], howToPath),
+        noRuntimeDownloads: true,
+        performCleanup: false,
+      },
+    ],
+    [
+      "docusaurus-plugin-remote-content",
+      {
+        name: "metamask-tutorials",
+        sourceBaseUrl: buildRepoRawBaseUrl(metamaskRepo, tutorialsPath),
+        outDir: "docs/services/tutorials",
+        documents: listDocuments(metamaskRepo, ["**/*.mdx", "**/*.md"], [], tutorialsPath),
+        noRuntimeDownloads: true,
+        performCleanup: false,
+      },
+    ],
     // Google Analytics and GTM plugins disabled (uncomment and configure when needed)
     // [
     //   "@docusaurus/plugin-google-gtag",
@@ -226,6 +354,9 @@ const config = {
     //     },
     //   },
     // ],
+    // Content processor: processes already-downloaded files (from remote-content)
+    // Applies transformations: links, images, components based on YAML configs
+    "./src/plugins/docusaurus-plugin-config-driven-sync",
   ],
   themes: [
     [

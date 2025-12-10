@@ -45,23 +45,27 @@ function readConfig(configPath) {
     const content = fs.readFileSync(configPath, "utf8");
     const config = yaml.load(content);
     
-    if (!config.source) {
-      console.warn(`Config at ${configPath} missing 'source' field`);
-      return null;
-    }
+    // Root-level config (_maintainers/_config.yml) doesn't need source/include
+    // It only provides link_replacements
+    const isRootConfig = path.basename(path.dirname(configPath)) === "_maintainers" && path.basename(configPath) === "_config.yml";
     
-    if (!config.include || !Array.isArray(config.include)) {
-      console.warn(`Config at ${configPath} missing 'include' field or it's not an array`);
-      return null;
+    if (!isRootConfig) {
+      // For processing already-downloaded files, source is optional
+      // But include is still required to know which files to process
+      if (!config.include || !Array.isArray(config.include)) {
+        console.warn(`Config at ${configPath} missing 'include' field or it's not an array`);
+        return null;
+      }
     }
     
     return {
-      source: config.source,
-      include: config.include,
+      source: config.source || null,
+      include: config.include || [],
       exclude: config.exclude || [],
       copy_images: config.copy_images || false,
       image_dest: config.image_dest || null,
       partials_source: config.partials_source || null,
+      link_replacements: config.link_replacements || {},
     };
   } catch (error) {
     console.error(`Error reading config at ${configPath}:`, error.message);
