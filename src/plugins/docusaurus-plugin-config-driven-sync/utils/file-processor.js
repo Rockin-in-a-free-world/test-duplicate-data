@@ -243,6 +243,43 @@ function removeBrokenLinks(content, filePath, partialImportMap, linkReplacements
 }
 
 /**
+ * Fix partial import paths
+ * Converts absolute paths like /services/reference/_partials/... to relative paths
+ */
+function fixPartialImports(content, filePath, docsPath) {
+  let modified = false;
+  const fileDir = path.dirname(filePath);
+  const partialsPath = path.resolve(docsPath, "services/reference/_partials");
+  const relativeToPartials = path.relative(fileDir, partialsPath).replace(/\\/g, "/");
+  
+  // Fix absolute paths like /services/reference/_partials/bundler/file.mdx
+  content = content.replace(
+    /from\s+["']\/services\/reference\/_partials\/([^"']+)["']/g,
+    (match, partialName) => {
+      modified = true;
+      const relPath = relativeToPartials.startsWith(".") 
+        ? relativeToPartials 
+        : `./${relativeToPartials}`;
+      return `from "${relPath}/${partialName}"`;
+    }
+  );
+  
+  // Also handle /service/reference/_partials/ (without 's')
+  content = content.replace(
+    /from\s+["']\/service\/reference\/_partials\/([^"']+)["']/g,
+    (match, partialName) => {
+      modified = true;
+      const relPath = relativeToPartials.startsWith(".") 
+        ? relativeToPartials 
+        : `./${relativeToPartials}`;
+      return `from "${relPath}/${partialName}"`;
+    }
+  );
+  
+  return { content, modified };
+}
+
+/**
  * Fix image paths
  */
 function fixImagePaths(content, filePath) {
@@ -292,14 +329,17 @@ function fixComponentImports(content, filePath) {
   const removedConstants = new Set();
   const componentFixes = [];
   
-  // Match @site/src/components imports
-  const componentImportRegex = /^import\s+(\w+)\s+from\s+["']@site\/src\/components\/([^"']+)["'];?$/gm;
+  // Match @site/src/components imports (including nested paths and .js extensions)
+  // Examples: @site/src/components/CreditCost/CreditCostPrice.js
+  //           @site/src/components/CardList
+  const componentImportRegex = /^import\s+(\w+)\s+from\s+["']@site\/src\/components\/([^"']+)["'];?\s*$/gm;
   
   content = content.replace(componentImportRegex, (match, componentName, componentPath) => {
     modified = true;
     removedComponents.add(componentName);
-    componentFixes.push({ type: 'component', name: componentName, path: componentPath, import: match });
-    return `// ${match} // Component not available in this project`;
+    componentFixes.push({ type: 'component', name: componentName, path: componentPath, import: match.trim() });
+    // Comment out the entire import line, preserving it for maintainers
+    return `// ${match.trim()} // Component not available in this project`;
   });
   
   // Match @site/src/plugins imports
@@ -325,23 +365,26 @@ function fixComponentImports(content, filePath) {
     return `// ${match} // Plugin not available in this project`;
   });
   
-  // Remove usage of these components
+  // Comment out usage of these components (preserve for maintainers but hide from rendering)
   removedComponents.forEach(componentName => {
-    const selfClosingRegex = new RegExp(`<${componentName}(?:[\\s\\S]*?)/>`, 'g');
+    // Match self-closing tags: <ComponentName ... />
+    const selfClosingRegex = new RegExp(`<${componentName}(?:[^>]*?)\\s*/>`, 'g');
     if (selfClosingRegex.test(content)) {
       content = content.replace(selfClosingRegex, (match) => {
         modified = true;
-        const lines = match.split('\n');
-        return `{/* ${lines[0]}... - Component not available */}`;
+        // Comment out the entire component usage, preserving it for maintainers
+        return `{/* ${match} - Component not available */}`;
       });
     }
     
-    const openCloseRegex = new RegExp(`<${componentName}(?:[\\s\\S]*?)>([\\s\\S]*?)</${componentName}>`, 'g');
+    // Match opening/closing tags: <ComponentName>...</ComponentName>
+    // This handles multi-line component usage
+    const openCloseRegex = new RegExp(`<${componentName}(?:[^>]*?)>([\\s\\S]*?)</${componentName}>`, 'g');
     if (openCloseRegex.test(content)) {
       content = content.replace(openCloseRegex, (match, innerContent) => {
         modified = true;
-        const lines = match.split('\n');
-        return `{/* ${lines[0]}... - Component not available */}`;
+        // Comment out the entire component usage, preserving it for maintainers
+        return `{/* ${match} - Component not available */}`;
       });
     }
   });
@@ -392,7 +435,11 @@ function processAllFiles(docsPath, linkReplacements) {
     const originalContent = content;
     const relativeFilePath = path.relative(docsPath, filePath);
     
-    // Step 1: Fix image paths
+    // Step 1: Fix partial import paths
+    const { content: partialFixed, modified: partialModified } = fixPartialImports(content, filePath, docsPath);
+    content = partialFixed;
+    
+    // Step 2: Fix image paths
     const { content: imageFixed, modified: imageModified, imageFixes } = fixImagePaths(content, filePath);
     content = imageFixed;
     if (imageModified) {
@@ -406,7 +453,7 @@ function processAllFiles(docsPath, linkReplacements) {
       });
     }
     
-    // Step 2: Fix component imports
+    // Step 3: Fix component imports
     const { content: componentFixed, modified: componentModified, componentFixes } = fixComponentImports(content, filePath);
     content = componentFixed;
     if (componentModified) {
@@ -421,7 +468,7 @@ function processAllFiles(docsPath, linkReplacements) {
       });
     }
     
-    // Step 3: Remove broken internal links
+    // Step 4: Remove broken internal links
     const { content: fixedContent, modified: linksModified, brokenLinks } = removeBrokenLinks(content, filePath, partialImportMap, linkReplacements, docsPath);
     content = fixedContent;
     

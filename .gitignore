@@ -26,3 +26,7 @@ yarn-error.log*
 
 # Maintainer logs (config file is tracked, but logs are generated)
 _maintainers/logs/
+
+# Ported files
+/services
+/docs/services

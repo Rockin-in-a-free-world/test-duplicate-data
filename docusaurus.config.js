@@ -56,7 +56,10 @@ const config = {
       "classic",
       {
         docs: {
-          sidebarPath: require.resolve("./sidebars.js"),
+          sidebarItemsGenerator: async () => {
+            const sidebars = require("./sidebars.js");
+            return sidebars.docSidebar;
+          },
           // Set a base path separate from default /docs
           // editUrl removed - "Edit this page" feature disabled
           routeBasePath: "/",
@@ -211,7 +214,7 @@ const config = {
         name: "metamask-partials",
         sourceBaseUrl: buildRepoRawBaseUrl(metamaskRepo, partialsPath),
         outDir: "docs/services/reference/_partials",
-        documents: listDocuments(metamaskRepo, ["**/*.mdx"], [], partialsPath),
+        documents: () => listDocuments(metamaskRepo, ["**/*.mdx"], [], partialsPath),
         noRuntimeDownloads: true,
         performCleanup: false,
       },
@@ -222,7 +225,7 @@ const config = {
         name: "metamask-ethereum",
         sourceBaseUrl: buildRepoRawBaseUrl(metamaskRepo, ethereumPath),
         outDir: "docs/services/reference/ethereum",
-        documents: listDocuments(metamaskRepo, ["**/*.mdx", "**/*.md"], [], ethereumPath),
+        documents: () => listDocuments(metamaskRepo, ["**/*.mdx", "**/*.md"], [], ethereumPath),
         noRuntimeDownloads: true,
         performCleanup: false,
       },
@@ -233,7 +236,7 @@ const config = {
         name: "metamask-linea",
         sourceBaseUrl: buildRepoRawBaseUrl(metamaskRepo, lineaPath),
         outDir: "docs/services/reference/linea",
-        documents: listDocuments(metamaskRepo, ["**/*.mdx", "**/*.md"], [], lineaPath),
+        documents: () => listDocuments(metamaskRepo, ["**/*.mdx", "**/*.md"], [], lineaPath),
         noRuntimeDownloads: true,
         performCleanup: false,
       },
@@ -244,7 +247,7 @@ const config = {
         name: "metamask-base",
         sourceBaseUrl: buildRepoRawBaseUrl(metamaskRepo, basePath),
         outDir: "docs/services/reference/base",
-        documents: listDocuments(metamaskRepo, ["**/*.mdx", "**/*.md"], [], basePath),
+        documents: () => listDocuments(metamaskRepo, ["**/*.mdx", "**/*.md"], [], basePath),
         noRuntimeDownloads: true,
         performCleanup: false,
       },
@@ -255,7 +258,7 @@ const config = {
         name: "metamask-concepts",
         sourceBaseUrl: buildRepoRawBaseUrl(metamaskRepo, conceptsPath),
         outDir: "docs/services/concepts",
-        documents: listDocuments(metamaskRepo, ["**/*.mdx", "**/*.md"], [], conceptsPath),
+        documents: () => listDocuments(metamaskRepo, ["**/*.mdx", "**/*.md"], [], conceptsPath),
         noRuntimeDownloads: true,
         performCleanup: false,
       },
@@ -266,7 +269,7 @@ const config = {
         name: "metamask-get-started",
         sourceBaseUrl: buildRepoRawBaseUrl(metamaskRepo, getStartedPath),
         outDir: "docs/services/get-started",
-        documents: listDocuments(metamaskRepo, ["**/*.mdx", "**/*.md"], [], getStartedPath),
+        documents: () => listDocuments(metamaskRepo, ["**/*.mdx", "**/*.md"], [], getStartedPath),
         noRuntimeDownloads: true,
         performCleanup: false,
       },
@@ -277,7 +280,7 @@ const config = {
         name: "metamask-gas-api",
         sourceBaseUrl: buildRepoRawBaseUrl(metamaskRepo, gasApiPath),
         outDir: "docs/services/reference/gas-api",
-        documents: listDocuments(metamaskRepo, ["**/*.mdx", "**/*.md"], [], gasApiPath),
+        documents: () => listDocuments(metamaskRepo, ["**/*.mdx", "**/*.md"], [], gasApiPath),
         noRuntimeDownloads: true,
         performCleanup: false,
       },
@@ -288,7 +291,7 @@ const config = {
         name: "metamask-ipfs",
         sourceBaseUrl: buildRepoRawBaseUrl(metamaskRepo, ipfsPath),
         outDir: "docs/services/reference/ipfs",
-        documents: listDocuments(metamaskRepo, ["**/*.mdx", "**/*.md"], [], ipfsPath),
+        documents: () => listDocuments(metamaskRepo, ["**/*.mdx", "**/*.md"], [], ipfsPath),
         noRuntimeDownloads: true,
         performCleanup: false,
       },
@@ -299,7 +302,7 @@ const config = {
         name: "metamask-how-to",
         sourceBaseUrl: buildRepoRawBaseUrl(metamaskRepo, howToPath),
         outDir: "docs/services/how-to",
-        documents: listDocuments(metamaskRepo, ["**/*.mdx", "**/*.md"], [], howToPath),
+        documents: () => listDocuments(metamaskRepo, ["**/*.mdx", "**/*.md"], [], howToPath),
         noRuntimeDownloads: true,
         performCleanup: false,
       },
@@ -310,7 +313,7 @@ const config = {
         name: "metamask-tutorials",
         sourceBaseUrl: buildRepoRawBaseUrl(metamaskRepo, tutorialsPath),
         outDir: "docs/services/tutorials",
-        documents: listDocuments(metamaskRepo, ["**/*.mdx", "**/*.md"], [], tutorialsPath),
+        documents: () => listDocuments(metamaskRepo, ["**/*.mdx", "**/*.md"], [], tutorialsPath),
         noRuntimeDownloads: true,
         performCleanup: false,
       },
@@ -357,6 +360,30 @@ const config = {
     // Content processor: processes already-downloaded files (from remote-content)
     // Applies transformations: links, images, components based on YAML configs
     "./src/plugins/docusaurus-plugin-config-driven-sync",
+    // Second docs instance for services directory
+    [
+      "@docusaurus/plugin-content-docs",
+      {
+        id: "services",
+        path: "./services",
+        routeBasePath: "/services",
+        sidebarItemsGenerator: async () => {
+          const sidebars = require("./sidebars.js");
+          return sidebars.services;
+        },
+        sidebarCollapsible: true,
+        sidebarCollapsed: false,
+        include: ["**/*.md", "**/*.mdx"],
+        exclude: [
+          "**/_*.{js,jsx,ts,tsx,md,mdx}",
+          "**/_*/**",
+          "**/*.test.{js,jsx,ts,tsx}",
+          "**/__tests__/**",
+        ],
+        showLastUpdateAuthor: false,
+        showLastUpdateTime: false,
+      },
+    ],
   ],
   themes: [
     [
