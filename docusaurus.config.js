@@ -333,6 +333,32 @@ const config = {
         performCleanup: false,
       },
     ],
+    // Services docs plugin - separate docs instance at root level (like MetaMask)
+    [
+      "@docusaurus/plugin-content-docs",
+      {
+        id: "services",
+        path: "./service",
+        routeBasePath: "/service",
+        sidebarItemsGenerator: async () => {
+          const sidebars = require("./sidebars.js");
+          return sidebars.services;
+        },
+        editUrl: "https://github.com/Rockin-in-a-free-world/test-duplicate-data/tree/main/",
+        breadcrumbs: false,
+        sidebarCollapsible: true,
+        sidebarCollapsed: false,
+        include: ["**/*.md", "**/*.mdx"],
+        exclude: [
+          "**/_*.{js,jsx,ts,tsx,md,mdx}",
+          "**/_*/**",
+          "**/*.test.{js,jsx,ts,tsx}",
+          "**/__tests__/**",
+        ],
+        showLastUpdateAuthor: false,
+        showLastUpdateTime: false,
+      },
+    ],
     // This is how redirects are done
     // [
     //   "@docusaurus/plugin-client-redirects",
