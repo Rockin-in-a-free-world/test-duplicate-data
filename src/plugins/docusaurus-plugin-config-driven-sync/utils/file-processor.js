@@ -332,15 +332,20 @@ function fixComponentImports(content, filePath) {
   // Match @site/src/components imports (including nested paths and .js extensions)
   // Examples: @site/src/components/CreditCost/CreditCostPrice.js
   //           @site/src/components/CardList
-  const componentImportRegex = /^import\s+(\w+)\s+from\s+["']@site\/src\/components\/([^"']+)["'];?\s*$/gm;
+  // Match both with and without semicolon, and handle any whitespace
+  const componentImportRegex = /^import\s+(\w+)\s+from\s+["']@site\/src\/components\/([^"']+)["']\s*;?\s*$/gm;
   
-  content = content.replace(componentImportRegex, (match, componentName, componentPath) => {
+  let importMatch;
+  while ((importMatch = componentImportRegex.exec(content)) !== null) {
     modified = true;
+    const match = importMatch[0];
+    const componentName = importMatch[1];
+    const componentPath = importMatch[2];
     removedComponents.add(componentName);
     componentFixes.push({ type: 'component', name: componentName, path: componentPath, import: match.trim() });
     // Comment out the entire import line, preserving it for maintainers
-    return `// ${match.trim()} // Component not available in this project`;
-  });
+    content = content.replace(match, `// ${match.trim()} // Component not available in this project\n`);
+  }
   
   // Match @site/src/plugins imports
   const pluginImportRegex = /^import\s+{([^}]+)}\s+from\s+["']@site\/src\/plugins\/([^"']+)["'];?$/gm;
