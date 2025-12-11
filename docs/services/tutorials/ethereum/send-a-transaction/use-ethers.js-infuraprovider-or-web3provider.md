@@ -1,6 +1,6 @@
----
-description: Use the Ethers InfuraProvider and Web3Provider methods.
----
+***
+
+## description: Use the Ethers InfuraProvider and Web3Provider methods.
 
 # Use Ethers.js `InfuraProvider` or `Web3Provider`
 
@@ -14,9 +14,9 @@ This tutorial uses the Sepolia testnet.
 
 ## Prerequisites
 
-- Install [MetaMask](https://metamask.io) and create an Ethereum account for testing purposes.
-- Load Sepolia ETH into your wallet from the [MetaMask faucet](https://faucet.metamask.io/).
-- [Node.js and npm installed](https://nodejs.org/en/download/).
+* Install [MetaMask](https://metamask.io) and create an Ethereum account for testing purposes.
+* Load Sepolia ETH into your wallet from the [MetaMask faucet](https://faucet.metamask.io/).
+* [Node.js and npm installed](https://nodejs.org/en/download/).
 
 You can run the following to confirm that Node and npm are installed:
 
@@ -65,8 +65,8 @@ REACT_APP_PRIVATE_KEY="<PRIVATE-KEY>"
 
 Ensure you replace the following values in the `.env` file:
 
-- `<YOUR-API-KEY>` with the API key of the Ethereum project.
-- `<PRIVATE-KEY>` with the [private key of your Ethereum account](https://support.metamask.io/configure/accounts/how-to-export-an-accounts-private-key/).
+* `<YOUR-API-KEY>` with the API key of the Ethereum project.
+* `<PRIVATE-KEY>` with the [private key of your Ethereum account](https://support.metamask.io/configure/accounts/how-to-export-an-accounts-private-key/).
 
 :::danger
 

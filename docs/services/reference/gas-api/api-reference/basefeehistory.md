@@ -1,13 +1,14 @@
----
-description: Get the base fee history.
----
+***
+
+## description: Get the base fee history.
+
 // import CreditCost from '@site/src/components/CreditCost/CreditCostPrice.js'; // Component not available in this project
 import Tabs from "@theme/Tabs";
 import TabItem from "@theme/TabItem";
 
 # Get the base fee history
 
-Returns the base fee history of the specified blockchain network for the previous 500 blocks. {/* <CreditCost network="gasApi" method="baseFeeHistory" />... - Component not available */}
+Returns the base fee history of the specified blockchain network for the previous 500 blocks. {/\* <CreditCost network="gasApi" method="baseFeeHistory" />... - Component not available \*/}
 
 The base fee is a part of the EIP-1559 upgrade to the Ethereum network, and it represents the
 minimum price a user must pay for their transaction to be included in a block.
@@ -21,7 +22,7 @@ data for a specific blockchain network.
 
 **Path**:
 
-- `chainId`: `string` - ID of the chain to query.
+* `chainId`: `string` - ID of the chain to query.
   See the [list of supported chain IDs](../../../get-started/endpoints.md#gas-api).
 
 ## Returns

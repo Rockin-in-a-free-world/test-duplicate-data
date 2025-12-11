@@ -1,6 +1,6 @@
----
-description: Send a transaction using Ethers.
----
+***
+
+## description: Send a transaction using Ethers.
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
@@ -11,8 +11,8 @@ In this tutorial, you'll send a transaction of 0.001 ETH from one account to ano
 
 ## Prerequisites
 
-- [Node.js](https://nodejs.org/en/download/)
-- An Ethereum account
+* [Node.js](https://nodejs.org/en/download/)
+* An Ethereum account
 
 :::info
 
@@ -24,9 +24,9 @@ Use [MetaMask](https://metamask.io) or similar to create an Ethereum account for
 
 ### 1. Select your network and verify funds
 
-- **Sepolia** -  To use the Sepolia testnet, ensure that your account has Sepolia ETH.
+* **Sepolia** -  To use the Sepolia testnet, ensure that your account has Sepolia ETH.
   You can use the [MetaMask faucet](https://faucet.metamask.io/) to add more funds.
-- **Alternative network** - To use an alternative network, ensure that your account has testnet ETH for that network.
+* **Alternative network** - To use an alternative network, ensure that your account has testnet ETH for that network.
   :::info note
   When using an alternative network, you'll update your `.env` file in
   [Step 4](#4-create-a-env-file) with the alternative network name.
@@ -57,7 +57,6 @@ The [`dotenv`](../../../how-to/javascript-dotenv.md) package allows you to use a
 :::
 
 Install the `ethers` package:
-
 
 ```bash
 npm install --save ethers
@@ -96,9 +95,9 @@ SIGNER_PRIVATE_KEY = "0x561...x...61df"
 
 Replace the following values in the `.env` file:
 
-- `<NETWORK>` with `sepolia` or the alternative network you are using.
-- `<YOUR-API-KEY>` with your API key of the web3 project.
-- `<PRIVATE-KEY>` with the [private key of your Ethereum account](https://support.metamask.io/configure/accounts/how-to-export-an-accounts-private-key/). A transaction must be signed with the sender's private key. Make sure that you prefix the `SIGNER_PRIVATE_KEY` value with `0x`. The private key you export from MetaMask isn't prefixed with `0x`.
+* `<NETWORK>` with `sepolia` or the alternative network you are using.
+* `<YOUR-API-KEY>` with your API key of the web3 project.
+* `<PRIVATE-KEY>` with the [private key of your Ethereum account](https://support.metamask.io/configure/accounts/how-to-export-an-accounts-private-key/). A transaction must be signed with the sender's private key. Make sure that you prefix the `SIGNER_PRIVATE_KEY` value with `0x`. The private key you export from MetaMask isn't prefixed with `0x`.
 
 :::danger
 

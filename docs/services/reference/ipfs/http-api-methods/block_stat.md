@@ -32,7 +32,7 @@ curl "https://ipfs.infura.io:5001/api/v0/block/stat?arg=QmfQ5QAjvg4GtA3wg3adpnDJ
 
 #### Request parameters
 
-- `arg` _\[Required]_ - The base58 multihash of an existing block to stat.
+* `arg` *\[Required]* - The base58 multihash of an existing block to stat.
 
 ### Response
 
@@ -49,5 +49,5 @@ On success, the call to this endpoint will return with 200 and the following bod
 
 #### Result fields
 
-- `Key` - The base58 multihash string of the block.
-- `Size` - An integer representing the size in bytes.
+* `Key` - The base58 multihash string of the block.
+* `Size` - An integer representing the size in bytes.

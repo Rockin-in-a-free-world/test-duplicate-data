@@ -1,7 +1,8 @@
----
+***
+
 description: Learn about the rate limits for IPFS requests.
-sidebar_position: 5
----
+sidebar\_position: 5
+--------------------
 
 # IPFS rate limits
 
@@ -20,16 +21,16 @@ Authenticated requests associated with a particular project have more flexible r
 
 Write API calls have a 150 requests per second limit for the following endpoints:
 
-- `/api/v0/add`
-- `/api/v0/block/put`
-- `/api/v0/dag/put`
-- `/api/v0/pin/add`
+* `/api/v0/add`
+* `/api/v0/block/put`
+* `/api/v0/dag/put`
+* `/api/v0/pin/add`
 
 You can retrieve IPFS data using the API with a limit of 1500 requests per second for the remaining read-only methods such as:
 
-- `/api/v0/cat`
-- `/api/v0/get`
-- `/api/v0/dag`
+* `/api/v0/cat`
+* `/api/v0/get`
+* `/api/v0/dag`
 
 Read-only requests from a [dedicated gateway](access-ipfs-content/dedicated-gateways.md) have a limit of 100 requests per second.
 

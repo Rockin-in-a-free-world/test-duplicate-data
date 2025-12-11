@@ -1,22 +1,23 @@
----
+***
+
 title: "Use Rust"
 description: A tutorial for legacy and EIP-1559 transactions.
----
+-------------------------------------------------------------
 
 # Use Rust
 
 In this two-part tutorial we'll use Rust and the [ethers-rs library](https://docs.rs/ethers/latest/ethers/) to:
 
-- Send a legacy transaction `("type":"0x0")`
-- Send an EIP-1559 transaction `("type":"0x2")`
+* Send a legacy transaction `("type":"0x0")`
+* Send an EIP-1559 transaction `("type":"0x2")`
 
 This tutorial uses the Sepolia testnet. Also see [Transaction types](../../../concepts/transaction-types.md).
 
 ## Prerequisites
 
-- Make sure that you have test ETH in your MetaMask wallet. You can obtain test ETH for the Sepolia network using the
+* Make sure that you have test ETH in your MetaMask wallet. You can obtain test ETH for the Sepolia network using the
   [Infura Sepolia faucet](https://www.infura.io/faucet/sepolia).
-- [Install Rust from The Cargo Book](https://doc.rust-lang.org/cargo/getting-started/installation.html).
+* [Install Rust from The Cargo Book](https://doc.rust-lang.org/cargo/getting-started/installation.html).
 
 ## Send a legacy transaction
 
@@ -117,10 +118,10 @@ async fn main() -> Result<()> {
 
 Next, make the following updates to the above code:
 
-- On line 16 replace the `INFURA_API_KEY` with you API key from the
+* On line 16 replace the `INFURA_API_KEY` with you API key from the
   [MetaMask Developer dashboard](https://dashboard.metamask.io/).
-- On line 26 replace the `SIGNER_PRIVATE_KEY` with the private key of your Ethereum account.
-- On line 29, use a test address, such as [`0xAED01C776d98303eE080D25A21f0a42D94a86D9c`](https://sepolia.etherscan.io/address/0xaed01c776d98303ee080d25a21f0a42d94a86d9c).
+* On line 26 replace the `SIGNER_PRIVATE_KEY` with the private key of your Ethereum account.
+* On line 29, use a test address, such as [`0xAED01C776d98303eE080D25A21f0a42D94a86D9c`](https://sepolia.etherscan.io/address/0xaed01c776d98303ee080d25a21f0a42d94a86d9c).
 
 :::tip Secure your keys
 
@@ -316,5 +317,5 @@ Tx receipt:
 }
 ```
 
-Ignore the `"warning: unused import: types::TransactionRequest"`. 
+Ignore the `"warning: unused import: types::TransactionRequest"`.
 In the above transaction receipt, the transaction type shows `"type":"0x2"` indicating that this was an EIP-1559 transaction.

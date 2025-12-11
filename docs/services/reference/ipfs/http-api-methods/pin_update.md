@@ -32,9 +32,9 @@ curl "https://ipfs.infura.io:5001/api/v0/pin/update?arg=QmfQ5QAjvg4GtA3wg3adpnDJ
 
 #### Request parameters
 
-- `arg` _\[Required]_ - Path to old object.
-- `arg` _\[Required]_ - Path to a new object to be pinned.
-- `unpin` _\[Optional]_ - Remove the old pin. The default is `true.`
+* `arg` *\[Required]* - Path to old object.
+* `arg` *\[Required]* - Path to a new object to be pinned.
+* `unpin` *\[Optional]* - Remove the old pin. The default is `true.`
 
 ### Response
 

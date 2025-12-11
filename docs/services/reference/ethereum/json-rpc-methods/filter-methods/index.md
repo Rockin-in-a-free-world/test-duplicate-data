@@ -1,9 +1,10 @@
----
+***
+
 title: Ethereum filter methods
-sidebar_label: Filter methods
-sidebar_key: ethereum-filter-methods
+sidebar\_label: Filter methods
+sidebar\_key: ethereum-filter-methods
 description: Ethereum filter methods
----
+------------------------------------
 
 # Ethereum filter methods
 

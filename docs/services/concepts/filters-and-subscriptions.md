@@ -1,7 +1,8 @@
----
+***
+
 description: Learn about filter and subscription methods.
-sidebar_position: 3
----
+sidebar\_position: 3
+--------------------
 
 # Filters and subscriptions
 
@@ -15,8 +16,8 @@ Ethereum methods use this underlying implementation to search for and retrieve s
 
 Infura is even faster at this than regular Ethereum nodes as we make use of custom off-chain indexing and data storage strategies. See the following blogs for more information:
 
-- [Introducing faster Ethereum logs and events](https://blog.infura.io/post/faster-logs-and-events-e43e2fa13773).
-- [Filters support over HTTPS](https://blog.infura.io/post/filters-support-over-https).
+* [Introducing faster Ethereum logs and events](https://blog.infura.io/post/faster-logs-and-events-e43e2fa13773).
+* [Filters support over HTTPS](https://blog.infura.io/post/filters-support-over-https).
 
 :::
 

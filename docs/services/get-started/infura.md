@@ -1,7 +1,8 @@
----
+***
+
 description: Get started with Infura; create your Infura API key and send requests to the Ethereum network.
-sidebar_position: 1
----
+sidebar\_position: 1
+--------------------
 
 import Tabs from "@theme/Tabs";
 import TabItem from "@theme/TabItem";
@@ -20,9 +21,9 @@ To activate your account, verify your email address by clicking the link sent to
 
 Based on your plan, Infura allows for the following number of API keys:
 
-- Free plan - Allows one API key.
-- Developer plan - Allows up to five API keys.
-- Team plans and higher - No limit on the number of API keys.
+* Free plan - Allows one API key.
+* Developer plan - Allows up to five API keys.
+* Team plans and higher - No limit on the number of API keys.
 
 For more information refer to the [Infura pricing information](https://www.infura.io/pricing).
 
@@ -34,7 +35,6 @@ After verification, you'll be directed to the [MetaMask Developer dashboard](htt
 where you can view or configure your API key. Infura automatically generates the **My First Key** API key.
 
 Select **My First Key** or the **Configure** link to view your API key settings.
-
 
 <div class="left-align-container">
   <div class="img-large">
@@ -54,9 +54,9 @@ sending requests using HTTP.
 
 :::info
 
-- All requests are `POST` requests.
-- Replace `<YOUR-API-KEY>` with your own unique API key.
-- We recommend using Postman if you're a Windows user.
+* All requests are `POST` requests.
+* Replace `<YOUR-API-KEY>` with your own unique API key.
+* We recommend using Postman if you're a Windows user.
 
 :::
 
@@ -68,14 +68,15 @@ Use a tool such as the [Client Uniform Resource Locator (curl)](../concepts/curl
   View the supported API methods for each network in the **Reference** section in the left sidebar.
   The following methods are not supported on any network by Infura:
 
-  - `eth_coinbase`
-  - `eth_sendTransaction`
-  - `eth_sign`
+* `eth_coinbase`
+* `eth_sendTransaction`
+* `eth_sign`
 
-  Infura doesn't store the user's private key required to sign transactions.
-  You can use [`web3.eth.sendTransaction`](https://web3js.readthedocs.io/en/v1.2.0/web3-eth.html#sendtransaction),
-  which signs the transaction locally using the private key of the account, and sends the transaction via [`web3.eth.sendSignedTransaction`](https://web3js.readthedocs.io/en/v1.2.0/web3-eth.html#sendsignedtransaction),
-  which is a wrapper for [`eth_sendRawTransaction`](../reference/ethereum/json-rpc-methods/eth_sendrawtransaction.mdx).
+Infura doesn't store the user's private key required to sign transactions.
+You can use [`web3.eth.sendTransaction`](https://web3js.readthedocs.io/en/v1.2.0/web3-eth.html#sendtransaction),
+which signs the transaction locally using the private key of the account, and sends the transaction via [`web3.eth.sendSignedTransaction`](https://web3js.readthedocs.io/en/v1.2.0/web3-eth.html#sendsignedtransaction),
+which is a wrapper for [`eth_sendRawTransaction`](../reference/ethereum/json-rpc-methods/eth_sendrawtransaction.mdx).
+
 </div>
 </details>
 
@@ -218,6 +219,6 @@ for a [wider view of your credit usage](https://dashboard.metamask.io/).
 Find additional settings in the **Settings** menu in the left navigation to manage your account.
 You can do the following:
 
-- [Set notifications for daily limits](../how-to/avoid-rate-limiting.md#tips-to-avoid-rate-limiting)
+* [Set notifications for daily limits](../how-to/avoid-rate-limiting.md#tips-to-avoid-rate-limiting)
   from the **Account** option.
-- Manage your billing information in the **Billing** option.
+* Manage your billing information in the **Billing** option.

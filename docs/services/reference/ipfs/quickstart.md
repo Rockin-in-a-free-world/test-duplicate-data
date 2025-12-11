@@ -1,8 +1,9 @@
----
+***
+
 description: IPFS quickstart guide
-sidebar_position: 2
-sidebar_label: Quickstart
----
+sidebar\_position: 2
+sidebar\_label: Quickstart
+--------------------------
 
 // import Banner from '@site/src/components/Banner' // Component not available in this project
 
@@ -168,10 +169,10 @@ CID(QmeGAVddnBSnKc1DLE7DLV9uuTqo5F7QbaveTjr45JUdQn)
 
 ### `go-ipfs-api`
 
-- Use the official IPFS [`go-ipfs-api`](https://github.com/ipfs/go-ipfs-api) GoLang API.
-- Install with `go get -u github.com/ipfs/go-ipfs-api`.
-- Create a go module with `go mod init infura`.
-- Save the following script to a file, for example, `index.go`, and include the Infura `auth` header with the `http.RoundTripper` wrapper.
+* Use the official IPFS [`go-ipfs-api`](https://github.com/ipfs/go-ipfs-api) GoLang API.
+* Install with `go get -u github.com/ipfs/go-ipfs-api`.
+* Create a go module with `go mod init infura`.
+* Save the following script to a file, for example, `index.go`, and include the Infura `auth` header with the `http.RoundTripper` wrapper.
 
 ```go
 package main
@@ -232,10 +233,10 @@ CID(QmeGAVddnBSnKc1DLE7DLV9uuTqo5F7QbaveTjr45JUdQn)
 
 ## `go-ipfs-http-client`
 
-- Use the official IPFS [`go-ipfs-http-client`](https://github.com/ipfs/go-ipfs-http-client) GoLang API.
-- Install with `go get github.com/ipfs/go-ipfs-http-client`.
-- Create a go module with `go mod init infura`.
-- Save the following script to a file, for example, `index.go`, and include the Infura `auth` header with the `http.RoundTripper` wrapper.
+* Use the official IPFS [`go-ipfs-http-client`](https://github.com/ipfs/go-ipfs-http-client) GoLang API.
+* Install with `go get github.com/ipfs/go-ipfs-http-client`.
+* Create a go module with `go mod init infura`.
+* Save the following script to a file, for example, `index.go`, and include the Infura `auth` header with the `http.RoundTripper` wrapper.
 
 ```go
 package main
@@ -292,12 +293,12 @@ Data successfully stored in IPFS: QmTHr95iiwSTA2USxx4g5kKnhqsNRixqohhwxjvdXmSrWn
 Now that you have successfully made a call to the IPFS network, you can explore more functionalities and APIs provided
 by Infura. Here are some suggestions:
 
-- **Explore other IPFS APIs**: Infura supports a wide range of APIs. You can find more information in the
+* **Explore other IPFS APIs**: Infura supports a wide range of APIs. You can find more information in the
   [HTTP API methods documentation](http-api-methods/index.md).
 
-- **Try out different networks**: Infura supports multiple networks including Arbitrum, Linea, Polygon, Optimism, and more.
+* **Try out different networks**: Infura supports multiple networks including Arbitrum, Linea, Polygon, Optimism, and more.
 
-- **Monitor your usage**: Monitor your usage on the [MetaMask Developer dashboard](https://dashboard.metamask.io/) to ensure you're not hitting your rate limits.
+* **Monitor your usage**: Monitor your usage on the [MetaMask Developer dashboard](https://dashboard.metamask.io/) to ensure you're not hitting your rate limits.
 
 Remember, the MetaMask community is here to help. If you have any questions or run into any issues, check out the
 [MetaMask community](https://community.metamask.io/) for help and answers to common questions.

@@ -1,7 +1,8 @@
----
+***
+
 description: Retrieve and display ERC-721 and ERC-1155 tokens.
-sidebar_position: 5
----
+sidebar\_position: 5
+--------------------
 
 import Tabs from "@theme/Tabs";
 import TabItem from "@theme/TabItem";
@@ -12,8 +13,8 @@ In this tutorial, you'll retrieve and display ERC-721 and ERC-1155 tokens using 
 
 ## Prerequisites
 
-- An [Ethereum project](../../get-started/infura.md) on Infura
-- [Node.js installed](https://nodejs.org/en/download/)
+* An [Ethereum project](../../get-started/infura.md) on Infura
+* [Node.js installed](https://nodejs.org/en/download/)
 
 ## Steps
 

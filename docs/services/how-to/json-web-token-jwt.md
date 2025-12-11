@@ -1,7 +1,8 @@
----
+***
+
 description: Use JSON Web Tokens to secure data exchange.
-sidebar_position: 9
----
+sidebar\_position: 9
+--------------------
 
 import Tabs from "@theme/Tabs";
 import TabItem from "@theme/TabItem";
@@ -53,47 +54,47 @@ Upload the contents of the public key file that you [generated earlier](json-web
 
 1. In the dashboard, select the API key, then select the **Settings** tab.
 
-    :::info
+   :::info
 
-    You must implement separate security settings for each API key.
+   You must implement separate security settings for each API key.
 
-    :::
+   :::
 
-1. Select **Require JWT for all requests** to enforce JWTs on all requests.
+2. Select **Require JWT for all requests** to enforce JWTs on all requests.
 
-    :::info
+   :::info
 
-    You can use [allowlists](https://dashboard.metamask.io/) to
-    specify a subset of requests that must use JWTs.
+   You can use [allowlists](https://dashboard.metamask.io/) to
+   specify a subset of requests that must use JWTs.
 
-    :::
+   :::
 
-1. Provide a unique name for your JWT public key, which can help you manage multiple keys.
+3. Provide a unique name for your JWT public key, which can help you manage multiple keys.
 
-1. Paste the public key into the **JWT Public Key** input box. It looks something like this:
+4. Paste the public key into the **JWT Public Key** input box. It looks something like this:
 
-    ```
-    -----BEGIN PUBLIC KEY-----
-    MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAr7VlNytvNFt9wVkjJ8vG
-    L4F0+id4kS1CpG7UMh1kghrLg9KMb8gauy7Bxk6PRz5Ckv1FnG4FL+Z3Cdzwd6c8
-    jJlzJxbRTYvNi3elqAyItE3tRl6CatRur49t9nGepgFOrwmPP5We52G5O0BsW6Mx
-    w/neqQH+Y/bXqs0PG/0ZbpTyr044Lh+p9grSuPIogIGIY5JM4AI+fpdH6hVnA7od
-    PkinkWhQqAW+F8jngwZK+JCFS1GAeobTZVbvsiHZQGuP/T7hqE8z5Q8HYO4ymnkI
-    MPH6zSKhSxsQRs/kWU5lXqY67ORC3DIMA+I/AJujLuoqC+YaMP0fO81XjrwXPf2j
-    4wIDAQAB
-    -----END PUBLIC KEY-----
-    ```
+   ```
+   -----BEGIN PUBLIC KEY-----
+   MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAr7VlNytvNFt9wVkjJ8vG
+   L4F0+id4kS1CpG7UMh1kghrLg9KMb8gauy7Bxk6PRz5Ckv1FnG4FL+Z3Cdzwd6c8
+   jJlzJxbRTYvNi3elqAyItE3tRl6CatRur49t9nGepgFOrwmPP5We52G5O0BsW6Mx
+   w/neqQH+Y/bXqs0PG/0ZbpTyr044Lh+p9grSuPIogIGIY5JM4AI+fpdH6hVnA7od
+   PkinkWhQqAW+F8jngwZK+JCFS1GAeobTZVbvsiHZQGuP/T7hqE8z5Q8HYO4ymnkI
+   MPH6zSKhSxsQRs/kWU5lXqY67ORC3DIMA+I/AJujLuoqC+YaMP0fO81XjrwXPf2j
+   4wIDAQAB
+   -----END PUBLIC KEY-----
+   ```
 
-1. Select **Add** to add the key to the settings.
+5. Select **Add** to add the key to the settings.
 
-1. The key has a **Name**, **ID**, **Fingerprint**. These are used for creating and verifying JWTs.
-    You'll need the **ID** to [generate the JWT](json-web-token-jwt.md#generate-a-jwt).
+6. The key has a **Name**, **ID**, **Fingerprint**. These are used for creating and verifying JWTs.
+   You'll need the **ID** to [generate the JWT](json-web-token-jwt.md#generate-a-jwt).
 
-    :::info
+   :::info
 
-    For key rotation, upload up to three keys for each API key.
+   For key rotation, upload up to three keys for each API key.
 
-    :::
+   :::
 
 ## Send requests with JWTs
 
@@ -116,14 +117,14 @@ Generate a JWT with an online tool, or programmatically:
 
 The following example uses the [jwt.io](https://jwt.io) site to generate the JWT:
 
-- Use a supported algorithm (`RS256` or `ES256`) and declare it in the `alg` header field.
-- Specify `JWT` in the `typ` header field.
-- Include the JWT `ID` in the `kid` header field.
-- Have an unexpired `exp` timestamp in the payload data.
-- Specify `infura.io` in the `aud` field.
-- Add the public key and private key created earlier into the **Verify Signature** section.
+* Use a supported algorithm (`RS256` or `ES256`) and declare it in the `alg` header field.
+* Specify `JWT` in the `typ` header field.
+* Include the JWT `ID` in the `kid` header field.
+* Have an unexpired `exp` timestamp in the payload data.
+* Specify `infura.io` in the `aud` field.
+* Add the public key and private key created earlier into the **Verify Signature** section.
 
-<img src={require('@site/static/img/jwt.png').default} alt="Generate a JWT online" />
+\<img src={require('@site/static/img/jwt.png').default} alt="Generate a JWT online" />
 
 :::info
 
@@ -152,7 +153,6 @@ curl -X POST \
 {"jsonrpc": "2.0", "id": 1, "result": "0x1cc23d4"}
 ```
 
-
 ## Next steps
 
 ### Set up allowlists
@@ -169,10 +169,10 @@ A JWT with allowlists must have all of the above settings, plus properly formatt
 
 Set allowlists with one or more of the following keys:
 
-- `methods`
-- `addresses`
-- `origins`
-- `user_agents`
+* `methods`
+* `addresses`
+* `origins`
+* `user_agents`
 
 The following example JWT definition allows only `eth_getBalance` requests, on a single specified address, coming from any HTTP origin, and any user agent.
 
@@ -234,6 +234,6 @@ openssl ec -in private.pem -pubout -outform DER | openssl sha256 -binary | opens
 
 ### Learn more
 
-- Learn more about [keeping your Infura secrets safe](https://www.infura.io/blog/post/best-practises-for-infura-api-key-management).
-- Follow a [tutorial](../tutorials/ethereum/authenticate-with-jwt.md) to create and apply a JWT to authenticate an 
-`eth_blockNumber` API request.
+* Learn more about [keeping your Infura secrets safe](https://www.infura.io/blog/post/best-practises-for-infura-api-key-management).
+* Follow a [tutorial](../tutorials/ethereum/authenticate-with-jwt.md) to create and apply a JWT to authenticate an
+  `eth_blockNumber` API request.

@@ -1,7 +1,8 @@
----
+***
+
 description: Make batch requests
-sidebar_position: 4
----
+sidebar\_position: 4
+--------------------
 
 # Make batch requests
 

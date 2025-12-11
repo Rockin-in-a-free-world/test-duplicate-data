@@ -1,20 +1,21 @@
----
+***
+
 title: Linea trace methods
-sidebar_label: Trace methods
-sidebar_key: linea-trace-methods
----
+sidebar\_label: Trace methods
+sidebar\_key: linea-trace-methods
+---------------------------------
 
 # Linea trace methods
 
 Infura provides access to the following trace API methods to allow users to gain insights into the execution of smart contracts and transactions:
 
-- [`trace_block`](trace_block.mdx)
-- [`trace_transaction`](trace_transaction.mdx)
+* [`trace_block`](trace_block.mdx)
+* [`trace_transaction`](trace_transaction.mdx)
 
 :::info
 
-- Trace API is currently an open beta feature, available to paying Infura customers.
-- `trace_block` and `trace_transaction` returns [`trace`](#trace) diagnostic information.
+* Trace API is currently an open beta feature, available to paying Infura customers.
+* `trace_block` and `trace_transaction` returns [`trace`](#trace) diagnostic information.
 
 :::
 

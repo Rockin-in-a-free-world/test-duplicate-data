@@ -1,6 +1,6 @@
----
-description: Get the estimated gas prices for a chain.
----
+***
+
+## description: Get the estimated gas prices for a chain.
 
 // import CreditCost from '@site/src/components/CreditCost/CreditCostPrice.js'; // Component not available in this project
 import Tabs from "@theme/Tabs";
@@ -9,7 +9,7 @@ import TabItem from "@theme/TabItem";
 # Get EIP-1559 gas prices
 
 Returns the estimated [EIP-1559](https://eips.ethereum.org/EIPS/eip-1559) gas fees for the specified
-blockchain network. {/* <CreditCost network="gasApi" method="suggestedGasFees" />... - Component not available */}
+blockchain network. {/\* <CreditCost network="gasApi" method="suggestedGasFees" />... - Component not available \*/}
 
 **GET** `https://gas.api.infura.io/networks/${chainId}/suggestedGasFees`
 
@@ -17,26 +17,26 @@ blockchain network. {/* <CreditCost network="gasApi" method="suggestedGasFees" /
 
 **Path**:
 
-- `chainId`: `string` - ID of the chain to query.
+* `chainId`: `string` - ID of the chain to query.
   See the [list of supported chain IDs](../../../get-started/endpoints.md#gas-api).
 
 ## Returns
 
 Recommended gas price details based of the level of urgency:
 
-- `low`, `medium`, `high` - Object containing recommended values for transactions by level of urgency:
-  - `suggestedMaxPriorityFeePerGas`: `string` - The maximum suggested priority fee per gas (in gwei) to pay to have transactions included in a block.
-  - `suggestedMaxFeePerGas`: `string` - The maximum suggested total fee per gas (in gwei) to pay, including both the base fee and the priority fee.
-  - `minWaitTimeEstimate`: `number` - The minimum estimated wait time (in milliseconds) for a transaction to be included in a block at the suggested gas price.
-  - `maxWaitTimeEstimate`: `number` - The maximum estimated wait time (in milliseconds) for a transaction to be included in a block at the suggested gas price.
-- `estimatedBaseFee`: `string` - The current estimated base fee per gas on the network.
-- `networkCongestion`: `number` - The current congestion on the network, represented as a number between `0` and `1`.
+* `low`, `medium`, `high` - Object containing recommended values for transactions by level of urgency:
+  * `suggestedMaxPriorityFeePerGas`: `string` - The maximum suggested priority fee per gas (in gwei) to pay to have transactions included in a block.
+  * `suggestedMaxFeePerGas`: `string` - The maximum suggested total fee per gas (in gwei) to pay, including both the base fee and the priority fee.
+  * `minWaitTimeEstimate`: `number` - The minimum estimated wait time (in milliseconds) for a transaction to be included in a block at the suggested gas price.
+  * `maxWaitTimeEstimate`: `number` - The maximum estimated wait time (in milliseconds) for a transaction to be included in a block at the suggested gas price.
+* `estimatedBaseFee`: `string` - The current estimated base fee per gas on the network.
+* `networkCongestion`: `number` - The current congestion on the network, represented as a number between `0` and `1`.
   A lower network congestion score (for example `0.1`), indicates that fewer transactions are being submitted, so it's cheaper to validate transactions.
-- `latestPriorityFeeRange`: `array` - The range of priority fees per gas for recent transactions on the network.
-- `historicalPriorityFeeRange`: `array` - The range of priority fees per gas for transactions on the network over a historical period.
-- `historicalBaseFeeRange`: `array` - The range of base fees per gas on the network over a historical period.
-- `priorityFeeTrend`: `string` - The current trend in priority fees on the network, either `up` or `down` (whether it's getting more expensive or cheaper).
-- `baseFeeTrend`: `string` - The current trend in base fees on the network, either `up` or `down` (whether it's getting more expensive or cheaper).
+* `latestPriorityFeeRange`: `array` - The range of priority fees per gas for recent transactions on the network.
+* `historicalPriorityFeeRange`: `array` - The range of priority fees per gas for transactions on the network over a historical period.
+* `historicalBaseFeeRange`: `array` - The range of base fees per gas on the network over a historical period.
+* `priorityFeeTrend`: `string` - The current trend in priority fees on the network, either `up` or `down` (whether it's getting more expensive or cheaper).
+* `baseFeeTrend`: `string` - The current trend in base fees on the network, either `up` or `down` (whether it's getting more expensive or cheaper).
 
 ## Example
 

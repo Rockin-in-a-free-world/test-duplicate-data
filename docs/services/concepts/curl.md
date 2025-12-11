@@ -1,7 +1,8 @@
----
+***
+
 description: Learning about curl
-sidebar_position: 5
----
+sidebar\_position: 5
+--------------------
 
 # curl
 
@@ -11,7 +12,7 @@ Requests to Infura APIs commonly use curl.
 
 :::info
 
-We recommend the resource [_Everything curl_](https://everything.curl.dev).
+We recommend the resource [*Everything curl*](https://everything.curl.dev).
 
 :::
 

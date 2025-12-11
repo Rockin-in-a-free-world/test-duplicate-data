@@ -1,7 +1,8 @@
----
+***
+
 description: Trace transactions
-sidebar_position: 6
----
+sidebar\_position: 6
+--------------------
 
 import Tabs from "@theme/Tabs";
 import TabItem from "@theme/TabItem";
@@ -19,7 +20,7 @@ extract information about contract interactions, transactions, and blocks on the
 also use the API to retrieve transaction details that are not recorded on the blockchain. For example, use the
 [`trace_call`](../reference/ethereum/json-rpc-methods/trace-methods/trace_call.mdx) API to observe contract interactions.
 
-<img src={require('@site/static/img/trace-call.png').default} alt="Trace API example" />
+\<img src={require('@site/static/img/trace-call.png').default} alt="Trace API example" />
 
 :::tip
 
@@ -45,17 +46,17 @@ The `vmTrace` diagnostic option is not supported.
 
 The ad-hoc tracing API endpoints are:
 
-- [`trace_call`](../reference/ethereum/json-rpc-methods/trace-methods/trace_call.mdx)
-- [`trace_callMany`](../reference/ethereum/json-rpc-methods/trace-methods/trace_callmany.mdx)
+* [`trace_call`](../reference/ethereum/json-rpc-methods/trace-methods/trace_call.mdx)
+* [`trace_callMany`](../reference/ethereum/json-rpc-methods/trace-methods/trace_callmany.mdx)
 
 ## Transaction-trace filtering APIs
 
 These API endpoints allow you to filter and search by specific information such as the block, address, or transaction. The endpoints
 only use the [`trace`](../reference/ethereum/json-rpc-methods/trace-methods/index.md) diagnostic option. The transaction-trace filtering API endpoints are:
 
-- [`trace_block`](../reference/ethereum/json-rpc-methods/trace-methods/trace_block.mdx)
-- [`trace_transaction`](../reference/ethereum/json-rpc-methods/trace-methods/trace_transaction.mdx)
-- [`trace_filter`](../reference/ethereum/json-rpc-methods/trace-methods/trace_filter.mdx)
+* [`trace_block`](../reference/ethereum/json-rpc-methods/trace-methods/trace_block.mdx)
+* [`trace_transaction`](../reference/ethereum/json-rpc-methods/trace-methods/trace_transaction.mdx)
+* [`trace_filter`](../reference/ethereum/json-rpc-methods/trace-methods/trace_filter.mdx)
 
 ## Trace a transaction example
 
@@ -134,16 +135,16 @@ curl https://mainnet.infura.io/v3/<YOUR-API-KEY> \
 
 Use cases for the trace API include:
 
-- **Debugging transactions** - The trace API allows you to analyze and debug Ethereum transactions.
+* **Debugging transactions** - The trace API allows you to analyze and debug Ethereum transactions.
   Trace the execution of a transaction to identify issues or bugs in smart contracts or dapps.
   Track the sequence of operations, inspect the input and output data, and pinpoint potential errors
   or unexpected behavior.
-- **Optimizing gas usage** - The trace API allows you to analyze the gas consumption of transactions
+* **Optimizing gas usage** - The trace API allows you to analyze the gas consumption of transactions
   and identify areas where gas usage can be optimized.
   By examining the execution trace, you can spot expensive operations, inefficient code patterns, or
   unnecessary computations that consume excessive gas.
   You can use this information to refactor smart contracts and reduce transaction costs for users.
-- **Security auditing** - Conduct security audits of smart contracts and dapps by tracing the
+* **Security auditing** - Conduct security audits of smart contracts and dapps by tracing the
   execution flow.
   This allows you to identify potential vulnerabilities or attack vectors in the code.
   You can analyze contract interactions, track data modifications, and validate that the smart

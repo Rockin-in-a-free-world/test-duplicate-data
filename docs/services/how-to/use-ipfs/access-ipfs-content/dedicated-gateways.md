@@ -45,16 +45,16 @@ Enter a unique subdomain name for your dedicated gateway and select **Save Subdo
 
 :::info Subdomain format
 
-- Subdomain length must be \<\= 63 characters.
-- Subdomain must contain letters, numbers and dashes; matching the following regex: ^\[a-z0-9-]\*$.
+* Subdomain length must be <= 63 characters.
+* Subdomain must contain letters, numbers and dashes; matching the following regex: ^\[a-z0-9-]\*$.
 
 :::
 
 :::info Subdomain restrictions
 
-- An account is allowed a maximum of 20 unique subdomains across all IPFS projects.
-- One active subdomain allowed per project.
-- Subdomains are reusable.
+* An account is allowed a maximum of 20 unique subdomains across all IPFS projects.
+* One active subdomain allowed per project.
+* Subdomains are reusable.
 
 :::
 
@@ -84,11 +84,11 @@ To disable a gateway, slide the **ENABLED** toggle left and confirm.
 
 Things to note when disabling a gateway:
 
-- The gateway is only disabled, not deleted, and you can use it again.
-- Traffic is blocked and all settings are lost.
-- To create a new gateway, switch the toggle to `Enabled` again.
-- To re-enable the disabled gateway, switch the toggle to `Enabled` and use the same gateway name as before.
-- Re-enabling and renaming both count towards the 20 name maximum.
+* The gateway is only disabled, not deleted, and you can use it again.
+* Traffic is blocked and all settings are lost.
+* To create a new gateway, switch the toggle to `Enabled` again.
+* To re-enable the disabled gateway, switch the toggle to `Enabled` and use the same gateway name as before.
+* Re-enabling and renaming both count towards the 20 name maximum.
 
 :::info
 
@@ -106,11 +106,11 @@ The dedicated gateway, and API calls, both count in stats and billing.
 
 Traffic is billed at the same price as access to IPFS via the Infura API:
 
-- 5GB of storage free.
-- 5GB data transfer up free.
-- 5GB data transfer down free.
+* 5GB of storage free.
+* 5GB data transfer up free.
+* 5GB data transfer down free.
 
 Anything above those limits is charged at:
 
-- Unlimited storage at **$0.08/GB/month.**
-- Unlimited data transfer at **$0.12/GB/month.**
+* Unlimited storage at **$0.08/GB/month.**
+* Unlimited data transfer at **$0.12/GB/month.**

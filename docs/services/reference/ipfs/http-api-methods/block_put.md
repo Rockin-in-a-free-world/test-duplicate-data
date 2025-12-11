@@ -36,10 +36,10 @@ curl "https://ipfs.infura.io:5001/api/v0/block/put" \
 
 #### Request parameters
 
-- `file` _\[Required]_ - The path to a file to be added to IPFS.
-- `format` _\[Optional]_ - Content ID format for blocks to be created with. The default is `v0`.
-- `mhtype` _\[Optional]_ - Multihash hash function. The default is `sha2-256`.
-- `mhlen` _\[Optional]_ - Multihash hash length. The default is `-1`.
+* `file` *\[Required]* - The path to a file to be added to IPFS.
+* `format` *\[Optional]* - Content ID format for blocks to be created with. The default is `v0`.
+* `mhtype` *\[Optional]* - Multihash hash function. The default is `sha2-256`.
+* `mhlen` *\[Optional]* - Multihash hash length. The default is `-1`.
 
 ### Response
 
@@ -56,5 +56,5 @@ On success, the call to this endpoint will return with 200 and the following bod
 
 #### Result fields
 
-- `Key` - Key of the block.
-- `Size` - Integer indication size in bytes.
+* `Key` - Key of the block.
+* `Size` - Integer indication size in bytes.

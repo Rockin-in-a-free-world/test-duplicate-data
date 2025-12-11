@@ -32,7 +32,7 @@ curl "https://ipfs.infura.io:5001/api/v0/pin/rm?arg=QmfQ5QAjvg4GtA3wg3adpnDJug8k
 
 #### Request parameters
 
-- `arg` _\[Required]_ - Path to objects to be unpinned.
+* `arg` *\[Required]* - Path to objects to be unpinned.
 
 ### Response
 

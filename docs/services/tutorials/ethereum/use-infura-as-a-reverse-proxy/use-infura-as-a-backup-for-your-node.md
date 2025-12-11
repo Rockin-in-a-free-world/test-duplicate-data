@@ -1,6 +1,6 @@
----
-description: Use Caddy to set Infura as a backup for your node.
----
+***
+
+## description: Use Caddy to set Infura as a backup for your node.
 
 import Tabs from "@theme/Tabs";
 import TabItem from "@theme/TabItem";
@@ -11,9 +11,9 @@ In this tutorial, you'll use [Caddy](https://caddyserver.com/) to set up a rever
 
 ## Prerequisites
 
-- An [Ethereum project](../../../get-started/infura.md) on Infura
-- [Node.js installed](https://nodejs.org/en/download/)
-- [Homebrew](https://brew.sh/) installed
+* An [Ethereum project](../../../get-started/infura.md) on Infura
+* [Node.js installed](https://nodejs.org/en/download/)
+* [Homebrew](https://brew.sh/) installed
 
 ## Steps
 
@@ -71,7 +71,7 @@ This sets up a backend HTTPS service running on `127.0.0.1:9000` (`localhost:900
 
 :::warning
 
-When creating a reverse proxy with multiple upstreams, Caddy requires _all_ upstream endpoints to be HTTP or HTTPS. In this tutorial, because the backup Infura endpoint is HTTPS, you must create a TLS certificate for your localhost (if you're not already using your own private HTTPS node).
+When creating a reverse proxy with multiple upstreams, Caddy requires *all* upstream endpoints to be HTTP or HTTPS. In this tutorial, because the backup Infura endpoint is HTTPS, you must create a TLS certificate for your localhost (if you're not already using your own private HTTPS node).
 
 :::
 

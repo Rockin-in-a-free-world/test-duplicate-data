@@ -1,7 +1,8 @@
----
+***
+
 description: Infura supports ERC-4337 bundler methods.
-sidebar_label: Bundler methods
----
+sidebar\_label: Bundler methods
+-------------------------------
 
 # Bundler methods (ERC-4337)
 
@@ -39,10 +40,10 @@ as raw L1/L2 transactions.
 The EntryPoint contract is the shared coordination contract defined by ERC-4337. Bundlers call them to
 validate and execute user operations (UserOps) from smart accounts. At a high level, an EntryPoint:
 
-- Runs the ERC-4337 validation and execution.
-- Enforces nonce and signature checks exposed by each smart account.
-- Coordinates fee payment (including paymasters).
-- Executes the requested calls onchain.
+* Runs the ERC-4337 validation and execution.
+* Enforces nonce and signature checks exposed by each smart account.
+* Coordinates fee payment (including paymasters).
+* Executes the requested calls onchain.
 
 The bundler supports calling multiple EntryPoint versions (v0.6 and v0.7/v0.8) through the same set
 of RPC methods, allowing it to handle both older and modern smart account schemes.
@@ -54,42 +55,42 @@ method to fetch the EntryPoint addresses supported by the bundler.
 
 The following bundler methods are available on the [supported networks](#supported-networks):
 
-- [`eth_sendUserOperation`](../reference/ethereum/json-rpc-methods/bundler/eth_senduseroperation.mdx):
-    Submits a user operation to be included onchain.
-- [`eth_estimateUserOperationGas`](../reference/ethereum/json-rpc-methods/bundler/eth_estimateuseroperationgas.mdx):
-    Simulates the user operation and estimates the appropriate gas limits.
-- [`eth_getUserOperationReceipt`](../reference/ethereum/json-rpc-methods/bundler/eth_getuseroperationreceipt.mdx):
-    Fetches the receipt of a user operation.
-- [`eth_getUserOperationByHash`](../reference/ethereum/json-rpc-methods/bundler/eth_getuseroperationbyhash.mdx):
-    Fetches the user operation by hash.
-- [`eth_supportedEntryPoints`](../reference/ethereum/json-rpc-methods/bundler/eth_supportedentrypoints.mdx):
-    Fetches the EntryPoint addresses supported by the bundler.
-- [`pimlico_getUserOperationGasPrice`](../reference/ethereum/json-rpc-methods/bundler/pimlico_getuseroperationgasprice.mdx):
-    Returns the gas prices that must be used for the user operation.
-- [`pimlico_getUserOperationStatus`](../reference/ethereum/json-rpc-methods/bundler/pimlico_getuseroperationstatus.mdx):
-    Returns the user operation status.
-- [`pimlico_simulateAssetChanges`](../reference/ethereum/json-rpc-methods/bundler/pimlico_simulateassetchanges.mdx):
-    Simulates a user operation to predict the asset changes it will cause.
+* [`eth_sendUserOperation`](../reference/ethereum/json-rpc-methods/bundler/eth_senduseroperation.mdx):
+  Submits a user operation to be included onchain.
+* [`eth_estimateUserOperationGas`](../reference/ethereum/json-rpc-methods/bundler/eth_estimateuseroperationgas.mdx):
+  Simulates the user operation and estimates the appropriate gas limits.
+* [`eth_getUserOperationReceipt`](../reference/ethereum/json-rpc-methods/bundler/eth_getuseroperationreceipt.mdx):
+  Fetches the receipt of a user operation.
+* [`eth_getUserOperationByHash`](../reference/ethereum/json-rpc-methods/bundler/eth_getuseroperationbyhash.mdx):
+  Fetches the user operation by hash.
+* [`eth_supportedEntryPoints`](../reference/ethereum/json-rpc-methods/bundler/eth_supportedentrypoints.mdx):
+  Fetches the EntryPoint addresses supported by the bundler.
+* [`pimlico_getUserOperationGasPrice`](../reference/ethereum/json-rpc-methods/bundler/pimlico_getuseroperationgasprice.mdx):
+  Returns the gas prices that must be used for the user operation.
+* [`pimlico_getUserOperationStatus`](../reference/ethereum/json-rpc-methods/bundler/pimlico_getuseroperationstatus.mdx):
+  Returns the user operation status.
+* [`pimlico_simulateAssetChanges`](../reference/ethereum/json-rpc-methods/bundler/pimlico_simulateassetchanges.mdx):
+  Simulates a user operation to predict the asset changes it will cause.
 
 ## Supported networks
 
 Bundler methods are active on the following networks:
 
-- Arbitrum (mainnet and Sepolia)
-- Avalanche (mainnet and Fuji)
-- [Base](../reference/base/json-rpc-methods/bundler/index.md) (mainnet and Sepolia)
-- Blast (mainnet and Sepolia)
-- BNB Smart Chain (mainnet and testnet)
-- Celo (mainnet and Alfajores)
-- [Ethereum](../reference/ethereum/json-rpc-methods/bundler/index.md) (mainnet and Sepolia)
-- [Linea](../reference/linea/json-rpc-methods/bundler/index.md) (mainnet and Sepolia)
-- Mantle (mainnet and Sepolia)
-- opBNB (mainnet)
-- Optimism (mainnet and Sepolia)
-- Polygon (mainnet and Amoy)
-- Scroll (mainnet and Sepolia)
-- Sei (mainnet and testnet)
-- Unichain (mainnet and Sepolia)
+* Arbitrum (mainnet and Sepolia)
+* Avalanche (mainnet and Fuji)
+* [Base](../reference/base/json-rpc-methods/bundler/index.md) (mainnet and Sepolia)
+* Blast (mainnet and Sepolia)
+* BNB Smart Chain (mainnet and testnet)
+* Celo (mainnet and Alfajores)
+* [Ethereum](../reference/ethereum/json-rpc-methods/bundler/index.md) (mainnet and Sepolia)
+* [Linea](../reference/linea/json-rpc-methods/bundler/index.md) (mainnet and Sepolia)
+* Mantle (mainnet and Sepolia)
+* opBNB (mainnet)
+* Optimism (mainnet and Sepolia)
+* Polygon (mainnet and Amoy)
+* Scroll (mainnet and Sepolia)
+* Sei (mainnet and testnet)
+* Unichain (mainnet and Sepolia)
 
 :::info
 [Contact support](https://support.infura.io/) if you require bundler method activation on a network not listed here that’s currently supported by Pimlico.

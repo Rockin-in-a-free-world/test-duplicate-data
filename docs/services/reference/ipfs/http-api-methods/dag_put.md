@@ -36,10 +36,10 @@ curl "https://ipfs.infura.io:5001/api/v0/dag/put" \
 
 #### Request parameters
 
-- `store-codec` _\[Optional]_: Codec that the stored object will be encoded with. The default is `dag-cbor`.
-- `input-codec` _\[Optional]_: Codec that the input object is encoded in. The default is `dag-json`.
-- `pin` _\[Optional]_: Set to `true` to pin this object when adding.
-- `hash` _\[Optional]_: Hash function to use. The default is `sha2-256`.
+* `store-codec` *\[Optional]*: Codec that the stored object will be encoded with. The default is `dag-cbor`.
+* `input-codec` *\[Optional]*: Codec that the input object is encoded in. The default is `dag-json`.
+* `pin` *\[Optional]*: Set to `true` to pin this object when adding.
+* `hash` *\[Optional]*: Hash function to use. The default is `sha2-256`.
 
 ### Response
 
@@ -57,4 +57,4 @@ On success, the call to this endpoint will return with 200 and the following bod
 
 #### Result fields
 
-- `Cid` - [Content ID](https://github.com/multiformats/cid).
+* `Cid` - [Content ID](https://github.com/multiformats/cid).

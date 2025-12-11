@@ -1,7 +1,8 @@
----
+***
+
 description: Monitor transfers to an Ethereum account.
-sidebar_position: 4
----
+sidebar\_position: 4
+--------------------
 
 import Tabs from "@theme/Tabs";
 import TabItem from "@theme/TabItem";
@@ -12,7 +13,7 @@ In this tutorial, you'll monitor transfers to an Ethereum account using the Web3
 
 ## Prerequisites
 
-- [Pip](https://pip.pypa.io/en/stable/installation/) installed
+* [Pip](https://pip.pypa.io/en/stable/installation/) installed
 
 ## Steps
 

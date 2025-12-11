@@ -1,6 +1,6 @@
----
-description: Deploy an NFT smart contract on Palm using Hardhat.
----
+***
+
+## description: Deploy an NFT smart contract on Palm using Hardhat.
 
 # Deploy an NFT smart contract on Palm using Hardhat
 

@@ -1,6 +1,6 @@
----
-description: Get the base fee percentile for a chain.
----
+***
+
+## description: Get the base fee percentile for a chain.
 
 // import CreditCost from '@site/src/components/CreditCost/CreditCostPrice.js'; // Component not available in this project
 import Tabs from "@theme/Tabs";
@@ -8,7 +8,7 @@ import TabItem from "@theme/TabItem";
 
 # Get the base fee percentile
 
-Returns the base fee percentile (50th percentile) of the specified blockchain network. {/* <CreditCost network="gasApi" method="baseFeePercentile" />... - Component not available */}
+Returns the base fee percentile (50th percentile) of the specified blockchain network. {/\* <CreditCost network="gasApi" method="baseFeePercentile" />... - Component not available \*/}
 
 For example, if the API returns a value of `20` Gwei, it means that 50% of the historical base fees
 are less than or equal to `20` Gwei.
@@ -22,7 +22,7 @@ based on historical data.
 
 **Path**:
 
-- `chainId`: `string` - ID of the chain to query.
+* `chainId`: `string` - ID of the chain to query.
   See the [list of supported chain IDs](../../../get-started/endpoints.md#gas-api).
 
 ## Returns

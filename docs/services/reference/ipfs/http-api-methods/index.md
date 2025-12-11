@@ -1,6 +1,6 @@
----
-sidebar_label: HTTP API
----
+***
+
+## sidebar\_label: HTTP API
 
 # IPFS HTTP API
 
@@ -58,14 +58,14 @@ Some arguments may belong only to the CLI but appear here too. These usually bel
 
 Status codes used at the RPC layer are simple:
 
-- `200` - The request was processed or is being processed (streaming)
-- `500` - RPC endpoint returned an error
-- `400` - Malformed RPC, argument type error, etc
-- `403` - RPC call forbidden
-- `404` - RPC endpoint doesn't exist
-- `405` - HTTP Method Not Allowed
+* `200` - The request was processed or is being processed (streaming)
+* `500` - RPC endpoint returned an error
+* `400` - Malformed RPC, argument type error, etc
+* `403` - RPC call forbidden
+* `404` - RPC endpoint doesn't exist
+* `405` - HTTP Method Not Allowed
 
-Status code `500` means that the requested RPC function _does_ exist, but IPFS was not able to fulfill the request because of an error. To know the reason, you have to look at the error message that is usually returned with the body of the response (if no error, check application logs).
+Status code `500` means that the requested RPC function *does* exist, but IPFS was not able to fulfill the request because of an error. To know the reason, you have to look at the error message that is usually returned with the body of the response (if no error, check application logs).
 
 Streaming endpoints fail as above, unless they have started streaming. That means they will have sent a `200` status code already. If an error happens during the stream, it will be included in a `Trailer` response header (some endpoints may additionally include an error in the last streamed object).
 

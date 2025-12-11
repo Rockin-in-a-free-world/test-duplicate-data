@@ -1,6 +1,6 @@
----
-description: Send a transaction using Web3.js.
----
+***
+
+## description: Send a transaction using Web3.js.
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
@@ -11,9 +11,9 @@ In this tutorial, you'll send a regular transaction of 0.001 ETH from one accoun
 
 ## Prerequisites
 
-- A [Web3 project](../../../get-started/infura.md) on Infura
-- [Node.js installed](https://nodejs.org/en/download/)
-- An Ethereum account
+* A [Web3 project](../../../get-started/infura.md) on Infura
+* [Node.js installed](https://nodejs.org/en/download/)
+* An Ethereum account
 
 :::info
 
@@ -25,15 +25,15 @@ Use [MetaMask](https://metamask.io) or similar to create an Ethereum account for
 
 ### 1. Select your network and verify funds
 
-- **Sepolia** - To use the Sepolia testnet, ensure that your account has Sepolia ETH.
+* **Sepolia** - To use the Sepolia testnet, ensure that your account has Sepolia ETH.
   You can use the [MetaMask faucet](https://faucet.metamask.io/) to add more funds.
-- **Alternative network** - To use an alternative network, ensure that your account has testnet ETH for that network.
+* **Alternative network** - To use an alternative network, ensure that your account has testnet ETH for that network.
   :::info note
   When using an alternative network, you'll:
 
-  - Update your `.env` file in [Step 4](#4-create-a-env-file) with the alternative network name.
-  - Update the `chaindId` in [Step 5](#5-create-a-sendjs-file) with the alternative network chain ID.
-  :::
+  * Update your `.env` file in [Step 4](#4-create-a-env-file) with the alternative network name.
+  * Update the `chaindId` in [Step 5](#5-create-a-sendjs-file) with the alternative network chain ID.
+    :::
 
 ### 2. Create a project directory
 
@@ -98,9 +98,9 @@ SIGNER_PRIVATE_KEY = "0x561...x...61df"
 
 Replace the following values in the `.env` file:
 
-- `<NETWORK>` with `sepolia` or the alternative network you are using.
-- `<YOUR-API-KEY>` with your API key of the web3 project.
-- `<PRIVATE-KEY>` with the [private key of your Ethereum account](https://support.metamask.io/configure/accounts/how-to-export-an-accounts-private-key/). A transaction must be signed with the sender's private key. Make sure that you prefix the `SIGNER_PRIVATE_KEY` value with `0x`. The private key you export from MetaMask isn't prefixed with `0x`.
+* `<NETWORK>` with `sepolia` or the alternative network you are using.
+* `<YOUR-API-KEY>` with your API key of the web3 project.
+* `<PRIVATE-KEY>` with the [private key of your Ethereum account](https://support.metamask.io/configure/accounts/how-to-export-an-accounts-private-key/). A transaction must be signed with the sender's private key. Make sure that you prefix the `SIGNER_PRIVATE_KEY` value with `0x`. The private key you export from MetaMask isn't prefixed with `0x`.
 
 :::danger
 
@@ -115,8 +115,8 @@ For example:
 
 :::warning Important
 
-- To send test ETH to an account of your choice, update line 20 with your selected account.
-- If you are using an alternative network to Sepolia, update the `chainId` in line 39 with your
+* To send test ETH to an account of your choice, update line 20 with your selected account.
+* If you are using an alternative network to Sepolia, update the `chainId` in line 39 with your
   network chain ID.
 
 :::

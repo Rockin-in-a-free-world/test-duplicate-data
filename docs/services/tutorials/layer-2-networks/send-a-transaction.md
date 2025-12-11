@@ -1,21 +1,21 @@
----
-description: Send a transaction of the Polygon network.
----
+***
+
+## description: Send a transaction of the Polygon network.
 
 # Send a transaction with Polygon
 
 As with Ethereum, [transactions](https://ethereum.org/en/developers/docs/transactions/) are state-changing actions on the Polygon PoS blockchain. Examples of transactions are:
 
-- Regular transactions from one account to another.
-- Contract deployment transactions, or calling a function in a smart contract.
+* Regular transactions from one account to another.
+* Contract deployment transactions, or calling a function in a smart contract.
 
 This tutorial uses the Ethereum Web3 JavaScript library to send a transaction between two accounts on the Polygon-Mumbai testnet.
 
 ## Prerequisites
 
-- An Infura [API key](https://dashboard.metamask.io/)
-- [Node.js installed](https://nodejs.org/en/download/)
-- [MetaMask installed](https://metamask.io) and an account for testing purposes
+* An Infura [API key](https://dashboard.metamask.io/)
+* [Node.js installed](https://nodejs.org/en/download/)
+* [MetaMask installed](https://metamask.io) and an account for testing purposes
 
 :::info
 
@@ -81,8 +81,8 @@ SIGNER_PRIVATE_KEY = "<Private-Key>"
 
 Ensure you replace the following values in the `.env` file:
 
-- `<YOUR-API-KEY>` with the API key from your [MetaMask Developer dashboard](https://developer.metamask.io/).
-- `<Private-Key>` with the [private key of your account](https://metamask.zendesk.com/hc/en-us/articles/360015289632-How-to-Export-an-Account-Private-Key).
+* `<YOUR-API-KEY>` with the API key from your [MetaMask Developer dashboard](https://developer.metamask.io/).
+* `<Private-Key>` with the [private key of your account](https://metamask.zendesk.com/hc/en-us/articles/360015289632-How-to-Export-an-Account-Private-Key).
 
 :::danger
 

@@ -1,19 +1,19 @@
-This section contains the JSON-RPC API endpoints on the left sidebar. You can [call these APIs using a variety of tools](../quickstart).
+This section contains the JSON-RPC API endpoints on the left sidebar. You can call these APIs using a variety of tools.
 
 ## Error codes
 
 You may encounter various errors when interacting with a network:
 
-- [**JSON-RPC errors**](#json-rpc-errors):
+* [**JSON-RPC errors**](#json-rpc-errors):
   These are related to operations on the blockchain network. It means the server has received the JSON-RPC
   request but encountered an issue processing it. Causes might include invalid parameters, a method not
   found, or execution errors related to the requested operation.
 
-- [**HTTP errors**](#http-errors): These happen at the transport layer during data transmission to the blockchain
+* [**HTTP errors**](#http-errors): These happen at the transport layer during data transmission to the blockchain
   network. They could stem from Infura-related issues like rate limits, API key problems, or
   service availability issues.
 
-- [**Smart contract errors**](#smart-contract-errors): These arise during attempts to execute transactions in the EVM
+* [**Smart contract errors**](#smart-contract-errors): These arise during attempts to execute transactions in the EVM
   involving smart contracts.
 
 ### JSON-RPC errors
@@ -81,10 +81,10 @@ service availability problems.
 When interacting with smart contracts, you might also encounter errors related to the execution of
 transactions in the EVM:
 
-- **Out of gas**: The transaction doesn't have enough gas to complete.
-- **Revert**: The transaction was reverted by the EVM, often due to a condition in the smart contract code.
-- **Bad instruction**: The transaction tried to execute an invalid operation.
-- **Bad jump destination**: A jump was made to an invalid location in the smart contract code.
+* **Out of gas**: The transaction doesn't have enough gas to complete.
+* **Revert**: The transaction was reverted by the EVM, often due to a condition in the smart contract code.
+* **Bad instruction**: The transaction tried to execute an invalid operation.
+* **Bad jump destination**: A jump was made to an invalid location in the smart contract code.
 
 ## Value encoding
 
@@ -94,10 +94,10 @@ Specific types of values passed to and returned from Ethereum RPC methods requir
 
 A `Quantity` (integer, number) must:
 
-- Be hex-encoded.
-- Be `0x`-prefixed.
-- Be expressed using the fewest possible hex digits per byte.
-- Express zero as `0x0`.
+* Be hex-encoded.
+* Be `0x`-prefixed.
+* Be expressed using the fewest possible hex digits per byte.
+* Express zero as `0x0`.
 
 Examples `Quantity` values:
 
@@ -115,12 +115,12 @@ Examples `Quantity` values:
 
 The RPC methods below take a default block identifier as a parameter.
 
-- `eth_getBalance`
-- `eth_getStorageAt`
-- `eth_getTransactionCount`
-- `eth_getCode`
-- `eth_call`
-- `eth_getProof`
+* `eth_getBalance`
+* `eth_getStorageAt`
+* `eth_getTransactionCount`
+* `eth_getCode`
+* `eth_call`
+* `eth_getProof`
 
 Since there is no way to clearly distinguish between a `Data` parameter and a `Quantity` parameter, [EIP-1898](https://eips.ethereum.org/EIPS/eip-1898) provides a format to specify a block either using the block hash or block number. The block identifier is a JSON `object` with the following fields:
 
@@ -134,9 +134,9 @@ Since there is no way to clearly distinguish between a `Data` parameter and a `Q
 
 A `Data` value (for example, byte arrays, account addresses, hashes, and bytecode arrays) must:
 
-- Be hex-encoded.
-- Be `0x`-prefixed.
-- Be expressed using two hex digits per byte.
+* Be hex-encoded.
+* Be `0x`-prefixed.
+* Be expressed using two hex digits per byte.
 
 Examples `Data` values:
 

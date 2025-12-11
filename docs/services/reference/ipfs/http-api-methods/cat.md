@@ -32,7 +32,7 @@ curl "https://ipfs.infura.io:5001/api/v0/cat?arg=QmZtmD2qt6fJot32nabSP3CUjicnypE
 
 #### Request parameters
 
-- `arg` _\[required]_ - The IPFS object hash.
+* `arg` *\[required]* - The IPFS object hash.
 
 ### Response
 

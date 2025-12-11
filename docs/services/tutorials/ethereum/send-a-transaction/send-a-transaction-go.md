@@ -1,6 +1,6 @@
----
-description: Send a transaction using Go.
----
+***
+
+## description: Send a transaction using Go.
 
 # Use Go
 
@@ -8,8 +8,8 @@ Send a regular transaction from one account to another with [Go](https://go.dev/
 
 ## Prerequisites
 
-- [Go](https://go.dev/doc/install) installed.
-- An Ethereum account containing some [Sepolia test ETH](https://www.infura.io/faucet).
+* [Go](https://go.dev/doc/install) installed.
+* An Ethereum account containing some [Sepolia test ETH](https://www.infura.io/faucet).
 
 :::info
 
@@ -128,9 +128,9 @@ func main() {
 
 Replace the following values in the script:
 
-- `<YOUR-API-KEY>` with the Infura API key.
-- `<PRIVATE-KEY>` with the [private key of your Ethereum account](https://support.metamask.io/configure/accounts/how-to-export-an-accounts-private-key/).
-- `<ADDRESS-TO>` with the address of the recipient of funds.
+* `<YOUR-API-KEY>` with the Infura API key.
+* `<PRIVATE-KEY>` with the [private key of your Ethereum account](https://support.metamask.io/configure/accounts/how-to-export-an-accounts-private-key/).
+* `<ADDRESS-TO>` with the address of the recipient of funds.
 
 If using a different Ethereum network, update the URL in the script.
 

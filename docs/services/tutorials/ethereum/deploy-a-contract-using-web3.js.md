@@ -1,7 +1,8 @@
----
+***
+
 description: Create and deploy a smart contract.
-sidebar_position: 2
----
+sidebar\_position: 2
+--------------------
 
 # Deploy a contract using web3.js
 
@@ -9,9 +10,9 @@ In this tutorial, you'll create a simple smart contract and use the Web3 JavaScr
 
 ## Prerequisites
 
-- An [Ethereum project](../../get-started/infura.md) on Infura
-- [Node.js installed](https://nodejs.org/en/download/)
-- An Ethereum account for testing purposes
+* An [Ethereum project](../../get-started/infura.md) on Infura
+* [Node.js installed](https://nodejs.org/en/download/)
+* An Ethereum account for testing purposes
 
 :::info
 
@@ -87,9 +88,9 @@ SIGNER_PRIVATE_KEY = "<YOUR-PRIVATE-KEY>"
 
 Ensure you replace the following values in the `.env` file:
 
-- `<YOUR-API-KEY>` with the API key of the Ethereum project.
-- `<Private-Key>` with the [private key of your Ethereum account](https://metamask.zendesk.com/hc/en-us/articles/360015289632-How-to-Export-an-Account-Private-Key).
-- If using a network other than Sepolia, ensure you update `ETHEREUM_NETWORK` with the network name.
+* `<YOUR-API-KEY>` with the API key of the Ethereum project.
+* `<Private-Key>` with the [private key of your Ethereum account](https://metamask.zendesk.com/hc/en-us/articles/360015289632-How-to-Export-an-Account-Private-Key).
+* If using a network other than Sepolia, ensure you update `ETHEREUM_NETWORK` with the network name.
 
 :::danger
 

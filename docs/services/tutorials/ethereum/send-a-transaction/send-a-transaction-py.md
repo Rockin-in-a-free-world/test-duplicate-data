@@ -1,6 +1,6 @@
----
-description: Send a transaction using Python.
----
+***
+
+## description: Send a transaction using Python.
 
 # Use Python
 
@@ -8,8 +8,8 @@ Send a regular transaction from one account to another with [Python](https://www
 
 ## Prerequisites
 
-- [Node.js](https://nodejs.org/en/download/).
-- An Ethereum account containing some [Sepolia test ETH](https://www.infura.io/faucet).
+* [Node.js](https://nodejs.org/en/download/).
+* An Ethereum account containing some [Sepolia test ETH](https://www.infura.io/faucet).
 
 :::info
 
@@ -109,9 +109,9 @@ print("Transaction hash: " + str(web3.to_hex(tx_hash)))
 
 Ensure you replace the following values in the code:
 
-- `<YOUR-API-KEY>` with the API key of the Web3 project.
-- `<PUBLIC-KEY>` with the public key associated with the private key you added in the `.env` file.
-- `<RECIPIENT-PUBLIC-KEY>` With the public key of the recipient of the transfer.
+* `<YOUR-API-KEY>` with the API key of the Web3 project.
+* `<PUBLIC-KEY>` with the public key associated with the private key you added in the `.env` file.
+* `<RECIPIENT-PUBLIC-KEY>` With the public key of the recipient of the transfer.
 
 If using a different Ethereum network, update the URL in the code.
 

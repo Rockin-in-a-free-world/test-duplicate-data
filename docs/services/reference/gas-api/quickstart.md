@@ -1,8 +1,9 @@
----
+***
+
 description: Get started with the Gas APIs.
-sidebar_label: Quickstart
-sidebar_position: 1
----
+sidebar\_label: Quickstart
+sidebar\_position: 1
+--------------------
 
 import Tabs from "@theme/Tabs";
 import TabItem from "@theme/TabItem";
@@ -19,9 +20,9 @@ View the [API reference content](api-reference/index.md) to view the `curl` comm
 
 ## Prerequisites
 
-- A valid [Web3 API key](https://dashboard.metamask.io/)
+* A valid [Web3 API key](https://dashboard.metamask.io/)
   and optional [API key secret](https://dashboard.metamask.io/).
-- [Node.js and npm installed](https://nodejs.org/en/download).
+* [Node.js and npm installed](https://nodejs.org/en/download).
 
 ## Initialize a new project directory
 

@@ -1,7 +1,8 @@
----
+***
+
 description: Retrieve the balance of an ERC-20 token.
-sidebar_position: 6
----
+sidebar\_position: 6
+--------------------
 
 import Tabs from "@theme/Tabs";
 import TabItem from "@theme/TabItem";
@@ -12,8 +13,8 @@ In this tutorial, using Web3.js, you'll retrieve the balance of an [ERC-20 token
 
 ## Prerequisites
 
-- An [Ethereum project](../../get-started/infura.md) on Infura
-- [Node.js installed](https://nodejs.org/en/download/)
+* An [Ethereum project](../../get-started/infura.md) on Infura
+* [Node.js installed](https://nodejs.org/en/download/)
 
 ## Steps
 
@@ -86,7 +87,7 @@ To retrieve the balance of a token, you need the contract address of the token. 
 
 This example uses a DAI token contract. However, you can use any ERC-20 token contract address. Copy the token contract address you wish to use.
 
-<img src={require('@site/static/img/contract_address.jpeg').default} alt="" />
+\<img src={require('@site/static/img/contract\_address.jpeg').default} alt="" />
 
 ### 6. Request the token balance
 

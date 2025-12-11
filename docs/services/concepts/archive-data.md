@@ -1,7 +1,8 @@
----
+***
+
 description: Learn about archive data.
-sidebar_position: 2
----
+sidebar\_position: 2
+--------------------
 
 # Archive data
 
@@ -16,17 +17,17 @@ archive data currently cost the same as non-archive data, but this might change 
 
 Access to archive data is automatically enabled on the following supported networks:
 
- |Mainnet |Testnet|
- |--------|-------|
- |Ethereum|Sepolia|
- |Optimism|Sepolia|
- |Polygon |Amoy   |
- |Arbitrum|       |
- |Celo    |       |
- |Sei     |       |
+|Mainnet |Testnet|
+|--------|-------|
+|Ethereum|Sepolia|
+|Optimism|Sepolia|
+|Polygon |Amoy   |
+|Arbitrum|       |
+|Celo    |       |
+|Sei     |       |
 
 Infura provides access to [full nodes](#full-nodes)
-and [archive nodes](#archive-nodes). 
+and [archive nodes](#archive-nodes).
 
 ## Full nodes
 
@@ -48,8 +49,8 @@ Requests for data older than the most recent 128 blocks require access to archiv
 
 The following methods include a parameter for specifying a block number for the request.
 
-- `eth_getBalance`
-- `eth_getCode`
-- `eth_getTransactionCount`
-- `eth_getStorageAt`
-- `eth_call`
+* `eth_getBalance`
+* `eth_getCode`
+* `eth_getTransactionCount`
+* `eth_getStorageAt`
+* `eth_call`

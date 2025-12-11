@@ -1,6 +1,6 @@
----
-description: Send a transaction using Viem.
----
+***
+
+## description: Send a transaction using Viem.
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
@@ -12,10 +12,10 @@ TypeScript library.
 
 ## Prerequisites
 
-- [Node.js](https://nodejs.org/en/download/)
-- [Install TypeScript](https://www.typescriptlang.org/download/)
-- [Install `ts-node`](https://www.npmjs.com/package/ts-node)
-- An Ethereum account
+* [Node.js](https://nodejs.org/en/download/)
+* [Install TypeScript](https://www.typescriptlang.org/download/)
+* [Install `ts-node`](https://www.npmjs.com/package/ts-node)
+* An Ethereum account
 
 :::info
 Use [MetaMask](https://metamask.io/) or similar to create an Ethereum account for testing.
@@ -25,15 +25,15 @@ Use [MetaMask](https://metamask.io/) or similar to create an Ethereum account 
 
 ### 1. Select your network and verify funds
 
-- **Sepolia** -  To use the Sepolia testnet, ensure that your account has Sepolia ETH.
-    You can use the [MetaMask faucet](https://faucet.metamask.io/) to add more funds.
-- **Alternative network** - To use an alternative network, ensure that your account has testnet ETH
-    for that network.
+* **Sepolia** -  To use the Sepolia testnet, ensure that your account has Sepolia ETH.
+  You can use the [MetaMask faucet](https://faucet.metamask.io/) to add more funds.
+* **Alternative network** - To use an alternative network, ensure that your account has testnet ETH
+  for that network.
 
-    :::note
-    When using an alternative network, update the chain name in the script (in Step 6) with the
-    alternative network name from the [Viem supported chains list](https://github.com/wevm/viem/blob/main/src/chains/index.ts).
-    :::
+  :::note
+  When using an alternative network, update the chain name in the script (in Step 6) with the
+  alternative network name from the [Viem supported chains list](https://github.com/wevm/viem/blob/main/src/chains/index.ts).
+  :::
 
 ### 2. Create a project directory
 
@@ -86,6 +86,7 @@ Create a `config.ts` file in your project directory to store the private key o
 import { privateKeyToAccount } from "viem/accounts"
 export const account = privateKeyToAccount("<PRIVATE-KEY>")
 ```
+
   </TabItem>
   <TabItem value="Example" label="Example" default>
 
@@ -137,9 +138,9 @@ sendTx()
 
 In the `sendTransaction.ts` file:
 
-- Update the `chain` name if you're using an alternative network.
-- Replace `<YOUR-API-KEY>` with your Infura API key.
-- Update the `to` account in the code if you wish to send test ETH to an account of your choice.
+* Update the `chain` name if you're using an alternative network.
+* Replace `<YOUR-API-KEY>` with your Infura API key.
+* Update the `to` account in the code if you wish to send test ETH to an account of your choice.
 
 ### 7. Execute the transaction
 

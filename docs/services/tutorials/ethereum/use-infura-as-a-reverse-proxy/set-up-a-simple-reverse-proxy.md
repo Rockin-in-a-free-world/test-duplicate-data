@@ -1,6 +1,6 @@
----
-description: Use Caddy to set up a reverse proxy.
----
+***
+
+## description: Use Caddy to set up a reverse proxy.
 
 import Tabs from "@theme/Tabs";
 import TabItem from "@theme/TabItem";
@@ -12,9 +12,9 @@ In this tutorial, you'll use [Caddy](https://caddyserver.com/) to set up a rever
 
 ## Prerequisites
 
-- An [Ethereum project](../../../get-started/infura.md) on Infura
-- [Node.js installed](https://nodejs.org/en/download/)
-- [Homebrew](https://brew.sh/) installed
+* An [Ethereum project](../../../get-started/infura.md) on Infura
+* [Node.js installed](https://nodejs.org/en/download/)
+* [Homebrew](https://brew.sh/) installed
 
 ## Steps
 

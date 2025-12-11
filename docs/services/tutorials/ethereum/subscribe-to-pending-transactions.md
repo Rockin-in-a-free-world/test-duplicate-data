@@ -1,7 +1,8 @@
----
+***
+
 description: Listen for new transactions on the blockchain.
-sidebar_position: 8
----
+sidebar\_position: 8
+--------------------
 
 # Subscribe to pending transactions
 
@@ -11,8 +12,8 @@ The tutorial uses the Python `websockets` library and Infura’s WebSocket endpo
 
 ## Prerequisites
 
-- An [Ethereum project](../../get-started/infura.md) on Infura
-- [Python installed](https://www.python.org/downloads/)
+* An [Ethereum project](../../get-started/infura.md) on Infura
+* [Python installed](https://www.python.org/downloads/)
 
 ## Steps
 

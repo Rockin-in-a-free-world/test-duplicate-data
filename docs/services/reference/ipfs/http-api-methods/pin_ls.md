@@ -32,10 +32,10 @@ curl "https://ipfs.infura.io:5001/api/v0/pin/ls?arg=QmfQ5QAjvg4GtA3wg3adpnDJug8k
 
 #### Request parameters
 
-- `arg` _[Optional]_ - Path to objects to be listed.
-- `type` _[Optional]_ - The type of pinned keys to list. Can be `direct`, `indirect`, `recursive`, or `all`. The default is `all`.
-- `quiet` _[Optional]_ - Write just hashes of objects.
-- `stream` _[Optional]_ - Enable streaming of pins as they are discovered.
+* `arg` *\[Optional]* - Path to objects to be listed.
+* `type` *\[Optional]* - The type of pinned keys to list. Can be `direct`, `indirect`, `recursive`, or `all`. The default is `all`.
+* `quiet` *\[Optional]* - Write just hashes of objects.
+* `stream` *\[Optional]* - Enable streaming of pins as they are discovered.
 
 ### Response
 

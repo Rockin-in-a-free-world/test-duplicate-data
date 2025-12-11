@@ -36,20 +36,20 @@ curl "https://ipfs.infura.io:5001/api/v0/add?pin=false" \
 
 #### Request parameters
 
-- `file` _\[Required]_ - The path to a file to be added to IPFS.
-- `quiet` _\[Optional]_ - Write minimal output.
-- `quieter` _\[Optional]_ - Write only final hash.
-- `silent` _\[Optional]_ - Write no output.
-- `progress` _\[Optional]_ - Stream progress data.
-- `trickle` _\[Optional]_ - Use trickle-dag format for dag `generation`.
-- `only-hash` _\[Optional]_ - Only chunk and hash - do not write to disk.
-- `wrap-with-directory` _\[Optional]_ - Wrap files with a directory object.
-- `pin` _\[Optional]_ - Pin this object when adding. The default is `true`.
-- `raw-leaves` _\[Optional]_ - Use raw blocks for leaf nodes. (Experimental)
-- `nocopy` _\[Optional]_ - Add the file using filestore. (Experimental)
-- `fscache` _\[Optional]_ - Check the filestore for pre-existing blocks. (Experimental)
-- `cid-version` _\[Optional]_: Cid version. Non-zero value changes the default of `raw-leaves` to `true`. The default is `0`. (Experimental)
-- `hash` _\[Optional]_: Hash function to use. Sets `cid-version` to `1` if used. The default is `sha2-256`. (Experimental)
+* `file` *\[Required]* - The path to a file to be added to IPFS.
+* `quiet` *\[Optional]* - Write minimal output.
+* `quieter` *\[Optional]* - Write only final hash.
+* `silent` *\[Optional]* - Write no output.
+* `progress` *\[Optional]* - Stream progress data.
+* `trickle` *\[Optional]* - Use trickle-dag format for dag `generation`.
+* `only-hash` *\[Optional]* - Only chunk and hash - do not write to disk.
+* `wrap-with-directory` *\[Optional]* - Wrap files with a directory object.
+* `pin` *\[Optional]* - Pin this object when adding. The default is `true`.
+* `raw-leaves` *\[Optional]* - Use raw blocks for leaf nodes. (Experimental)
+* `nocopy` *\[Optional]* - Add the file using filestore. (Experimental)
+* `fscache` *\[Optional]* - Check the filestore for pre-existing blocks. (Experimental)
+* `cid-version` *\[Optional]*: Cid version. Non-zero value changes the default of `raw-leaves` to `true`. The default is `0`. (Experimental)
+* `hash` *\[Optional]*: Hash function to use. Sets `cid-version` to `1` if used. The default is `sha2-256`. (Experimental)
 
 ### Response
 
@@ -67,6 +67,6 @@ On success, the call to this endpoint will return with 200 and the following bod
 
 #### Result fields
 
-- `Name` - Name of the object.
-- `Hash` - Hash of the uploaded object.
-- `Size` - Integer indicating size in bytes.
+* `Name` - Name of the object.
+* `Hash` - Hash of the uploaded object.
+* `Size` - Integer indicating size in bytes.

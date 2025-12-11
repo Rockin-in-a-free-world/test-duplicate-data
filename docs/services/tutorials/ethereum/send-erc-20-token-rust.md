@@ -1,7 +1,8 @@
----
+***
+
 description: A tutorial for sending ERC-20 tokens.
-sidebar_position: 7
----
+sidebar\_position: 7
+--------------------
 
 # Send an ERC-20 token
 
@@ -9,8 +10,8 @@ In this tutorial we'll use Rust and the [ethers-rs library](https://docs.rs/ethe
 
 ## Prerequisites
 
-- Make sure that you have test LINK in your MetaMask wallet. You can obtain test LINK for the Sepolia network using the [Chainlink faucet](https://faucets.chain.link/). Make sure that the `Ethereum Sepolia` network is selected on the top right of the faucet page when you connect your MetaMask wallet.
-- [Install Rust from The Cargo Book](https://doc.rust-lang.org/cargo/getting-started/installation.html).
+* Make sure that you have test LINK in your MetaMask wallet. You can obtain test LINK for the Sepolia network using the [Chainlink faucet](https://faucets.chain.link/). Make sure that the `Ethereum Sepolia` network is selected on the top right of the faucet page when you connect your MetaMask wallet.
+* [Install Rust from The Cargo Book](https://doc.rust-lang.org/cargo/getting-started/installation.html).
 
 ## Send the token
 
@@ -52,7 +53,7 @@ serde_json = "1.0.96"
 
 ### 3. Copy the contract ABI
 
-- Create a text file with the name `ct.json` in the `infura-rs` project directory. Visit the [ChainLink Token site on Etherscan](https://sepolia.etherscan.io/token/0x779877a7b0d9e8603169ddbd7836e478b4624789#code) and copy the `Contract ABI` (you will see it in a bottom section of the page) into the `ct.json` file.
+* Create a text file with the name `ct.json` in the `infura-rs` project directory. Visit the [ChainLink Token site on Etherscan](https://sepolia.etherscan.io/token/0x779877a7b0d9e8603169ddbd7836e478b4624789#code) and copy the `Contract ABI` (you will see it in a bottom section of the page) into the `ct.json` file.
 
 ### 4. Update the main code
 
@@ -122,9 +123,9 @@ async fn main() -> Result<()> {
 
 Next, make the following updates to the above code:
 
-- On line 17 replace the `INFURA_API_KEY` with the API key of your API project from the
+* On line 17 replace the `INFURA_API_KEY` with the API key of your API project from the
   [MetaMask Developer dashboard](https://app.infura.io/login).
-- On line 30 replace the `SIGNER_PRIVATE_KEY` with the private key of your Ethereum account.
+* On line 30 replace the `SIGNER_PRIVATE_KEY` with the private key of your Ethereum account.
 
 :::tip Secure your keys
 To better secure your keys, follow the recommended approach described in the section [Create the .env file](send-a-transaction/use-web3.js.md#4-create-a-env-file).

@@ -1,7 +1,8 @@
----
-sidebar_label: JSON-RPC API
-sidebar_key: linea-json-rpc-api
----
+***
+
+sidebar\_label: JSON-RPC API
+sidebar\_key: linea-json-rpc-api
+--------------------------------
 
 # Linea JSON-RPC API
 
@@ -10,8 +11,8 @@ Linea supports the standard [Ethereum JSON-RPC APIs](../../ethereum/json-rpc-met
 
 :::info
 
-- WebSockets are also supported on the Linea network and can be used to set up bidirectional
+* WebSockets are also supported on the Linea network and can be used to set up bidirectional
   stateful [subscriptions](subscription-methods/index.md).
-- `eth_newFilter` and `eth_newBlockFilter` methods are not supported.
+* `eth_newFilter` and `eth_newBlockFilter` methods are not supported.
 
 :::

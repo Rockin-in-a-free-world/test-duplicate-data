@@ -32,9 +32,9 @@ curl "https://ipfs.infura.io:5001/api/v0/pin/add?arg=QmfQ5QAjvg4GtA3wg3adpnDJug8
 
 #### Request parameters
 
-- `arg` _\[Required]_ - Path to objects to be pinned.
-- `recursive` _\[Optional]_ - Recursively pin the object linked to by the specified objects. The default is `true`.
-- `progress` _\[Optional]_ - Show progress.
+* `arg` *\[Required]* - Path to objects to be pinned.
+* `recursive` *\[Optional]* - Recursively pin the object linked to by the specified objects. The default is `true`.
+* `progress` *\[Optional]* - Show progress.
 
 ### Response
 
@@ -50,4 +50,4 @@ On success, the call to this endpoint returns with 200 and the following body:
 
 #### Result fields
 
-- `Pins` - An array of Pin hashes.
+* `Pins` - An array of Pin hashes.

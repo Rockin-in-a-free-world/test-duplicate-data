@@ -32,11 +32,11 @@ curl "https://ipfs.infura.io:5001/api/v0/get?arg=QmZtmD2qt6fJot32nabSP3CUjicnypE
 
 #### Request parameters
 
-- `arg` _\[Required]_ - The IPFS object hash.
-- `output` _\[Optional]_ - The path where the output should be stored.
-- `archive` _\[Optional]_ - Output a TAR archive. The default is `false`.
-- `compress` _\[Optional]_ - Compress the output with GZIP compression. The default is `false`.
-- `compression-level` _\[Optional]_ - The level of compression (1-9). The default is `-1`.
+* `arg` *\[Required]* - The IPFS object hash.
+* `output` *\[Optional]* - The path where the output should be stored.
+* `archive` *\[Optional]* - Output a TAR archive. The default is `false`.
+* `compress` *\[Optional]* - Compress the output with GZIP compression. The default is `false`.
+* `compression-level` *\[Optional]* - The level of compression (1-9). The default is `-1`.
 
 ### Response
 

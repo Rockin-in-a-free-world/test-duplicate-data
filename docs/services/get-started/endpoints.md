@@ -1,8 +1,9 @@
----
+***
+
 description: Infura API endpoints
-sidebar_position: 2
-toc_max_heading_level: 3
----
+sidebar\_position: 2
+toc\_max\_heading\_level: 3
+---------------------------
 
 // import GasApiNetworks from "@site/src/components/GasApiNetworks.tsx"; // Component not available in this project
 
@@ -208,7 +209,7 @@ if you're interested in accessing these methods.
 :::info
 
 ZKsync Era WebSockets are supported on Mainnet only.
- 
+
 :::
 
 | Network           | Description             | URL                                                   |
@@ -223,4 +224,4 @@ The [Gas REST API](../reference/gas-api/index.md) supports multiple networks.
 
 Specify the chain ID in your request to interact with the relevant network.
 
-{/* <GasApiNetworks />... - Component not available */}
+{/\* <GasApiNetworks />... - Component not available \*/}

@@ -1,7 +1,8 @@
----
+***
+
 description: WebSockets conceptual information.
-sidebar_position: 7
----
+sidebar\_position: 7
+--------------------
 
 # WebSockets
 
@@ -24,11 +25,11 @@ Stateless HTTP WebSocket calls are also supported.
 You can create stateful subscriptions over WebSockets to subscribe to specific events on the blockchain. The following
 subscription types are available using the [`eth_subscribe`](../reference/ethereum/json-rpc-methods/subscription-methods/eth_subscribe.mdx) JSON-RPC API:
 
-- The `newHeads` subscription type emits an event when a new header (block) is added to the chain, including during a
+* The `newHeads` subscription type emits an event when a new header (block) is added to the chain, including during a
   chain reorganization.
-- The `logs` subscription type emits logs that match a specified topic filter and are included in newly added blocks.
+* The `logs` subscription type emits logs that match a specified topic filter and are included in newly added blocks.
   We **strongly** recommend specifying a filter when subscribing to the `logs` subscription type.
-- The `newPendingTransactions` subscription type subscribes to all pending transactions via
+* The `newPendingTransactions` subscription type subscribes to all pending transactions via
   WebSockets (regardless if you sent them or not), and returns their transaction hashes.
 
 :::info
@@ -38,8 +39,8 @@ The `newPendingTransactions` subscription type is not available for all networks
 For information about how to use the available subscription methods to subscribe to events, see the `eth_subscribe`
 JSON-RPC method for the relevant network. You can also see the following tutorials for more information:
 
-- [Track ERC-20 token transfers](../tutorials/ethereum/track-erc-20-token-transfers.md)
-- [Subscribe to pending transactions on Ethereum](../tutorials/ethereum/subscribe-to-pending-transactions.md)
+* [Track ERC-20 token transfers](../tutorials/ethereum/track-erc-20-token-transfers.md)
+* [Subscribe to pending transactions on Ethereum](../tutorials/ethereum/subscribe-to-pending-transactions.md)
 
 :::
 
@@ -47,19 +48,19 @@ JSON-RPC method for the relevant network. You can also see the following tutoria
 
 Infura supports subscriptions over WebSockets for the following networks:
 
-- Arbitrum
-- Avalanche (C-Chain)
-- [Base](../reference/base/index.md)
-- Binance Smart Chain
-- Blast
-- [Ethereum](../reference/ethereum/index.md)
-- [Linea](../reference/linea/index.md)
-- Mantle
-- opBNB
-- Optimism
-- Polygon
-- Scroll
-- ZKsync Era
+* Arbitrum
+* Avalanche (C-Chain)
+* [Base](../reference/base/index.md)
+* Binance Smart Chain
+* Blast
+* [Ethereum](../reference/ethereum/index.md)
+* [Linea](../reference/linea/index.md)
+* Mantle
+* opBNB
+* Optimism
+* Polygon
+* Scroll
+* ZKsync Era
 
 :::info
 
@@ -71,11 +72,11 @@ WebSocket support is currently in public beta for Arbitrum, Avalanche (C-Chain),
 
 Create stateful subscriptions over WebSockets to listen to specific events. Example use cases include:
 
-- Listen when a new NFT is minted by an NFT minting smart contract, this enables your application to update its count of minted NFTs.
-- Listen to a smart contract for the latest token price so that price can be reflected immediately on the application to end users.
-- Receive updates for cryptocurrency market trades, orders, and Best Bid Offers (BBO).
-- Receive the latest token transfers for an address.
-- Receive notifications about each new block added to the blockchain.
+* Listen when a new NFT is minted by an NFT minting smart contract, this enables your application to update its count of minted NFTs.
+* Listen to a smart contract for the latest token price so that price can be reflected immediately on the application to end users.
+* Receive updates for cryptocurrency market trades, orders, and Best Bid Offers (BBO).
+* Receive the latest token transfers for an address.
+* Receive notifications about each new block added to the blockchain.
 
 ## Pricing
 
@@ -96,9 +97,9 @@ request limits.
 
 Additional credit-based charges are applied for the events returned:
 
-- `newHeads`: Each new block event consumes 50 credits from your daily quota. This event is triggered
-    once per announced block.
-- `logs`: Depending on the filters applied, this event can consume 300 credits per block from your
-    daily quota. At most, one event per announced block is charged, or none if filter constraints are not met.
-- `newPendingTransaction`: An event is generated every 700-800ms, aggregating the total amount of
-    pending transactions collected during that period. Each event consumes 200 credits from your daily quota.
+* `newHeads`: Each new block event consumes 50 credits from your daily quota. This event is triggered
+  once per announced block.
+* `logs`: Depending on the filters applied, this event can consume 300 credits per block from your
+  daily quota. At most, one event per announced block is charged, or none if filter constraints are not met.
+* `newPendingTransaction`: An event is generated every 700-800ms, aggregating the total amount of
+  pending transactions collected during that period. Each event consumes 200 credits from your daily quota.

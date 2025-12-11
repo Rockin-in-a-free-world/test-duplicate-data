@@ -1,31 +1,32 @@
----
+***
+
 title: Ethereum trace methods
-sidebar_label: Trace methods
-sidebar_key: ethereum-trace-methods
+sidebar\_label: Trace methods
+sidebar\_key: ethereum-trace-methods
 description: Ethereum trace methods
----
+-----------------------------------
 
 # Ethereum trace methods
 
 :::info
 
-Trace API is an open beta feature, available to paying Infura customers. 
+Trace API is an open beta feature, available to paying Infura customers.
 :::
 
-Infura provides access to the following trace API methods that provide insights into the execution of smart contracts and transactions. 
+Infura provides access to the following trace API methods that provide insights into the execution of smart contracts and transactions.
 
-- [`trace_block`](trace_block.mdx)
-- [`trace_call`](trace_call.mdx)
-- [`trace_callMany`](trace_callmany.mdx)
-- [`trace_transaction`](trace_transaction.mdx)
-- [`trace_filter`](trace_filter.mdx)
+* [`trace_block`](trace_block.mdx)
+* [`trace_call`](trace_call.mdx)
+* [`trace_callMany`](trace_callmany.mdx)
+* [`trace_transaction`](trace_transaction.mdx)
+* [`trace_filter`](trace_filter.mdx)
 
 `trace_block`, `trace_filter`, and `trace_transaction` return [`trace`](#trace) information, while
 `trace_call` and `trace_callMany`
 allow you to use the [`trace`](#trace) or [`stateDiff`](#statediff) diagnostic options when tracing calls or transactions.
 
 :::caution
-Trace responses are handled generically to enable support of additional fields beyond 
+Trace responses are handled generically to enable support of additional fields beyond
 those documented here. This requires graceful handling.
 :::
 
@@ -60,21 +61,21 @@ smart contract transaction. Excludes precompiled contracts.
 | Key                   | Value                                                                                                           |
 |-----------------------|-----------------------------------------------------------------------------------------------------------------|
 | `action`              | Transaction details.                                                                                            |
-| &nbsp;&nbsp;- `creationMethod` | Opcode used during contract creation: `create` or `create2`. Returned for `create` operations. |
-| &nbsp;&nbsp;- `callType` | Whether the transaction is `call`, `staticcall`, or `delegatecall`. Returned for `call` operations. |
-| &nbsp;&nbsp;- `from`    | Address of the transaction sender.                                                                              |
-| &nbsp;&nbsp;- `gas`     | Gas provided by sender.                                                                                         |
-| &nbsp;&nbsp;- `input`   | Transaction data. Returned for `call` operations.                                                             |
-| &nbsp;&nbsp;- `init`    | Contract initialization code. Returned for `create` operations.                                               |
-| &nbsp;&nbsp;- `to`      | Target of the transaction. Returned for `call` operations.                                                   |
-| &nbsp;&nbsp;- `value`   | Value transferred in the transaction.                                                                           |
+|   - `creationMethod` | Opcode used during contract creation: `create` or `create2`. Returned for `create` operations. |
+|   - `callType` | Whether the transaction is `call`, `staticcall`, or `delegatecall`. Returned for `call` operations. |
+|   - `from`    | Address of the transaction sender.                                                                              |
+|   - `gas`     | Gas provided by sender.                                                                                         |
+|   - `input`   | Transaction data. Returned for `call` operations.                                                             |
+|   - `init`    | Contract initialization code. Returned for `create` operations.                                               |
+|   - `to`      | Target of the transaction. Returned for `call` operations.                                                   |
+|   - `value`   | Value transferred in the transaction.                                                                           |
 | `blockHash`           | Hash of the block containing this trace.                                                                        |
 | `blockNumber`         | Block number containing this trace.                                                                              |
 | `result`              | Transaction result.                                                                                             |
-| &nbsp;&nbsp;- `address` | Address of the newly created contract. Returned for `create` operations.                                       |
-| &nbsp;&nbsp;- `code`    | Bytecode of the newly created contract. Returned for `create` operations.                                    |
-| &nbsp;&nbsp;- `gasUsed` | Gas used by the transaction. Includes any refunds of unused gas.                                                |
-| &nbsp;&nbsp;- `output`  | Return value of the contract call. Contains only the actual value sent by a `RETURN` operation. If a `RETURN` was not executed, the output is empty bytes. Returned for `call` operations. |
+|   - `address` | Address of the newly created contract. Returned for `create` operations.                                       |
+|   - `code`    | Bytecode of the newly created contract. Returned for `create` operations.                                    |
+|   - `gasUsed` | Gas used by the transaction. Includes any refunds of unused gas.                                                |
+|   - `output`  | Return value of the contract call. Contains only the actual value sent by a `RETURN` operation. If a `RETURN` was not executed, the output is empty bytes. Returned for `call` operations. |
 | `subtraces`           | Number of sub-traces (nested contract calls) made by the transaction.                                          |
 | `traceAddress`        | Tree list address of where the call occurred, address of the parents, and order of the current sub call.        |
 | `transactionHash`     | Hash of the transaction.                                                                                         |
@@ -86,9 +87,9 @@ smart contract transaction. Excludes precompiled contracts.
 Displays state changes in the requested block for each transaction, represented as a map of accounts to an object. Lists
 the balance, code, nonce, and storage changes from immediately before the transaction to after the transaction. For the `key:value` pairs:
 
-- `+` indicates the field didn't exist before and now has the specified value.
-- `-` indicates a deleted value.
-- `*` has a `from` and a `to` value.
+* `+` indicates the field didn't exist before and now has the specified value.
+* `-` indicates a deleted value.
+* `*` has a `from` and a `to` value.
 
 An absent value is distinct from zero when creating accounts or clearing storage. For example, when clearing storage, an absent value means that a particular storage slot has not yet been assigned a value, while a zero value means that the storage slot has been assigned and set to zero.
 

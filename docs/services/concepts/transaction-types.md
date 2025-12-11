@@ -1,7 +1,8 @@
----
+***
+
 description: Learn about different types of Ethereum transactions.
-sidebar_position: 4
----
+sidebar\_position: 4
+--------------------
 
 # Ethereum transaction types
 
@@ -10,12 +11,12 @@ You can interact with the [Ethereum JSON-RPC API](../reference/ethereum/json-rpc
 
 The following methods use a unique format depending on the transaction type:
 
-- [`eth_call`](../reference/ethereum/json-rpc-methods/eth_call.mdx)
-- [`eth_estimateGas`](../reference/ethereum/json-rpc-methods/eth_estimategas.mdx)
-- [`eth_getTransactionByBlockHashAndIndex` ](../reference/ethereum/json-rpc-methods/eth_gettransactionbyblockhashandindex.mdx)
-- [`eth_getTransactionByBlockNumberAndIndex` ](../reference/ethereum/json-rpc-methods/eth_gettransactionbyblocknumberandindex.mdx)
-- [`eth_getTransactionByHash` ](../reference/ethereum/json-rpc-methods/eth_gettransactionbyhash.mdx)
-- [`eth_getTransactionReceipt` ](../reference/ethereum/json-rpc-methods/eth_gettransactionreceipt.mdx)
+* [`eth_call`](../reference/ethereum/json-rpc-methods/eth_call.mdx)
+* [`eth_estimateGas`](../reference/ethereum/json-rpc-methods/eth_estimategas.mdx)
+* [`eth_getTransactionByBlockHashAndIndex` ](../reference/ethereum/json-rpc-methods/eth_gettransactionbyblockhashandindex.mdx)
+* [`eth_getTransactionByBlockNumberAndIndex` ](../reference/ethereum/json-rpc-methods/eth_gettransactionbyblocknumberandindex.mdx)
+* [`eth_getTransactionByHash` ](../reference/ethereum/json-rpc-methods/eth_gettransactionbyhash.mdx)
+* [`eth_getTransactionReceipt` ](../reference/ethereum/json-rpc-methods/eth_gettransactionreceipt.mdx)
 
 ## Legacy transactions
 
@@ -37,7 +38,7 @@ Transactions with type `0x0` are legacy transactions that use the transaction fo
 
 ## Access list transactions
 
-Transactions with type `0x1` are transactions introduced in [EIP-2930](https://eips.ethereum.org/EIPS/eip-2930). They contain, along with the [legacy parameters](#legacy-transactions), an `accessList` parameter, which specifies an array of addresses and storage keys that the transaction plans to access (an _access list_). Access list transactions must specify an access list, and they don’t incorporate [EIP-1559 fee market changes](#eip-1559-transactions).
+Transactions with type `0x1` are transactions introduced in [EIP-2930](https://eips.ethereum.org/EIPS/eip-2930). They contain, along with the [legacy parameters](#legacy-transactions), an `accessList` parameter, which specifies an array of addresses and storage keys that the transaction plans to access (an *access list*). Access list transactions must specify an access list, and they don’t incorporate [EIP-1559 fee market changes](#eip-1559-transactions).
 
 Also, access list transactions contain the `yParity` parameter. The returned values for this parameter can either be `0x0` or `0x1`. This is the parity (0 for even, 1 for odd) of the y-value of a [`secp256k1`](https://eips.ethereum.org/EIPS/eip-2098) signature.
 
@@ -75,7 +76,7 @@ View the [Infura article](https://blog.infura.io/post/optimizing-ethereum-transa
 
 Transactions with type `0x2` are transactions introduced in [EIP-1559](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-1559.md), included in Ethereum's [London fork](https://ethereum.org/en/history/#london). EIP-1559 addresses the network congestion and overpricing of transaction fees caused by the historical fee market, in which users send transactions specifying a gas price bid using the `gasPrice` parameter, and miners choose transactions with the highest bids.
 
-EIP-1559 transactions don’t specify `gasPrice`, and instead use an in-protocol, dynamically changing _base fee_ per gas. At each block, the base fee per gas is adjusted to address network congestion as measured by a gas target.
+EIP-1559 transactions don’t specify `gasPrice`, and instead use an in-protocol, dynamically changing *base fee* per gas. At each block, the base fee per gas is adjusted to address network congestion as measured by a gas target.
 
 EIP-1559 transactions contain the [`accessList` and `yParity` parameters](transaction-types.md#access-list-transactions) and [legacy parameters](transaction-types.md#legacy-transactions) (except for `gasPrice`).
 

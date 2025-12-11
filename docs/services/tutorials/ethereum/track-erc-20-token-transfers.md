@@ -1,7 +1,8 @@
----
+***
+
 description: Track ERC-20 token transfers.
-sidebar_position: 9
----
+sidebar\_position: 9
+--------------------
 
 import Tabs from "@theme/Tabs";
 import TabItem from "@theme/TabItem";
@@ -12,8 +13,8 @@ In this tutorial, you'll track [ERC-20 token](../../how-to/interact-with-erc-20-
 
 ## Prerequisites
 
-- An [Ethereum project](../../get-started/infura.md) on Infura
-- [Node.js installed](https://nodejs.org/en/download/)
+* An [Ethereum project](../../get-started/infura.md) on Infura
+* [Node.js installed](https://nodejs.org/en/download/)
 
 ## Steps
 

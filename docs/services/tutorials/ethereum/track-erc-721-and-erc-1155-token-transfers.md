@@ -1,7 +1,8 @@
----
+***
+
 description: Track ERC-721 and ERC-1155 token transfers.
-sidebar_position: 10
----
+sidebar\_position: 10
+---------------------
 
 import Tabs from "@theme/Tabs";
 import TabItem from "@theme/TabItem";
@@ -12,8 +13,8 @@ In this tutorial, you'll track ERC-721 and ERC-1155 token transfers and mints fr
 
 ## Prerequisites
 
-- An [Ethereum project](../../get-started/infura.md) on Infura
-- [Node.js installed](https://nodejs.org/en/download/)
+* An [Ethereum project](../../get-started/infura.md) on Infura
+* [Node.js installed](https://nodejs.org/en/download/)
 
 ## Steps
 

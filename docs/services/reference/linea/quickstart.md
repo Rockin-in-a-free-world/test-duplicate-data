@@ -1,8 +1,9 @@
----
+***
+
 description: Linea quickstart guide
-sidebar_position: 2
-sidebar_label: Quickstart
----
+sidebar\_position: 2
+sidebar\_label: Quickstart
+--------------------------
 
 // import Banner from '@site/src/components/Banner' // Component not available in this project
 
@@ -10,11 +11,11 @@ sidebar_label: Quickstart
 
 This quickstart guide will help you set up and make calls on the Linea network using the Infura endpoints.
 
-{/* <Banner>... - Component not available */}
+{/\* <Banner>... - Component not available \*/}
 
 ## Prerequisites
 
-- Ensure you have an [API key](https://dashboard.metamask.io/) with the Linea network enabled.
+* Ensure you have an [API key](https://dashboard.metamask.io/) with the Linea network enabled.
 
 ## Make calls
 
@@ -41,7 +42,7 @@ In these examples, you'll use [npm](https://docs.npmjs.com/downloading-and-insta
    npm i node-fetch
    ```
 
-1. Create your JavaScript file and copy the following code:
+2. Create your JavaScript file and copy the following code:
 
    Replace `<YOUR-API-KEY>` with your actual Infura API key.
 
@@ -69,7 +70,7 @@ In these examples, you'll use [npm](https://docs.npmjs.com/downloading-and-insta
      })
    ```
 
-1. Run the code using the following command:
+3. Run the code using the following command:
 
    ```bash
    node index.js
@@ -83,7 +84,7 @@ In these examples, you'll use [npm](https://docs.npmjs.com/downloading-and-insta
    npm i axios
    ```
 
-1. Create your JavaScript file and copy the following code:
+2. Create your JavaScript file and copy the following code:
 
    Replace `<YOUR-API-KEY>` with your actual Infura API key.
 
@@ -105,7 +106,7 @@ In these examples, you'll use [npm](https://docs.npmjs.com/downloading-and-insta
      })
    ```
 
-1. Run the code using the following command:
+3. Run the code using the following command:
 
    ```bash
    node index.js
@@ -119,7 +120,7 @@ In these examples, you'll use [npm](https://docs.npmjs.com/downloading-and-insta
    npm install ethers
    ```
 
-1. Create your JavaScript file and copy the following code:
+2. Create your JavaScript file and copy the following code:
 
    Replace `<YOUR-API-KEY>` with your actual Infura API key.
 
@@ -140,7 +141,7 @@ In these examples, you'll use [npm](https://docs.npmjs.com/downloading-and-insta
      })
    ```
 
-1. Run the code using the following command:
+3. Run the code using the following command:
 
    ```bash
    node index.js
@@ -154,7 +155,7 @@ In these examples, you'll use [npm](https://docs.npmjs.com/downloading-and-insta
    pip install requests
    ```
 
-1. Create your Python file and copy the following code:
+2. Create your Python file and copy the following code:
 
    Replace `<YOUR-API-KEY>` with your actual Infura API key.
 
@@ -178,7 +179,7 @@ In these examples, you'll use [npm](https://docs.npmjs.com/downloading-and-insta
    print(response)
    ```
 
-1. Run the code using the following command:
+3. Run the code using the following command:
 
    ```bash
    python index.py
@@ -189,13 +190,12 @@ In these examples, you'll use [npm](https://docs.npmjs.com/downloading-and-insta
 Now that you have successfully made a call to the Linea network, you can explore more functionalities and APIs provided
 by Infura. Here are some suggestions:
 
-- **Explore other Linea APIs**: Infura supports a wide range of APIs. You can find more information in the
+* **Explore other Linea APIs**: Infura supports a wide range of APIs. You can find more information in the
   [JSON-RPC API method documentation](json-rpc-methods/index.md).
 
-- **Try out different networks**: Infura supports multiple networks including Arbitrum, Polygon, Optimism, IPFS, and more.
+* **Try out different networks**: Infura supports multiple networks including Arbitrum, Polygon, Optimism, IPFS, and more.
 
-- **Monitor your usage**: Monitor your usage on the [MetaMask Developer dashboard](https://dashboard.metamask.io/) to ensure you're not hitting your rate limits.
+* **Monitor your usage**: Monitor your usage on the [MetaMask Developer dashboard](https://dashboard.metamask.io/) to ensure you're not hitting your rate limits.
 
 Remember, the MetaMask community is here to help. If you have any questions or run into any issues, check out the
 [MetaMask community](https://community.metamask.io/) for help and answers to common questions.
-

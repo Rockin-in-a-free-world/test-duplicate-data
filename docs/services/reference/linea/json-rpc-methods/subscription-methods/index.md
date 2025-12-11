@@ -1,8 +1,9 @@
----
+***
+
 title: Linea subscription methods
-sidebar_label: Subscription methods
-sidebar_key: linea-subscription-methods
----
+sidebar\_label: Subscription methods
+sidebar\_key: linea-subscription-methods
+----------------------------------------
 
 # Linea subscription methods
 
@@ -10,8 +11,8 @@ Subscription methods are available for [WebSocket](../../../../concepts/websocke
 
 The following subscription methods are available:
 
-- [`eth_subscribe`](eth_subscribe.mdx) - Create a subscription to a particular event
-- [`eth_unsubscribe`](eth_unsubscribe.mdx) - Cancel an active subscription
+* [`eth_subscribe`](eth_subscribe.mdx) - Create a subscription to a particular event
+* [`eth_unsubscribe`](eth_unsubscribe.mdx) - Cancel an active subscription
 
 :::info
 

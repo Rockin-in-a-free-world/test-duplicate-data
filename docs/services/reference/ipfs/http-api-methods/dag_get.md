@@ -32,8 +32,8 @@ curl "https://ipfs.infura.io:5001/api/v0/dag/get?arg=QmZtmD2qt6fJot32nabSP3CUjic
 
 #### Request parameters
 
-- `arg` _\[Required]_: The object to get.
-- `output-codec` _\[Optional]_: Format the object will be decoded in. The default is `dag-json`.
+* `arg` *\[Required]*: The object to get.
+* `output-codec` *\[Optional]*: Format the object will be decoded in. The default is `dag-json`.
 
 ### Response
 

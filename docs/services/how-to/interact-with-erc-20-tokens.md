@@ -1,7 +1,8 @@
----
+***
+
 description: Interact with ERC 20 tokens
-sidebar_position: 3
----
+sidebar\_position: 3
+--------------------
 
 import Tabs from "@theme/Tabs";
 import TabItem from "@theme/TabItem"
@@ -12,26 +13,26 @@ import TabItem from "@theme/TabItem"
 
 You can:
 
-- [Send ERC-20 transactions](#send-transactions) using `eth_sendRawTransaction`.
-- [Observe event logs of mined ERC-20 transactions](#observe-logs-of-mined-transactions) using `eth_getLogs`.
-- Follow [this tutorial](../tutorials/ethereum/retrieve-the-balance-of-an-erc-20-token.md) to retrieve the balance of ERC-20 tokens.
-- Follow [this tutorial](../tutorials/ethereum/track-erc-20-token-transfers.md) to track ERC-20 token transfers.
+* [Send ERC-20 transactions](#send-transactions) using `eth_sendRawTransaction`.
+* [Observe event logs of mined ERC-20 transactions](#observe-logs-of-mined-transactions) using `eth_getLogs`.
+* Follow [this tutorial](../tutorials/ethereum/retrieve-the-balance-of-an-erc-20-token.md) to retrieve the balance of ERC-20 tokens.
+* Follow [this tutorial](../tutorials/ethereum/track-erc-20-token-transfers.md) to track ERC-20 token transfers.
 
 ## ERC-20 token functions and events
 
 An ERC-20 token must implement the following functions:
 
-- `totalSupply()` - Returns the total token supply.
-- `balanceOf(owner)` - Returns the account balance of another account with address `owner`.
-- `allowance(owner, spender)` - Returns the amount which `spender` is still allowed to withdraw from `owner`.
-- `transfer(to, value)` - Transfers `value` amount of tokens to address `to.`
-- `approve(spender, value)` - Allows `spender` to withdraw from your account multiple times, up to the `value` amount.
-- `transferFrom(from, to, value)` - Transfers `value` amount of tokens from address `from` to address `to`.
+* `totalSupply()` - Returns the total token supply.
+* `balanceOf(owner)` - Returns the account balance of another account with address `owner`.
+* `allowance(owner, spender)` - Returns the amount which `spender` is still allowed to withdraw from `owner`.
+* `transfer(to, value)` - Transfers `value` amount of tokens to address `to.`
+* `approve(spender, value)` - Allows `spender` to withdraw from your account multiple times, up to the `value` amount.
+* `transferFrom(from, to, value)` - Transfers `value` amount of tokens from address `from` to address `to`.
 
 At certain times, an ERC-20 token also must emit the following events:
 
-- `Transfer(from, to, value)` - Must trigger when tokens are transferred, including zero value transfers.
-- `Approval(owner, spender, value)` - Must trigger on any successful call to `approve(spender, value)`.
+* `Transfer(from, to, value)` - Must trigger when tokens are transferred, including zero value transfers.
+* `Approval(owner, spender, value)` - Must trigger on any successful call to `approve(spender, value)`.
 
 View [EIP-20](https://eips.ethereum.org/EIPS/eip-20) for more details about how these functions work and when to emit these events.
 
@@ -137,7 +138,7 @@ In this example request, the parameters `fromBlock` and `toBlock` specify the he
 
 :::info
 
-If `fromBlock` and `toBlock` are omitted, `eth_getLogs` returns the _entire_ chain history by default. Infura has a cap on requests of 10,000 events per query. We recommend requesting a single block, as in this example, and to do that for each mined block.
+If `fromBlock` and `toBlock` are omitted, `eth_getLogs` returns the *entire* chain history by default. Infura has a cap on requests of 10,000 events per query. We recommend requesting a single block, as in this example, and to do that for each mined block.
 
 :::
 

@@ -32,10 +32,10 @@ curl "https://ipfs.infura.io:5001/api/v0/version" \
 
 #### Request parameters
 
-- `number` _[Optional]_ - Only show the version number.
-- `commit` _[Optional]_ - Show the commit hash.
-- `repo` _[Optional]_ - Show repo version.
-- `all` _[Optional]_ - Show all version information.
+* `number` *\[Optional]* - Only show the version number.
+* `commit` *\[Optional]* - Show the commit hash.
+* `repo` *\[Optional]* - Show repo version.
+* `all` *\[Optional]* - Show all version information.
 
 ### Response
 

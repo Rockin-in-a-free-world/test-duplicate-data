@@ -1,6 +1,6 @@
----
-description: IPFS network information.
----
+***
+
+## description: IPFS network information.
 
 // import CardList from '@site/src/components/CardList' // Component not available in this project
 
@@ -25,4 +25,4 @@ See the [official IPFS documentation](https://docs.ipfs.io) for more information
 
 :::
 
-{/* <CardList... - Component not available */}
+{/\* \<CardList... - Component not available \*/}
