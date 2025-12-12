@@ -97,17 +97,7 @@ curl https://mainnet.infura.io/v3/<YOUR-API-KEY> \
   </TabItem>
   <TabItem value="Postman" label="Postman" >
 
-```bash
-URL: https://mainnet.infura.io/v3/<YOUR-API-KEY>
-Request_Type: POST
-Body:
-{
-  "jsonrpc": "2.0",
-  "method": "eth_blockNumber",
-  "params": [],
-  "id": 1
-}
-```
+__CODE_BLOCK_1__
 
   </TabItem>
 </Tabs>
@@ -139,20 +129,7 @@ curl https://mainnet.infura.io/v3/<YOUR-API-KEY> \
   </TabItem>
   <TabItem value="Postman" label="Postman" >
 
-```bash
-URL: https://mainnet.infura.io/v3/<YOUR-API-KEY>
-Request_Type: POST
-Body:
-{
-  "jsonrpc": "2.0",
-  "method": "eth_getBalance",
-  "params": [
-    "0x00000000219ab540356cBB839Cbe05303d7705Fa",
-    "latest"
-  ],
-  "id": 1
-}
-```
+__CODE_BLOCK_4__
 
   </TabItem>
 </Tabs>

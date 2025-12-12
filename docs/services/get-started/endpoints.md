@@ -5,7 +5,7 @@ sidebar\_position: 2
 toc\_max\_heading\_level: 3
 ---------------------------
 
-// import GasApiNetworks from "@site/src/components/GasApiNetworks.tsx"; // Component not available in this project
+
 
 # All endpoints
 
@@ -224,4 +224,4 @@ The [Gas REST API](../reference/gas-api/index.md) supports multiple networks.
 
 Specify the chain ID in your request to interact with the relevant network.
 
-{/\* <GasApiNetworks />... - Component not available \*/}
+

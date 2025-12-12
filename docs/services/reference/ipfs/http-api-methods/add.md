@@ -23,13 +23,7 @@ curl "https://ipfs.infura.io:5001/api/v0/add?recursive=false&quiet=<value>&quiet
   </TabItem>
   <TabItem value="Example" label="Example" >
 
-```bash
-curl "https://ipfs.infura.io:5001/api/v0/add?pin=false" \
-  -X POST \
-  -u "<YOUR-API-KEY>:<YOUR-API-KEY-SECRET>" \
-  -H "Content-Type: multipart/form-data" \
-  -F file=@"/sample-result.json"
-```
+__CODE_BLOCK_1__
 
   </TabItem>
 </Tabs>

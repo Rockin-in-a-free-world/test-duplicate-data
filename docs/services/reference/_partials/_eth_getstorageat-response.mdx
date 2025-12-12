@@ -4,13 +4,7 @@ import TabItem from "@theme/TabItem"
 <Tabs>
   <TabItem value="JSON">
 
-```json
-{
-  "jsonrpc": "2.0",
-  "id": 1,
-  "result": "0x0000000000000000000000000000000000000000000000000000000000000000"
-}
-```
+__CODE_BLOCK_0__
 
   </TabItem>
 </Tabs>
@@ -22,7 +16,7 @@ Calculating the correct position depends on the storage to retrieve. Consider th
 ```solidity
 contract Storage {
   uint pos0;
-  mapping(address => uint) pos1;
+  mapping(address =&gt; uint) pos1;
 
   function Storage() public {
     pos0 = 1234;
@@ -68,9 +62,9 @@ keccak(
 The geth console which comes with the web3 library can be used to make the calculation:
 
 ```js
-> var key = "000000000000000000000000391694e7e0b0cce554cb130d723a9d27458f9298" + "0000000000000000000000000000000000000000000000000000000000000001"
+&gt; var key = "000000000000000000000000391694e7e0b0cce554cb130d723a9d27458f9298" + "0000000000000000000000000000000000000000000000000000000000000001"
 undefined
-> web3.sha3(key, {"encoding": "hex"})
+&gt; web3.sha3(key, {"encoding": "hex"})
 "0x6661e9d6d8b923d5bbaab1b96e1dd51ff6ea2a93520fdc9eb75d059238b8c5e9"
 ```
 

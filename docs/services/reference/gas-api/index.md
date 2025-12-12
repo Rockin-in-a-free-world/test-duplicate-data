@@ -2,7 +2,7 @@
 
 ## description: Gas API documentation.
 
-// import CardList from '@site/src/components/CardList' // Component not available in this project
+
 
 # Gas API
 
@@ -12,4 +12,4 @@ The Gas API is a tool that delivers real-time [gas prices](../../concepts/gas.md
 See the [list of supported Gas API networks](../../get-started/endpoints.md#gas-api).
 :::
 
-{/\* \<CardList... - Component not available \*/}
+

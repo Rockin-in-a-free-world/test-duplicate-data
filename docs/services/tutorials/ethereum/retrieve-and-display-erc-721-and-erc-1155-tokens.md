@@ -98,31 +98,7 @@ const tokenURIABI = [
   </TabItem>
   <TabItem value="ERC-1155" label="ERC-1155" >
 
-```javascript
-const uriABI = [
-  {
-    constant: true,
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "_id",
-        type: "uint256",
-      },
-    ],
-    name: "uri",
-    outputs: [
-      {
-        internalType: "string",
-        name: "",
-        type: "string",
-      },
-    ],
-    payable: false,
-    stateMutability: "view",
-    type: "function",
-  },
-]
-```
+__CODE_BLOCK_5__
 
   </TabItem>
 </Tabs>
@@ -142,10 +118,7 @@ const tokenId = 101
   </TabItem>
   <TabItem value="ERC-1155" label="ERC-1155" >
 
-```javascript
-const tokenContract = "0x76be3b62873462d2142405439777e971754e8e77"
-const tokenId = 10570
-```
+__CODE_BLOCK_7__
 
   </TabItem>
 </Tabs>
@@ -164,9 +137,7 @@ const contract = new web3.eth.Contract(tokenURIABI, tokenContract)
   </TabItem>
   <TabItem value="ERC-1155" label="ERC-1155" >
 
-```javascript
-const contract = new web3.eth.Contract(uriABI, tokenContract)
-```
+__CODE_BLOCK_9__
 
   </TabItem>
 </Tabs>
@@ -191,15 +162,7 @@ getNFTMetadata()
   </TabItem>
   <TabItem value="ERC-1155" label="ERC-1155" >
 
-```javascript
-async function getNFTMetadata() {
-  const result = await contract.methods.uri(tokenId).call()
-
-  console.log(result) // https://nftdata.parallelnft.com/api/parallel-alpha/ipfs/QmSwnqTmpwvZH51Uv47opPUxGYx2nknYmGoKoRJQRMDcLL
-}
-
-getNFTMetadata()
-```
+__CODE_BLOCK_11__
 
   </TabItem>
 </Tabs>
@@ -334,50 +297,7 @@ function addIPFSProxy(ipfsHash) {
   </TabItem>
   <TabItem value="ERC-1155 without IPFS" label="ERC-1155 without IPFS" >
 
-```javascript
-const { Web3 } = require("web3")
-
-const web3 = new Web3(
-  new Web3.providers.HttpProvider("https://mainnet.infura.io/v3/<YOUR-API-KEY>")
-)
-
-const uriABI = [
-  {
-    constant: true,
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "_id",
-        type: "uint256",
-      },
-    ],
-    name: "uri",
-    outputs: [
-      {
-        internalType: "string",
-        name: "",
-        type: "string",
-      },
-    ],
-    payable: false,
-    stateMutability: "view",
-    type: "function",
-  },
-]
-
-const tokenContract = "0x76be3b62873462d2142405439777e971754e8e77" // Parallel contract address
-const tokenId = 10570 // A token we'd like to retrieve its metadata of
-
-const contract = new web3.eth.Contract(uriABI, tokenContract)
-
-async function getNFTMetadata() {
-  const result = await contract.methods.uri(tokenId).call()
-
-  console.log(result) // https://nftdata.parallelnft.com/api/parallel-alpha/ipfs/QmSwnqTmpwvZH51Uv47opPUxGYx2nknYmGoKoRJQRMDcLL
-}
-
-getNFTMetadata()
-```
+__CODE_BLOCK_17__
 
   </TabItem>
 </Tabs>

@@ -5,13 +5,13 @@ sidebar\_position: 2
 sidebar\_label: Quickstart
 --------------------------
 
-// import Banner from '@site/src/components/Banner' // Component not available in this project
+
 
 # Ethereum quickstart
 
 This quickstart guide will help you set up and make calls on the Ethereum network using the Infura endpoints.
 
-{/\* <Banner>... - Component not available \*/}
+
 
 ## Prerequisites
 
@@ -81,11 +81,11 @@ In these examples, you'll use [npm](https://docs.npmjs.com/downloading-and-insta
        id: 1,
      }),
    })
-     .then((response) => response.json())
-     .then((data) => {
+     .then((response) =&gt; response.json())
+     .then((data) =&gt; {
        console.log(data)
      })
-     .catch((error) => {
+     .catch((error) =&gt; {
        console.error(error)
      })
    ```
@@ -118,10 +118,10 @@ In these examples, you'll use [npm](https://docs.npmjs.com/downloading-and-insta
        params: [],
        id: 1,
      })
-     .then((response) => {
+     .then((response) =&gt; {
        console.log(response.data)
      })
-     .catch((error) => {
+     .catch((error) =&gt; {
        console.error(error)
      })
    ```
@@ -153,10 +153,10 @@ In these examples, you'll use [npm](https://docs.npmjs.com/downloading-and-insta
 
    provider
      .getBlockNumber()
-     .then((blockNumber) => {
+     .then((blockNumber) =&gt; {
        console.log(blockNumber)
      })
-     .catch((error) => {
+     .catch((error) =&gt; {
        console.error(error)
      })
    ```
@@ -181,7 +181,7 @@ In these examples, you'll use [npm](https://docs.npmjs.com/downloading-and-insta
    var web3Provider = new Web3.providers.HttpProvider(provider)
    var web3 = new Web3(web3Provider)
 
-   web3.eth.getBlockNumber().then((result) => {
+   web3.eth.getBlockNumber().then((result) =&gt; {
      console.log("Latest Ethereum Block is ", result)
    })
    ```

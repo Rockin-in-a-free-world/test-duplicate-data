@@ -73,7 +73,7 @@ use std::sync::Arc;
 use serde_json::Value;
 
 #[tokio::main]
-async fn main() -> Result<()> {
+async fn main() -&gt; Result<()> {
   // connect to the network, don't forget to replace your INFURA_API_KEY
   let provider = Provider::<Http>::try_from("https://sepolia.infura.io/v3/INFURA_API_KEY")?;
 

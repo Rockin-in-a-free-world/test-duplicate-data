@@ -2,14 +2,14 @@
 
 ## description: Get the estimated gas prices for a chain.
 
-// import CreditCost from '@site/src/components/CreditCost/CreditCostPrice.js'; // Component not available in this project
+
 import Tabs from "@theme/Tabs";
 import TabItem from "@theme/TabItem";
 
 # Get EIP-1559 gas prices
 
 Returns the estimated [EIP-1559](https://eips.ethereum.org/EIPS/eip-1559) gas fees for the specified
-blockchain network. {/\* <CreditCost network="gasApi" method="suggestedGasFees" />... - Component not available \*/}
+blockchain network. 
 
 **GET** `https://gas.api.infura.io/networks/${chainId}/suggestedGasFees`
 
@@ -54,42 +54,12 @@ instead of using the curl authentication option (`-u`).
 <Tabs>
   <TabItem value="curl" label="curl" default >
 
-```bash
-curl -X "GET" \
-  -u <YOUR-API-KEY>:<YOUR-API-KEY-SECRET> \
-  "https://gas.api.infura.io/networks/1/suggestedGasFees"
-```
+__CODE_BLOCK_0__
 
   </TabItem>
   <TabItem value="JavaScript">
 
-```javascript
-const axios = require("axios");
-
-const apiKey = "<YOUR-API-KEY>"; // Replace with your API key.
-const apiKeySecret = "<YOUR-API-KEY-SECRET>"; // Replace with your API key secret.
-
-const Auth = Buffer.from(apiKey + ":" + apiKeySecret).toString("base64");
-
-// The chain ID of the supported network.
-const chainId = 1;
-
-(async () => {
-  try {
-    const { data } = await axios.get(
-      `https://gas.api.infura.io/networks/${chainId}/suggestedGasFees`,
-      {
-        headers: {
-          Authorization: `Basic ${Auth}`,
-        },
-      }
-    );
-    console.log("Suggested gas fees:", data);
-  } catch (error) {
-    console.log("Server responded with:", error);
-  }
-})();
-```
+__CODE_BLOCK_1__
 
   </TabItem>
 </Tabs>

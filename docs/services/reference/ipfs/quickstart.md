@@ -5,7 +5,7 @@ sidebar\_position: 2
 sidebar\_label: Quickstart
 --------------------------
 
-// import Banner from '@site/src/components/Banner' // Component not available in this project
+
 
 # IPFS quickstart
 
@@ -63,7 +63,7 @@ const options = {
   auth: projectId + ":" + projectSecret,
 }
 
-let req = https.request(options, (res) => {
+let req = https.request(options, (res) =&gt; {
   let body = ""
   res.on("data", function (chunk) {
     body += chunk
@@ -155,7 +155,7 @@ const client = create({
   },
 });
 
-client.pin.add("QmeGAVddnBSnKc1DLE7DLV9uuTqo5F7QbaveTjr45JUdQn").then((res) => {
+client.pin.add("QmeGAVddnBSnKc1DLE7DLV9uuTqo5F7QbaveTjr45JUdQn").then((res) =&gt; {
   console.log(res);
 });
 ```

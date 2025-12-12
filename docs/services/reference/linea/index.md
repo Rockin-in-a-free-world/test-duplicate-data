@@ -2,7 +2,7 @@
 
 ## description: Linea network documentation.
 
-// import CardList from '@site/src/components/CardList' // Component not available in this project
+
 
 # Linea
 
@@ -17,4 +17,4 @@ See the [official Linea documentation](https://docs.linea.build/) for more infor
 
 :::
 
-{/\* \<CardList... - Component not available \*/}
+

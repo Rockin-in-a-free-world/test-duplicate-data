@@ -2,13 +2,13 @@
 
 ## description: Get the base fee history.
 
-// import CreditCost from '@site/src/components/CreditCost/CreditCostPrice.js'; // Component not available in this project
+
 import Tabs from "@theme/Tabs";
 import TabItem from "@theme/TabItem";
 
 # Get the base fee history
 
-Returns the base fee history of the specified blockchain network for the previous 500 blocks. {/\* <CreditCost network="gasApi" method="baseFeeHistory" />... - Component not available \*/}
+Returns the base fee history of the specified blockchain network for the previous 500 blocks. 
 
 The base fee is a part of the EIP-1559 upgrade to the Ethereum network, and it represents the
 minimum price a user must pay for their transaction to be included in a block.
@@ -45,42 +45,12 @@ instead of using the curl authentication option (`-u`).
 <Tabs>
   <TabItem value="curl" label="curl" default >
 
-```bash
-curl -X "GET" \
-  -u <YOUR-API-KEY>:<YOUR-API-KEY-SECRET> \
-  "https://gas.api.infura.io/networks/1/baseFeeHistory"
-```
+__CODE_BLOCK_0__
 
   </TabItem>
   <TabItem value="JavaScript" label="JavaScript">
 
-```javascript
-const axios = require("axios")
-
-const apiKey = "<YOUR-API-KEY>" // Replace with your API key.
-const apiKeySecret = "<YOUR-API-KEY-SECRET>" // Replace with your API key secret.
-
-const Auth = Buffer.from(apiKey + ":" + apiKeySecret).toString("base64")
-
-// The chain ID of the supported network.
-const chainId = 1;
-
-(async () => {
-  try {
-    const { data } = await axios.get(
-      `https://gas.api.infura.io/networks/${chainId}/baseFeeHistory`,
-      {
-        headers: {
-          Authorization: `Basic ${Auth}`,
-        },
-      }
-    );
-    console.log("Base fee history:", data);
-  } catch (error) {
-    console.log("Server responded with:", error);
-  }
-})();
-```
+__CODE_BLOCK_1__
 
   </TabItem>
 </Tabs>

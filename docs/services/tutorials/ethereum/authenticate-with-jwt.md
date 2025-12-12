@@ -67,13 +67,7 @@ openssl genpkey                 \
   </TabItem>
   <TabItem value="ES256">
 
-```bash
-openssl ecparam    \
-  -genkey          \
-  -name prime256v1 \
-  -noout           \
-  -out private_key.pem
-```
+__CODE_BLOCK_5__
 
   </TabItem>
 </Tabs>
@@ -95,12 +89,7 @@ openssl rsa           \
   </TabItem>
   <TabItem value="ES256">
 
-```bash
-openssl ec            \
-  -in private_key.pem \
-  -pubout             \
-  -out public_key.pem
-```
+__CODE_BLOCK_7__
 
   </TabItem>
 </Tabs>
@@ -142,11 +131,7 @@ INFURA_NETWORK_URL=<NETWORK-URL>
   </TabItem>
   <TabItem value="Example">
 
-```text title=".env"
-INFURA_API_KEY=8c101...6b26c77d8
-JWT_KEY_ID=777e2caf...826bc4303f
-INFURA_NETWORK_URL=https://sepolia.infura.io/v3/
-```
+__CODE_BLOCK_10__
 
   </TabItem>
 </Tabs>

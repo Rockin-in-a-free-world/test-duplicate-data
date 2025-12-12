@@ -40,9 +40,7 @@ curl -X "GET" "https://gas.api.infura.io/v3/<YOUR-API-KEY>/networks/1/suggestedG
   </TabItem>
   <TabItem value="API key and API key secret" label="Use an API key and API key secret" >
 
-```bash
-curl -X "GET" -u <YOUR-API-KEY>:<YOUR-API-KEY-SECRET> "https://gas.api.infura.io/networks/1/suggestedGasFees"
-```
+__CODE_BLOCK_1__
 
   </TabItem>
 </Tabs>

@@ -4,14 +4,14 @@ title: linea\_estimateGas
 sidebar\_label: linea\_estimateGas
 ----------------------------------
 
-// import CreditCost from '@site/src/components/CreditCost/CreditCostPrice.js'; // Component not available in this project
+
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
 # `linea_estimateGas`
 
 Generates and returns the estimated amount of gas required to allow the transaction to complete and be
-published on Ethereum. The method does not submit the transaction to the blockchain. {/\* <CreditCost network="linea" method="linea_estimateGas" />... - Component not available \*/}
+published on Ethereum. The method does not submit the transaction to the blockchain. 
 
 The `priorityFeePerGas` returned by this method includes the cost of submitting the transaction to Ethereum, which
 can vary based on the size of the `calldata`.
@@ -64,19 +64,12 @@ Replace `<YOUR-API-KEY>` with an API key from your [MetaMask Developer dashboard
 <Tabs>
   <TabItem value="curl">
 
-```bash
-curl https://linea-mainnet.infura.io/v3/<YOUR-API-KEY> \
-  -X POST \
-  -H "Content-Type: application/json" \
-  -d '{"jsonrpc":"2.0","method":"linea_estimateGas","params":[{"from":"0x42c27251C710864Cf76f1b9918Ace3E585e6E21b","value":"0x1","gasPrice":"0x100000000","gas":"0x21000"}],"id":53}'
-```
+__CODE_BLOCK_0__
 
   </TabItem>
   <TabItem value="WSS">
 
-```bash
-wscat -c wss://linea-mainnet.infura.io/ws/v3/<YOUR-API-KEY> -x '{"jsonrpc":"2.0","method":"linea_estimateGas","params":[{"from":"0x42c27251C710864Cf76f1b9918Ace3E585e6E21b","value":"0x1","gasPrice":"0x100000000","gas":"0x21000"}],"id":53}'
-```
+__CODE_BLOCK_1__
 
   </TabItem>
 </Tabs>
@@ -86,17 +79,7 @@ wscat -c wss://linea-mainnet.infura.io/ws/v3/<YOUR-API-KEY> -x '{"jsonrpc":"2.0"
 <Tabs>
   <TabItem value="JSON">
 
-```JSON
-{
-  "jsonrpc": "2.0",
-  "id": 53,
-  "result": {
-    "baseFeePerGas": "0x7",
-    "gasLimit": "0xcf08",
-    "priorityFeePerGas": "0x43a82a4"
-  }
-}
-```
+__CODE_BLOCK_2__
 
   </TabItem>
 </Tabs>

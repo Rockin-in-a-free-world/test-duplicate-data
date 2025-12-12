@@ -123,17 +123,7 @@ python3 monitorTransactions.py
   </TabItem>
   <TabItem value="Example output" label="Example output" >
 
-```python
-Searching in block 15019035
-Transaction found in block 15019035 :
-{"hash": "0x0f878eb882dfd069c482740df533e0ddef63504d795dcc3c934c3f9a6c159362", "from": "0x95B564F3B3BaE3f206aa418667bA000AFAFAcc8a", "value": 0}
-Transaction found in block 15019035 :
-{"hash": "0xee75ed766e17fef1cae917686b5b73e7c72b2fcf51e1558629b8fe96a7e5a1bd", "from": "0x9696f59E4d72E237BE84fFD425DCaD154Bf96976", "value": 0}
-Transaction found in block 15019035 :
-{"hash": "0x1cddbeff3ac97651f5d7e49e98f4289aeef728e08b05180c75bc04cdc970895d", "from": "0x21a31Ee1afC51d94C2eFcCAa2092aD1028285549", "value": 0}
-...
-67341
-```
+__CODE_BLOCK_9__
 
   </TabItem>
 </Tabs>

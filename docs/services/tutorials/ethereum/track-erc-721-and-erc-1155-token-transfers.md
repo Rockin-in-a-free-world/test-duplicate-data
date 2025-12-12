@@ -96,10 +96,10 @@ In [step 3](#3-set-up-the-script), you wrap the whole script in an async functio
 You can also add the following lines to the script to see whether the subscription started successfully or if any errors occurred:
 
 ```javascript
-subscription721.on("error", (err) => {
+subscription721.on("error", (err) =&gt; {
   throw err
 })
-subscription1155.on("error", (err) => {
+subscription1155.on("error", (err) =&gt; {
   throw err
 })
 
@@ -116,7 +116,7 @@ subscription1155.on("connected", (nr) =>
 Set the listener for the `subscription721` created in [step 4](#4-subscribe-to-contract-events) by adding the following lines to the script:
 
 ```javascript
-subscription721.on("data", (event) => {
+subscription721.on("data", (event) =&gt; {
   if (event.topics.length == 4) {
     // ...
   }
@@ -177,7 +177,7 @@ console.log(
 You can set the listener for the `subscription1155` created in [step 4](#4-subscribe-to-contract-events) by adding the following lines to the script:
 
 ```javascript
-subscription1155.on("data", event => {
+subscription1155.on("data", event =&gt; {
   // ...
 })
 ```
@@ -266,11 +266,7 @@ if (event.address == "<CONTRACT_ADDRESS>" && transaction.tokenId == <TOKEN_ID>) 
   </TabItem>
   <TabItem value="ERC-1155" label="ERC-1155" >
 
-```javascript
-if (event.address == "<CONTRACT_ADDRESS>") {
-  console.log("Specified ERC-1155 NFT was transferred!")
-}
-```
+__CODE_BLOCK_16__
 
   </TabItem>
 </Tabs>
@@ -289,25 +285,12 @@ node trackERC721.js
   </TabItem>
   <TabItem value="Example ERC-721 output" label="Example ERC-721 output" >
 
-```javascript
-New ERC-721 transaction found in block 15102209 with hash 0x3b133c1ad2d138bee9a596d94da25892e12a2c95efd1f0916d6708a9b86745b0
-From: 0xDd3c42eb2660c0C7745E48f25864ff743Fef9f33
-To: 0x4c5Ca726584d9b171AE9D6ce67Ab8AFb706259CB
-Token contract: 0x35f3b8f37e9341F289398b70Fa2c576Dd102DF75
-Token ID: 950
-```
+__CODE_BLOCK_18__
 
   </TabItem>
   <TabItem value="Example ERC-1155 output" label="Example ERC-1155 output" >
 
-```javascript
-New ERC-1155 transaction found in block 15102209 with hash 0xa08afd7696ec7424f8b403ca3733ebbb916faf68442757e2e9349c2d1b90aa9a
-Operator: 0x20251a0505Ead51fb2C6ce5c1f399924ea068322
-From: New mint!
-To: 0x20251a0505Ead51fb2C6ce5c1f399924ea068322
-id: 2
-value: 1
-```
+__CODE_BLOCK_19__
 
   </TabItem>
 </Tabs>
@@ -335,7 +318,7 @@ async function main() {
   let subscription721 = await web3.eth.subscribe("logs", options721)
   let subscription1155 = await web3.eth.subscribe("logs", options1155)
 
-  subscription721.on("data", (event) => {
+  subscription721.on("data", (event) =&gt; {
     if (event.topics.length == 4) {
       let transaction = web3.eth.abi.decodeLog(
         [
@@ -387,7 +370,7 @@ async function main() {
     }
   })
 
-  subscription1155.on("data", (event) => {
+  subscription1155.on("data", (event) =&gt; {
     let transaction = web3.eth.abi.decodeLog(
       [
         {
@@ -433,10 +416,10 @@ async function main() {
     )
   })
 
-  subscription721.on("error", (err) => {
+  subscription721.on("error", (err) =&gt; {
     throw err
   })
-  subscription1155.on("error", (err) => {
+  subscription1155.on("error", (err) =&gt; {
     throw err
   })
 

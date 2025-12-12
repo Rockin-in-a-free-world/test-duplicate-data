@@ -36,5 +36,5 @@ The following WebSocket subscription example fires a notification each time a ne
 
 ```bash
 $ wscat -c wss://mainnet.infura.io/ws/v3/<YOUR-API-KEY>
-> {"jsonrpc":  "2.0",  "id":  1,  "method":  "eth_subscribe",  "params":  ["newHeads"]}
+&gt; {"jsonrpc":  "2.0",  "id":  1,  "method":  "eth_subscribe",  "params":  ["newHeads"]}
 ```

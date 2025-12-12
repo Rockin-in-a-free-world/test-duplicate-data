@@ -45,7 +45,7 @@ Enter a unique subdomain name for your dedicated gateway and select **Save Subdo
 
 :::info Subdomain format
 
-* Subdomain length must be <= 63 characters.
+* Subdomain length must be `<=` 63 characters.
 * Subdomain must contain letters, numbers and dashes; matching the following regex: ^\[a-z0-9-]\*$.
 
 :::

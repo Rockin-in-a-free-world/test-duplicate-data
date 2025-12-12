@@ -206,7 +206,7 @@ async function main() {
       from: signer.address,
       gas: await deployTx.estimateGas(),
     })
-    .once("transactionHash", (txhash) => {
+    .once("transactionHash", (txhash) =&gt; {
       console.log(`Mining deployment transaction ...`)
       console.log(`https://${network}.etherscan.io/tx/${txhash}`)
     })

@@ -2,7 +2,7 @@
 
 ## description: Base network documentation.
 
-// import CardList from '@site/src/components/CardList' // Component not available in this project
+
 
 # Base
 
@@ -22,4 +22,4 @@ The Base network provides seamless Coinbase integrations, easy fiat on-ramps, an
 
 Select an option below to get started with the Base network.
 
-{/\* \<CardList... - Component not available \*/}
+

@@ -52,9 +52,7 @@ web3.sha3("Transfer(address, address, uint256)")[0..4]
   </TabItem>
   <TabItem value="Result" label="Result" >
 
-```javascript
-0x70a08231
-```
+__CODE_BLOCK_1__
 
   </TabItem>
 </Tabs>
@@ -74,13 +72,7 @@ curl https://mainnet.infura.io/v3/<YOUR-API-KEY> \
   </TabItem>
   <TabItem value="JSON result" label="JSON result" >
 
-```json
-{
-  "id": 1,
-  "jsonrpc": "2.0",
-  "result": "0xe670ec64341771606e55d6b4ca35a1a6b75ee3d5145a99d05921026d1527331"
-}
-```
+__CODE_BLOCK_3__
 
   </TabItem>
 </Tabs>
@@ -112,24 +104,7 @@ curl https://mainnet.infura.io/v3/<YOUR-API-KEY> \
   </TabItem>
   <TabItem value="JSON result" label="JSON result" >
 
-```json
-{
-  "jsonrpc": "2.0",
-  "id": 1,
-  "result": [
-    {
-      "address": "0x6B175474E89094C44Da98b954EedeAC495271d0F",
-      "topics": [
-        "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
-        "0x000000000000000000000000ee25e1ba53c2250250861c8e5a9a3e0fe19c790e",
-        "0x000000000000000000000000dfbaf3e4c7496dad574a1b842bc85b402bdc298d"
-      ],
-      "data": "0x00000000000000000000000000000000000000000000041f900d25d6693623a6",
-      "blockNumbern": "0x91F37C"
-    }
-  ]
-}
-```
+__CODE_BLOCK_5__
 
   </TabItem>
 </Tabs>
@@ -167,9 +142,7 @@ web3.sha3("Approval(address,address,uint256)")
   </TabItem>
   <TabItem value="JS result" label="JS result" >
 
-```javascript
-0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925
-```
+__CODE_BLOCK_8__
 
   </TabItem>
 </Tabs>
@@ -186,9 +159,7 @@ web3.sha3("Transfer(address,address,uint256)")
   </TabItem>
   <TabItem value="Example JS result" label="Example JS result" >
 
-```javascript
-0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef
-```
+__CODE_BLOCK_10__
 
   </TabItem>
 </Tabs>

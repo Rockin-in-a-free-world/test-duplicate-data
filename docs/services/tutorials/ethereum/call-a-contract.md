@@ -66,7 +66,7 @@ async function main() {
   // Sending the transaction to the network
   const receipt = await web3.eth
     .sendSignedTransaction(signedTx.rawTransaction)
-    .once("transactionHash", (txhash) => {
+    .once("transactionHash", (txhash) =&gt; {
       console.log(`Mining transaction ...`)
       console.log(`https://${network}.etherscan.io/tx/${txhash}`)
     })

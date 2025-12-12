@@ -28,79 +28,17 @@ In the code tabs, the `eth_blockNumber` method is used as an example.
 <Tabs>
   <TabItem value="curl">
 
-```bash
-curl https://<network>.infura.io/v3/<YOUR-API-KEY> \
-  -X POST \
-  -H "Enable-Failover: true" \
-  -d '{"jsonrpc": "2.0", "method": "eth_blockNumber", "params": [], "id": 1}'
-```
+__CODE_BLOCK_0__
 
   </TabItem>
   <TabItem value="Web3.js">
 
-```js
-const { Web3 } = require("web3")
-const https = require("https")
-
-const options = {
-  headers: {
-    "Enable-Failover": "true",
-  },
-}
-
-const provider = new https.Agent(options)
-
-const web3 = new Web3(
-  new Web3.providers.HttpProvider(
-    "https://<network>.infura.io/v3/<YOUR-API-KEY>",
-    { agent: provider }
-  )
-)
-
-web3.eth.getBlockNumber().then(console.log)
-```
+__CODE_BLOCK_1__
 
   </TabItem>
   <TabItem value="Ethers.js">
 
-```js
-const ethers = require("ethers")
-const fetch = require("node-fetch")
-
-class InfuraJsonRpcProvider extends ethers.providers.JsonRpcProvider {
-  constructor(network, apiKey) {
-    super(network, apiKey)
-    this.fetchFunc = async (url, json, processFunc) => {
-      const response = await fetch(url, {
-        method: "POST",
-        body: json.body,
-        headers: {
-          "Content-Type": "application/json",
-          "Enable-Failover": "true",
-        },
-      })
-
-      const text = await response.text()
-      const fetchJsonResponse = {
-        jsonrpc: json.jsonrpc,
-        id: json.id,
-        result: JSON.parse(text).result,
-        error: JSON.parse(text).error,
-      }
-
-      return processFunc(fetchJsonResponse)
-    }
-  }
-}
-
-const provider = new InfuraJsonRpcProvider(
-  "https://<network>.infura.io/v3/<YOUR-API-KEY>"
-)
-
-provider.getBlockNumber().then((blockNumber) => {
-  console.log(blockNumber)
-})
-```
+__CODE_BLOCK_2__
 
   </TabItem>  
 </Tabs>

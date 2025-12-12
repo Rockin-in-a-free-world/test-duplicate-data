@@ -4,7 +4,7 @@
 
 import Tabs from "@theme/Tabs";
 import TabItem from "@theme/TabItem";
-// import SectionNetworks from "@site/src/components/Sections/SectionNetworks.jsx"; // Component not available in this project
+
 
 # Set up a simple reverse proxy
 
@@ -82,9 +82,7 @@ curl https://localhost/v3/<YOUR-API-KEY> \
   </TabItem>
   <TabItem value="Example JS result" label="Example JS result" >
 
-```javascript
-{"jsonrpc": "2.0", "id": 1, "result": "Geth/v1.10.8-omnibus-aef5bfb3/linux-amd64/go1.16.7"}
-```
+__CODE_BLOCK_6__
 
   </TabItem>
 </Tabs>
@@ -104,9 +102,7 @@ curl https://sepolia.infura.io/v3/<YOUR-API-KEY> \
   </TabItem>
   <TabItem value="Example JS result" label="Example JS result" >
 
-```javascript
-{"jsonrpc": "2.0", "id": 1, "result": "Geth/v1.10.8-omnibus-aef5bfb3/linux-amd64/go1.16.7"}
-```
+__CODE_BLOCK_8__
 
   </TabItem>
 </Tabs>

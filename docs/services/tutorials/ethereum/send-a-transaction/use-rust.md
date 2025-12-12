@@ -74,7 +74,7 @@ use eyre::Result;
 use std::convert::TryFrom;
 
 #[tokio::main]
-async fn main() -> Result<()> {
+async fn main() -&gt; Result<()> {
   // Connect to the network
   let provider = Provider::<Http>::try_from("https://sepolia.infura.io/v3/INFURA_API_KEY")?;
 
@@ -209,7 +209,7 @@ use std::convert::TryFrom;
 use types::Eip1559TransactionRequest;
 
 #[tokio::main]
-async fn main() -> Result<()> {
+async fn main() -&gt; Result<()> {
   // Connect to the network
   let provider = Provider::<Http>::try_from("https://sepolia.infura.io/v3/INFURA_API_KEY")?;
 
@@ -264,7 +264,7 @@ An output similar to the following is displayed:
 ```log
 Compiling infura_rs v0.1.0 (/Users/rajkaramchedu/onboarding/traian-tutorials/infura_rs)
 warning: unused import: `types::TransactionRequest`
- --> src/main.rs:2:12
+ --&gt; src/main.rs:2:12
   |
 2 |     core::{types::TransactionRequest},
   |            ^^^^^^^^^^^^^^^^^^^^^^^^^

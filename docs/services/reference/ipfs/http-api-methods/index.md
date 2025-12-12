@@ -30,7 +30,7 @@ Note that `arg` can be used multiple times to signify multiple arguments.
 Flags commonly used with the IPFS CLI are added through the query string. For example, the `--encoding=json` flag is the `&encoding=json` query parameter below:
 
 ```bash
-> curl -X POST -u "<YOUR-API-KEY>:<YOUR-API-KEY-SECRET>" "https://ipfs.infura.io:5001/api/v0/object/get?arg=QmaaqrHyAQm7gALkRW8DcfGX3u8q9rWKnxEMmf7m9z515w&encoding=json"
+&gt; curl -X POST -u "<YOUR-API-KEY>:<YOUR-API-KEY-SECRET>" "https://ipfs.infura.io:5001/api/v0/object/get?arg=QmaaqrHyAQm7gALkRW8DcfGX3u8q9rWKnxEMmf7m9z515w&encoding=json"
 {
   "Links": [
     {
@@ -73,11 +73,11 @@ A `405` error may mean that you are using the wrong HTTP method (for example, GE
 
 ## NDJSON responses
 
-<!-- markdown-link-check-disable -->
+&lt;!-- markdown-link-check-disable -->
 
 When a bunch of objects are requested, IPFS returns them in the Newline Delimited JSON, [NDJSON](http://ndjson.org/), format.
 
-<!-- markdown-link-check-enable-->
+&lt;!-- markdown-link-check-enable-->
 
 This is because the calls are asynchronous and the responses are processed one object at a time.
 

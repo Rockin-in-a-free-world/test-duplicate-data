@@ -91,96 +91,39 @@ This example uses a DAI token contract. However, you can use any ERC-20 token co
 
 ### 6. Request the token balance
 
-Define the addresses to use in the `retrieveBalance.js` script:
+Define the addresses to use in the __INLINE_CODE_6__ script:
 
-```javascript
-const tokenContract = "0x6b175474e89094c44da98b954eedeac495271d0f"
-const tokenHolder = "0xf326e4de8f66a0bdc0970b79e0924e33c79f1915"
-```
+__CODE_BLOCK_5__
 
-Define `contract` using `web3.eth.Contract()`, passing the `balanceOfABI` and the token contract address `tokenContract` as parameters:
+Define __INLINE_CODE_7__ using __INLINE_CODE_8__, passing the __INLINE_CODE_9__ and the token contract address __INLINE_CODE_10__ as parameters:
 
-```javascript
-const contract = new web3.eth.Contract(balanceOfABI, tokenContract)
-```
+__CODE_BLOCK_6__
 
-Next, call `methods.balanceOf()` on the `contract` and pass the `tokenHolder` address. This call sends a request to your Infura endpoint to request the token balance in the `tokenHolder` account address.
+Next, call __INLINE_CODE_11__ on the __INLINE_CODE_12__ and pass the __INLINE_CODE_13__ address. This call sends a request to your Infura endpoint to request the token balance in the __INLINE_CODE_14__ account address.
 
-Create the below `async` function `getTokenBalance` that accomplishes this by interacting with the `tokenContract`.
+Create the below __INLINE_CODE_15__ function __INLINE_CODE_16__ that accomplishes this by interacting with the __INLINE_CODE_17__.
 
-```javascript
-async function getTokenBalance() {
-  const result = await.contract.methods.balanceOf(tokenHolder).call();
-  console.log(result)
-}
-
-getTokenBalance();
-```
+__CODE_BLOCK_7__
 
 ### 7. Convert the token units
 
-By default, calling `balanceOf` returns the balance value in wei, which is the smallest unit in Ethereum, equal to 0.000000000000000001 Ether.
+By default, calling __INLINE_CODE_18__ returns the balance value in wei, which is the smallest unit in Ethereum, equal to 0.000000000000000001 Ether.
 
-Use `web3.utils.fromWei(result, "ether")` to get the actual number of DAI tokens, by adding the following line to the `async` function:
+Use __INLINE_CODE_19__ to get the actual number of DAI tokens, by adding the following line to the __INLINE_CODE_20__ function:
 
-```javascript
-const formattedResult = web3.utils.fromWei(result, "ether")
-```
+__CODE_BLOCK_8__
 
-Also, update your `console.log(format)`:
+Also, update your __INLINE_CODE_21__:
 
-```javascript
-console.log(formattedResult)
-```
+__CODE_BLOCK_9__
 
 ### 8. Run the script
 
 #### Complete code
 
-Here is the complete code for `retrieveBalance.js`. Before running it make sure you replace `<YOUR-API-KEY>` with your Infura API key.
+Here is the complete code for __INLINE_CODE_22__. Before running it make sure you replace __INLINE_CODE_23__ with your Infura API key.
 
-```javascript
-const { Web3 } = require("web3")
-const web3 = new Web3(
-  new Web3.providers.HttpProvider("https://mainnet.infura.io/v3/<YOUR-API-KEY>")
-)
-
-const balanceOfABI = [
-  {
-    constant: true,
-    inputs: [
-      {
-        name: "_owner",
-        type: "address",
-      },
-    ],
-    name: "balanceOf",
-    outputs: [
-      {
-        name: "balance",
-        type: "uint256",
-      },
-    ],
-    payable: false,
-    stateMutability: "view",
-    type: "function",
-  },
-]
-
-// DAI token contract
-const tokenContract = "0x6B175474E89094C44Da98b954EedeAC495271d0F"
-// A DAI token holder
-const tokenHolder = "0x075e72a5eDf65F0A5f44699c7654C1a76941Ddc8"
-const contract = new web3.eth.Contract(balanceOfABI, tokenContract)
-
-async function getTokenBalance() {
-  const result = await contract.methods.balanceOf(tokenHolder).call()
-  const formattedResult = web3.utils.fromWei(result, "ether")
-  console.log(formattedResult)
-}
-
-getTokenBalance()
-```
+__CODE_BLOCK_10__
 
 Run the script using the following command:
 
@@ -196,9 +139,7 @@ node retrieveBalance.js
 
 # Example output
 
-```bash
-278916727.186877714909963561
-```
+__CODE_BLOCK_12__
 
   </TabItem>
 </Tabs>

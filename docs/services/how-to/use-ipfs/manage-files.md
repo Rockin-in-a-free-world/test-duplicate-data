@@ -21,7 +21,7 @@ curl -X POST -F file=@myfile \
   -u "<YOUR-API-KEY>:<YOUR-API-KEY-SECRET>" \
   "https://ipfs.infura.io:5001/api/v0/add"
 
-> {
+&gt; {
   "Name": "ipfs_file_docs_getting_started_demo.txt",
   "Hash": "QmeGAVddnBSnKc1DLE7DLV9uuTqo5F7QbaveTjr45JUdQn",
   "Size": "44"
@@ -112,5 +112,5 @@ curl -X POST -u "<YOUR-API-KEY>:<YOUR-API-KEY-SECRET>" \
 curl -X POST -u "<YOUR-API-KEY>:<YOUR-API-KEY-SECRET>" \
   "https://ipfs.infura.io:5001/api/v0/cat?arg=QmeGAVddnBSnKc1DLE7DLV9uuTqo5F7QbaveTjr45JUdQn"
 
-> Infura IPFS - Getting started demo.
+&gt; Infura IPFS - Getting started demo.
 ```

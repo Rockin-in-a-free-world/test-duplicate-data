@@ -2,7 +2,7 @@
 
 ## description: Ethereum network information.
 
-// import CardList from '@site/src/components/CardList' // Component not available in this project
+
 
 # Ethereum
 
@@ -21,4 +21,4 @@ The [official Ethereum documentation](https://ethereum.org/en/) for more informa
 
 :::
 
-{/\* \<CardList... - Component not available \*/}
+

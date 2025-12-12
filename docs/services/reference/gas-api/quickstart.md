@@ -96,7 +96,7 @@ require("dotenv").config();
 // The chain ID of the supported network
 const chainId = 1;
 
-(async () => {
+(async () =&gt; {
   try {
     const { data } = await axios.get(
       `https://gas.api.infura.io/v3/${process.env.INFURA_API_KEY}/networks/${chainId}/suggestedGasFees`
@@ -122,7 +122,7 @@ const Auth = Buffer.from(
 // The chain ID of the supported network
 const chainId = 1;
 
-(async () => {
+(async () =&gt; {
   try {
     const { data } = await axios.get(
       `https://gas.api.infura.io/networks/${chainId}/suggestedGasFees`,

@@ -29,13 +29,7 @@ curl "https://ipfs.infura.io:5001/api/v0/dag/import?pin-roots=false&#x26;allow-b
   </TabItem>
   <TabItem value="Example" label="Example" >
 
-```bash
-curl "https://ipfs.infura.io:5001/api/v0/dag/import?pin-roots=true&silent=<value>&stats=<value>&allow-big-block=false" \
-  -X POST \
-  -u "<YOUR-API-KEY>:<YOUR-API-KEY-SECRET>" \
-  -H "Content-Type: multipart/form-data" \
-  -F file=@"/sample.car"
-```
+__CODE_BLOCK_1__
 
   </TabItem>
 </Tabs>

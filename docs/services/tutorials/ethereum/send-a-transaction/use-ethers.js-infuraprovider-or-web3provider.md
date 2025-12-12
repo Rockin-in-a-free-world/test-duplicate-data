@@ -157,12 +157,12 @@ Create the code to retrieve the latest block number. Add the following code abov
 
 ```javascript
 // Get the latest block using the InfuraProvider or wallet
-const handleButton1 = async () => {
+const handleButton1 = async () =&gt; {
   const latest_block = await infuraProvider.getBlockNumber("latest")
   setBlockNumber(latest_block)
 }
 
-const handleButton2 = async () => {
+const handleButton2 = async () =&gt; {
   const latest_block = await provider_Metamask.getBlockNumber("latest")
   setBlockNumber(latest_block)
 }
@@ -174,7 +174,7 @@ To send the transaction, you need the target address and the amount to send. Add
 
 ```javascript
 // Handle the form submissions to send the transactions
-const handleSubmitWeb3 = async (e) => {
+const handleSubmitWeb3 = async (e) =&gt; {
   e.preventDefault()
   const data = new FormData(e.target)
   const address = data.get("address")
@@ -182,7 +182,7 @@ const handleSubmitWeb3 = async (e) => {
   sendTransaction(address, amount)
 }
 
-const handleSubmitInfura = async (e) => {
+const handleSubmitInfura = async (e) =&gt; {
   e.preventDefault()
   const data = new FormData(e.target)
   const address = data.get("address")
@@ -196,7 +196,7 @@ Next, create the `sendTransaction()` function that sends the transaction. Place 
 
 ```javascript
   // Send the transaction using either the Web3Provider or InfuraProvider
-  const sendTransaction = async (address, amount, signer=null) => {
+  const sendTransaction = async (address, amount, signer=null) =&gt; {
     if (signer==null){ // Web3 Provider
       if (!window.ethereum)
         console.error("No wallet found!");
@@ -239,7 +239,7 @@ If you are using Create React App version >=5 you may run into issues building, 
 ```
 Module not found: Error: Can't resolve 'crypto' in 'C:\Users\Username\Projects\testProject\client\node_modules\eth-lib\lib'
 
-BREAKING CHANGE: webpack < 5 used to include polyfills for node.js core modules by default.
+BREAKING CHANGE: webpack &lt; 5 used to include polyfills for node.js core modules by default.
 This is no longer the case. Verify if you need this module and configure a polyfill for it.
 ```
 
@@ -282,18 +282,18 @@ function App() {
   const [txSentInfura, setTxSentInfura] = useState(null)
 
   // Get the latest block using the InfuraProvider or wallet
-  const handleButton1 = async () => {
+  const handleButton1 = async () =&gt; {
     const latest_block = await infuraProvider.getBlockNumber("latest")
     setBlockNumber(latest_block)
   }
 
-  const handleButton2 = async () => {
+  const handleButton2 = async () =&gt; {
     const latest_block = await provider_Metamask.getBlockNumber("latest")
     setBlockNumber(latest_block)
   }
 
   // Handle the form submissions to send the transactions
-  const handleSubmitWeb3 = async (e) => {
+  const handleSubmitWeb3 = async (e) =&gt; {
     e.preventDefault()
     const data = new FormData(e.target)
     const address = data.get("address")
@@ -301,7 +301,7 @@ function App() {
     sendTransaction(address, amount)
   }
 
-  const handleSubmitInfura = async (e) => {
+  const handleSubmitInfura = async (e) =&gt; {
     e.preventDefault()
     const data = new FormData(e.target)
     const address = data.get("address")
@@ -311,7 +311,7 @@ function App() {
   }
 
   // Send the transaction using either the Web3Provider or InfuraProvider
-  const sendTransaction = async (address, amount, signer = null) => {
+  const sendTransaction = async (address, amount, signer = null) =&gt; {
     if (signer == null) {
       // Web3 Provider
       if (!window.ethereum) console.error("No wallet found!")

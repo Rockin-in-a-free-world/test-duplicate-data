@@ -126,7 +126,7 @@ In [step 3](#3-set-up-the-script), you wrap the whole script in an async functio
 You can also add the following lines to the script to see whether the subscription started successfully or if any errors occurred:
 
 ```javascript
-subscription.on("error", (err) => {
+subscription.on("error", (err) =&gt; {
   throw err
 })
 subscription.on("connected", (nr) =>
@@ -139,7 +139,7 @@ subscription.on("connected", (nr) =>
 You can set the listener for the `subscription` created in [step 5](track-erc-20-token-transfers.md#5-subscribe-to-contract-events) by adding the following lines to the script:
 
 ```javascript
-subscription.on("data", (event) => {
+subscription.on("data", (event) =&gt; {
   if (event.topics.length == 3) {
     // ...
   }
@@ -155,7 +155,7 @@ To verify that the `Transfer` event you catch is an ERC-20 transfer, these lines
 Because you can't read the event topics on their own, you must decode them using the ERC-20 ABI. Edit the listener as follows:
 
 ```javascript
-subscription.on("data", (event) => {
+subscription.on("data", (event) =&gt; {
   if (event.topics.length == 3) {
     let transaction = web3.eth.abi.decodeLog(
       [
@@ -219,7 +219,7 @@ Since you’re already requesting the `decimals` value from the contract, you ca
 Inside the listener, call the `collectData` function every time a new ERC-20 transaction is found. You can also calculate the correct decimal value:
 
 ```javascript
-subscription.on("data", (event) => {
+subscription.on("data", (event) =&gt; {
   if (event.topics.length == 3) {
     let transaction = web3.eth.abi.decodeLog(
       [
@@ -244,9 +244,9 @@ subscription.on("data", (event) => {
     );
 
     const contract = new web3.eth.Contract(abi, event.address);
-    collectData(contract).then((contractData) => {
+    collectData(contract).then((contractData) =&gt; {
       var unit = Object.keys(web3.utils.ethUnitMap).find(
-        (key) => web3.utils.ethUnitMap[key] == (BigInt(10) ** contractData.decimals)
+        (key) =&gt; web3.utils.ethUnitMap[key] == (BigInt(10) ** contractData.decimals)
       );
       if (!unit) {
         // Simplification for contracts that use "non-standard" units, e.g. REDDIT contract returns decimals==8
@@ -316,13 +316,7 @@ node trackERC20.js
   </TabItem>
   <TabItem value="Example output" label="Example output" >
 
-```bash
-Transfer of 9417.663694821564607555        RIO        from 0x6b75d8AF000000e20B7a7DDf000Ba900b4009A80 to 0x5b7E3E37a1aa6369386e5939053779abd3597508
-Transfer of 1.554276118336708787           WETH       from 0x60594a405d53811d3BC4766596EFD80fd545A270 to 0x3fC91A3afd70395Cd496C647d5a6CC9D4B2b7FAD
-Transfer of 2685                           DAI        from 0x008CE5dcC3d66e6FD7D657Ea81B54d1afFFAba4b to 0x60594a405d53811d3BC4766596EFD80fd545A270
-Specified ERC-20 transfer!
-Transfer of 9964.083347473883463154        RIO        from 0x5b7E3E37a1aa6369386e5939053779abd3597508 to 0x008CE5dcC3d66e6FD7D657Ea81B54d1afFFAba4b
-```
+__CODE_BLOCK_17__
 
   </TabItem>
 </Tabs>
@@ -386,7 +380,7 @@ async function main() {
     return { decimals, symbol }
   }
 
-  subscription.on("data", (event) => {
+  subscription.on("data", (event) =&gt; {
     if (event.topics.length == 3) {
       let transaction = web3.eth.abi.decodeLog(
         [
@@ -411,7 +405,7 @@ async function main() {
       )
 
       const contract = new web3.eth.Contract(abi, event.address)
-      collectData(contract).then((contractData) => {
+      collectData(contract).then((contractData) =&gt; {
         var unit = Object.keys(web3.utils.ethUnitMap).find(
           (key) =>
             web3.utils.ethUnitMap[key] == BigInt(10) ** contractData.decimals
@@ -449,7 +443,7 @@ async function main() {
     }
   })
 
-  subscription.on("error", (err) => {
+  subscription.on("error", (err) =&gt; {
     throw err
   })
   subscription.on("connected", (nr) =>

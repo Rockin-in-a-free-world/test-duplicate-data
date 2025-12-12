@@ -21,11 +21,7 @@ curl "https://ipfs.infura.io:5001/api/v0/get?arg=<ipfs-path>&output=<value>&arch
   </TabItem>
   <TabItem value="Example" label="Example" >
 
-```bash
-curl "https://ipfs.infura.io:5001/api/v0/get?arg=QmZtmD2qt6fJot32nabSP3CUjicnypEBz7bHVDhPQt9aAy&archive=true" \
-  -X POST \
-  -u "<YOUR-API-KEY>:<YOUR-API-KEY-SECRET>"
-```
+__CODE_BLOCK_1__
 
   </TabItem>
 </Tabs>

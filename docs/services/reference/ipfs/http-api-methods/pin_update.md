@@ -21,11 +21,7 @@ curl "https://ipfs.infura.io:5001/api/v0/pin/update?arg=<from-path>&arg=<to-path
   </TabItem>
   <TabItem value="Example" label="Example" >
 
-```bash
-curl "https://ipfs.infura.io:5001/api/v0/pin/update?arg=QmfQ5QAjvg4GtA3wg3adpnDJug8ktA1BxurVqBD8rtgVjM&arg=QmeGAVddnBSnKc1DLE7DLV9uuTqo5F7QbaveTjr45JUdQn" \
-  -X POST \
-  -u "<YOUR-API-KEY>:<YOUR-API-KEY-SECRET>"
-```
+__CODE_BLOCK_1__
 
   </TabItem>
 </Tabs>

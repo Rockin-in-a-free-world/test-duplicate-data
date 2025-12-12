@@ -57,12 +57,12 @@ const port = 9000
 const server = https.createServer(options, function (req, res) {
   res.statusCode = 200
   res.setHeader("Content-Type", "text/plain")
-  setTimeout(() => {
+  setTimeout(() =&gt; {
     res.end("Reverse proxy success!\n")
   }, 1000)
 })
 
-server.listen(port, hostname, () => {
+server.listen(port, hostname, () =&gt; {
   console.log(`Server running at https://${hostname}:${port}/`)
 })
 ```
@@ -136,9 +136,7 @@ curl http://localhost:3000/v3/<YOUR-API-KEY> \
   </TabItem>
   <TabItem value="Example result" label="Example result" >
 
-```
-Reverse proxy success!
-```
+__CODE_BLOCK_9__
 
   </TabItem>
 </Tabs>
@@ -160,9 +158,7 @@ curl http://localhost:3000/v3/<YOUR-API-KEY> \
   </TabItem>
   <TabItem value="Example result" label="Example result" >
 
-```javascript
-{"jsonrpc": "2.0", "id":1, "result": "Geth/v1.10.8-omnibus-aef5bfb3/linux-amd64/go1.16.7"}
-```
+__CODE_BLOCK_11__
 
   </TabItem>
 </Tabs>
