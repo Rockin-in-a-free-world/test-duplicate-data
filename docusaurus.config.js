@@ -55,48 +55,7 @@ const config = {
     [
       "classic",
       {
-        docs: {
-          sidebarItemsGenerator: async () => {
-            const sidebars = require("./sidebars.js");
-            return sidebars.docSidebar;
-          },
-          // Set a base path separate from default /docs
-          // editUrl removed - "Edit this page" feature disabled
-          routeBasePath: "/",
-          path: "./docs",
-          includeCurrentVersion: true,
-          // lastVersion: "23.x",
-          // versions: {
-          //   //defaults to the ./docs folder
-          //   // using 'development' instead of 'next' as path
-          //   current: {
-          //     label: "development",
-          //     path: "development",
-          //   },
-          //   //the last stable release in the versioned_docs/version-stable
-          //   "23.x": {
-          //     label: "stable (23.x)",
-          //   },
-          //   "22.x": {
-          //     label: "22.x",
-          //   },
-          // },
-          // @ts-ignore
-          // eslint-disable-next-line global-require
-          include: ["**/*.md", "**/*.mdx"],
-          exclude: [
-            "**/_*.{js,jsx,ts,tsx,md,mdx}",
-            "**/_*/**",
-            "**/*.test.{js,jsx,ts,tsx}",
-            "**/__tests__/**",
-          ],
-          // Include external-services for partials resolution
-          beforeDefaultRemarkPlugins: [],
-          beforeDefaultRehypePlugins: [],
-          // Last update information disabled
-          showLastUpdateAuthor: false,
-          showLastUpdateTime: false,
-        },
+        docs: false, // Disable default docs plugin - we'll add it explicitly in plugins
         theme: {
           customCss: require.resolve("./src/css/custom.css"),
         },
@@ -204,6 +163,31 @@ const config = {
       ],
     }),
   plugins: [
+    // Main docs instance (routeBasePath: "/")
+    [
+      "@docusaurus/plugin-content-docs",
+      {
+        id: "default",
+        sidebarItemsGenerator: async () => {
+          const sidebars = require("./sidebars.js");
+          return sidebars.docSidebar;
+        },
+        routeBasePath: "/",
+        path: "./docs",
+        includeCurrentVersion: true,
+        include: ["**/*.md", "**/*.mdx"],
+        exclude: [
+          "**/_*.{js,jsx,ts,tsx,md,mdx}",
+          "**/_*/**",
+          "**/*.test.{js,jsx,ts,tsx}",
+          "**/__tests__/**",
+        ],
+        beforeDefaultRemarkPlugins: [],
+        beforeDefaultRehypePlugins: [],
+        showLastUpdateAuthor: false,
+        showLastUpdateTime: false,
+      },
+    ],
     // Remote content plugin: fetches content from MetaMask repo
     // Only load during build, not during start (dev mode)
     // Plugins are always in the config, but noRuntimeDownloads prevents auto-download on start
@@ -367,9 +351,9 @@ const config = {
         id: "services",
         path: "./services",
         routeBasePath: "/services",
-        sidebarItemsGenerator: async () => {
+        sidebarItemsGenerator: async (args) => {
           const sidebars = require("./sidebars.js");
-          return sidebars.services;
+          return await sidebars.services(args);
         },
         sidebarCollapsible: true,
         sidebarCollapsed: false,
