@@ -13,6 +13,7 @@ The content sync tooling uses `docusaurus-plugin-remote-content` to fetch conten
 
 The tooling is organized into focused modules:
 
+- **Main Orchestrator** (`src/lib/content-processor/index.js`): Coordinates all processors, orchestrates the processing pipeline, and handles comparison operator fixes
 - **Download Module** (`src/lib/content-processor/download.js`): Handles downloading remote content using `docusaurus-plugin-remote-content` CLI commands
 - **File Scanner** (`src/lib/content-processor/file-scanner.js`): Scans directories for markdown files and builds import maps
 - **Link Processor** (`src/lib/content-processor/link-processor.js`): Uses remark plugins to rewrite links based on YAML config and removes broken links
@@ -70,6 +71,42 @@ This script:
 
 **Note**: This does NOT run the content processor. Processing happens during `npm run build`.
 
+### Configuring Which Files Are Downloaded
+
+The `get-remote` plugin uses `docusaurus-plugin-remote-content` which is configured in `docusaurus.config.js`. Each plugin instance specifies:
+
+- **Source path**: Which folder in the remote repository to download from
+- **Output directory**: Where to save files locally
+- **File patterns**: Which files to include/exclude using glob patterns
+
+**Example configuration:**
+
+```javascript
+[
+  "docusaurus-plugin-remote-content",
+  {
+    name: "metamask-ethereum",
+    sourceBaseUrl: buildRepoRawBaseUrl(metamaskRepo, ethereumPath),
+    outDir: "docs/services/reference/ethereum",
+    documents: () => listDocuments(metamaskRepo, ["**/*.mdx", "**/*.md"], [], ethereumPath),
+    noRuntimeDownloads: true,
+    performCleanup: false,
+  },
+]
+```
+
+**Key settings:**
+- `sourceBaseUrl`: The remote repository URL and source folder path
+- `outDir`: Local directory where files will be saved
+- `documents`: Function that returns file paths to download (uses glob patterns like `**/*.mdx` to match files)
+- `performCleanup`: Set to `false` to preserve existing files (does not overwrite by default)
+
+**To add or modify downloads:**
+1. Edit `docusaurus.config.js` in the `plugins` array
+2. Add a new `docusaurus-plugin-remote-content` instance or modify an existing one
+3. Update the `documents` function to change which files are included (e.g., `["**/*.mdx"]` for only MDX files, or `["**/*.md", "**/*.mdx"]` for both)
+4. Run `npm run get-remote` to download the configured content
+
 ### Build and Process
 
 To build the site and process all downloaded content:
@@ -116,31 +153,34 @@ Each log file includes:
 
 ### 1. Download Phase
 
-The `download.js` module uses `docusaurus-plugin-remote-content` CLI commands to fetch content. Each plugin instance is configured in `docusaurus.config.js` with:
-- Source URL (MetaMask repo)
-- Output directory
-- File patterns to include
+The `download.js` module uses `docusaurus-plugin-remote-content` CLI commands to fetch content. Each plugin instance is configured in `docusaurus.config.js` (see [Configuring Which Files Are Downloaded](#configuring-which-files-are-downloaded) above) with:
+- **Source URL**: The remote repository URL and source folder path
+- **Output directory**: Local directory where files will be saved
+- **File patterns**: Glob patterns (e.g., `["**/*.mdx", "**/*.md"]`) that determine which files to download
+
+The plugin uses GitHub API to list files matching the patterns, then downloads them to the specified output directory. By default, existing files are **not overwritten** (`performCleanup: false`).
 
 ### 2. Processing Phase
 
-The Docusaurus plugin (`docusaurus-plugin-config-driven-sync`) runs during `loadContent` and:
+The Docusaurus plugin (`docusaurus-plugin-config-driven-sync`) runs during `loadContent` and calls the main orchestrator (`src/lib/content-processor/index.js`), which:
 
-1. **Scans** all downloaded files in `docs/services/`
-2. **Fixes partial imports**: Converts absolute paths to relative paths
-3. **Processes images**: Uses `remark-fix-image-paths` plugin to convert `../images/` to `/img/`
-4. **Processes components**: Comments out unavailable imports and their JSX usage
-5. **Processes links**: 
+1. **Scans** all downloaded files in `docs/services/` using the file scanner
+2. **Fixes comparison operators**: Restores HTML entities in JSX/HTML tags and converts `<=` and `>=` to code spans to prevent MDX parsing errors
+3. **Fixes partial imports**: Converts absolute paths to relative paths using the partial processor
+4. **Processes images**: Uses `remark-fix-image-paths` plugin to convert `../images/` to `/img/`
+5. **Processes components**: Comments out unavailable imports and their JSX usage using the component processor
+6. **Processes links**: 
    - First applies pattern/exact replacements from YAML config (via remark plugins)
    - Then detects and removes broken internal links
-6. **Writes logs**: Generates detailed reports for maintainers
+7. **Writes logs**: Generates detailed reports for maintainers using the reporter
 
 ### 3. Remark Plugins
 
-The solution uses three remark plugins for config-driven transformations:
+The solution uses three remark plugins located in `src/plugins/remark/` for config-driven transformations:
 
-- **`remark-link-rewriter`**: Applies exact and pattern-based link replacements from YAML
-- **`remark-replace-link-patterns`**: Applies pattern-based replacements (runs before link-rewriter)
-- **`remark-fix-image-paths`**: Converts relative image paths to Docusaurus-compatible paths
+- **`remark-link-rewriter.js`**: Applies exact and pattern-based link replacements from YAML
+- **`remark-replace-link-patterns.js`**: Applies pattern-based replacements (runs before link-rewriter)
+- **`remark-fix-image-paths.js`**: Converts relative image paths to Docusaurus-compatible paths
 
 All plugins read from `_maintainers/link-replacements.yaml` automatically.
 
@@ -351,9 +391,20 @@ The processor validates imports during processing:
 ├── src/
 │   ├── lib/
 │   │   └── content-processor/  # Modular processors
+│   │       ├── index.js        # Main orchestrator
+│   │       ├── download.js     # Download module
+│   │       ├── file-scanner.js # File scanner
+│   │       ├── link-processor.js # Link processor
+│   │       ├── image-processor.js # Image processor
+│   │       ├── component-processor.js # Component processor
+│   │       ├── partial-processor.js # Partial processor
+│   │       └── reporter.js     # Reporter
 │   └── plugins/
 │       ├── docusaurus-plugin-config-driven-sync/  # Main plugin
 │       └── remark/             # Remark plugins
+│           ├── remark-fix-image-paths.js
+│           ├── remark-link-rewriter.js
+│           └── remark-replace-link-patterns.js
 └── scripts/
     └── get-remote-content.js   # Download script
 ```

@@ -1,7 +1,0 @@
-# Root-level config for link replacements
-# These replacements apply globally to all synced content
-# Format: broken_path: https_url
-link_replacements:
-  "/developer-tools/faucet": "https://faucet.metamask.io/"
-  "/developer-tools/dashboard": "https://dashboard.metamask.io/"
-
