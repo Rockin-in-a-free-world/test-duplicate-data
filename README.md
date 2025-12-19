@@ -1,4 +1,4 @@
-# Config-Driven Content Sync for test Docs
+# Config-Driven content sync for test Docs
 
 ## Overview
 Enable writers to control which services documentation content is pulled from MetaMask docs using simple YAML configuration files placed alongside the mirrored folder structure. This approach keeps configuration visible and maintainable by content teams, not hidden in code.
