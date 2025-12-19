@@ -1,9 +1,26 @@
+require("dotenv").config();
+
+const path = require("path");
 const {themes} = require("prism-react-renderer");
 const lightCodeTheme = themes.github;
 const darkCodeTheme = themes.dracula;
 
 const isDev = process.env.NODE_ENV === "development";
 const baseUrl = isDev ? "/" : "/";
+
+// Remote content from MetaMask docs
+const { createRepo, buildRepoRawBaseUrl } = require("./src/lib/list-remote");
+const metamaskRepo = createRepo("MetaMask", "metamask-docs", "main");
+const partialsPath = "services/reference/_partials";
+const ethereumPath = "services/reference/ethereum";
+const lineaPath = "services/reference/linea";
+const basePath = "services/reference/base";
+const conceptsPath = "services/concepts";
+const getStartedPath = "services/get-started";
+const gasApiPath = "services/reference/gas-api";
+const ipfsPath = "services/reference/ipfs";
+const howToPath = "services/how-to";
+const tutorialsPath = "services/tutorials";
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -185,47 +202,167 @@ const config = {
       ],
     }),
   plugins: [
-    // Custom plugin that reads configs and syncs content (must run before docs plugin)
-    "./src/plugins/docusaurus-plugin-config-driven-sync",
-    // Google Analytics and GTM plugins disabled (uncomment and configure when needed)
-    // [
-    //   "@docusaurus/plugin-google-gtag",
-    //   {
-    //     trackingID: "G-XXXXXXXXXX",
-    //     anonymizeIP: true,
-    //   },
-    // ],
-    // [
-    //   "@docusaurus/plugin-google-tag-manager",
-    //   {
-    //     containerId: "GTM-XXXXXXX",
-    //   },
-    // ],
-    // This is how redirects are done
-    // [
-    //   "@docusaurus/plugin-client-redirects",
-    //   {
-    //     redirects: [
-    //       {
-    //         from: "/HowTo/Get-Started/Installation-Options/Install-Binaries",
-    //         to: "/get-started/install/install-binaries",
-    //       },
-    //     ],
-    //     // its quite odd here in that its back to front - replace(to, from)
-    //     createRedirects(existingPath) {
-    //       if (existingPath.includes("/development")) {
-    //         return [
-    //           existingPath.replace("/development", "/en/latest"),
-    //           existingPath.replace("/development", "/latest"),
-    //         ];
-    //       }
-    //       if (existingPath.includes("/")) {
-    //         return [existingPath.replace("/", "/stable")];
-    //       }
-    //       return undefined; // Return a falsy value: no redirect created
-    //     },
-    //   },
-    // ],
+    [
+      "@docusaurus/plugin-google-gtag",
+      {
+        trackingID: "G-",
+        anonymizeIP: true,
+      },
+    ],
+    [
+      "@docusaurus/plugin-google-tag-manager",
+      {
+        containerId: "GTM-",
+      },
+    ],
+    // Remote content: MetaMask _partials
+    [
+      "docusaurus-plugin-remote-content",
+      {
+        name: "metamask-partials",
+        sourceBaseUrl: buildRepoRawBaseUrl(metamaskRepo, partialsPath),
+        outDir: "service/reference/_partials",
+        documents: [], // Empty array since noRuntimeDownloads: true - files already downloaded
+        // To sync content from MetaMask docs, run: npx docusaurus download-remote-metamask-partials
+        // Set to false for auto-download on start/build (adds ~2.5 min to build time)
+        noRuntimeDownloads: true,
+        performCleanup: false, // Keep files after build
+      },
+    ],
+    // Remote content: MetaMask Ethereum
+    [
+      "docusaurus-plugin-remote-content",
+      {
+        name: "metamask-ethereum",
+        sourceBaseUrl: buildRepoRawBaseUrl(metamaskRepo, ethereumPath),
+        outDir: "service/reference/ethereum",
+        documents: [], // Empty array since noRuntimeDownloads: true - files already downloaded
+        noRuntimeDownloads: true,
+        performCleanup: false,
+      },
+    ],
+    // Remote content: MetaMask Linea
+    [
+      "docusaurus-plugin-remote-content",
+      {
+        name: "metamask-linea",
+        sourceBaseUrl: buildRepoRawBaseUrl(metamaskRepo, lineaPath),
+        outDir: "service/reference/linea",
+        documents: [], // Empty array since noRuntimeDownloads: true - files already downloaded
+        noRuntimeDownloads: true,
+        performCleanup: false,
+      },
+    ],
+    // Remote content: MetaMask Base
+    [
+      "docusaurus-plugin-remote-content",
+      {
+        name: "metamask-base",
+        sourceBaseUrl: buildRepoRawBaseUrl(metamaskRepo, basePath),
+        outDir: "service/reference/base",
+        documents: [], // Empty array since noRuntimeDownloads: true - files already downloaded
+        noRuntimeDownloads: true,
+        performCleanup: false,
+      },
+    ],
+    // Remote content: MetaMask Concepts
+    [
+      "docusaurus-plugin-remote-content",
+      {
+        name: "metamask-concepts",
+        sourceBaseUrl: buildRepoRawBaseUrl(metamaskRepo, conceptsPath),
+        outDir: "service/concepts",
+        documents: [], // Empty array since noRuntimeDownloads: true - files already downloaded
+        noRuntimeDownloads: true,
+        performCleanup: false,
+      },
+    ],
+    // Remote content: MetaMask Get Started
+    [
+      "docusaurus-plugin-remote-content",
+      {
+        name: "metamask-get-started",
+        sourceBaseUrl: buildRepoRawBaseUrl(metamaskRepo, getStartedPath),
+        outDir: "service/get-started",
+        documents: [], // Empty array since noRuntimeDownloads: true - files already downloaded
+        noRuntimeDownloads: true,
+        performCleanup: false,
+      },
+    ],
+    // Remote content: MetaMask Gas API
+    [
+      "docusaurus-plugin-remote-content",
+      {
+        name: "metamask-gas-api",
+        sourceBaseUrl: buildRepoRawBaseUrl(metamaskRepo, gasApiPath),
+        outDir: "service/reference/gas-api",
+        documents: [], // Empty array since noRuntimeDownloads: true - files already downloaded
+        noRuntimeDownloads: true,
+        performCleanup: false,
+      },
+    ],
+    // Remote content: MetaMask IPFS
+    [
+      "docusaurus-plugin-remote-content",
+      {
+        name: "metamask-ipfs",
+        sourceBaseUrl: buildRepoRawBaseUrl(metamaskRepo, ipfsPath),
+        outDir: "service/reference/ipfs",
+        documents: [], // Empty array since noRuntimeDownloads: true - files already downloaded
+        noRuntimeDownloads: true,
+        performCleanup: false,
+      },
+    ],
+    // Remote content: MetaMask How-To
+    [
+      "docusaurus-plugin-remote-content",
+      {
+        name: "metamask-how-to",
+        sourceBaseUrl: buildRepoRawBaseUrl(metamaskRepo, howToPath),
+        outDir: "service/how-to",
+        documents: [], // Empty array since noRuntimeDownloads: true - files already downloaded
+        noRuntimeDownloads: true,
+        performCleanup: false,
+      },
+    ],
+    // Remote content: MetaMask Tutorials
+    [
+      "docusaurus-plugin-remote-content",
+      {
+        name: "metamask-tutorials",
+        sourceBaseUrl: buildRepoRawBaseUrl(metamaskRepo, tutorialsPath),
+        outDir: "service/tutorials",
+        documents: [], // Empty array since noRuntimeDownloads: true - files already downloaded
+        noRuntimeDownloads: true,
+        performCleanup: false,
+      },
+    ],
+    // Services docs plugin - separate docs instance at root level (like MetaMask)
+    [
+      "@docusaurus/plugin-content-docs",
+      {
+        id: "services",
+        path: "./service",
+        routeBasePath: "/service",
+        sidebarItemsGenerator: async () => {
+          const sidebars = require("./sidebars.js");
+          return sidebars.services;
+        },
+        editUrl: "https://github.com/Rockin-in-a-free-world/test-duplicate-data/tree/main/",
+        breadcrumbs: false,
+        sidebarCollapsible: true,
+        sidebarCollapsed: false,
+        include: ["**/*.md", "**/*.mdx"],
+        exclude: [
+          "**/_*.{js,jsx,ts,tsx,md,mdx}",
+          "**/_*/**",
+          "**/*.test.{js,jsx,ts,tsx}",
+          "**/__tests__/**",
+        ],
+        showLastUpdateAuthor: false,
+        showLastUpdateTime: false,
+      },
+    ],
   ],
   themes: [
     [
